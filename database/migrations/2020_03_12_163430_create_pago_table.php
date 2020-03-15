@@ -16,9 +16,9 @@ class CreatePagoTable extends Migration {
 		Schema::create('pago', function(Blueprint $table)
 		{
 			$table->bigIncrements('pago_id');
-			$table->date('pago_fecha');
-			$table->unsignedBigInteger('pago_abono');
-			$table->string('pago_nrecibo', 20)->nullable()->unique('pago_nrecibo');
+			$table->date('fecha');
+			$table->unsignedBigInteger('abono');
+			$table->string('nrecibo', 20)->nullable()->unique('nrecibo');
 			$table->unsignedBigInteger('contrato_id')->index('FK_pago');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();

@@ -16,7 +16,7 @@ class CreateTipocontratoTable extends Migration {
 		Schema::create('tipocontrato', function(Blueprint $table)
 		{
 			$table->bigIncrements('tipocontrato_id');
-			$table->string('tipocontrato_descripcion', 50);
+			$table->string('descripcion', 50);
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

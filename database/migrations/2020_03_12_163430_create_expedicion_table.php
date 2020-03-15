@@ -16,7 +16,7 @@ class CreateExpedicionTable extends Migration {
 		Schema::create('expedicion', function(Blueprint $table)
 		{
 			$table->bigIncrements('expedicion_id');
-			$table->string('expedicion_lugar', 50);
+			$table->string('lugar', 50);
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

@@ -16,8 +16,8 @@ class CreateCorreoTable extends Migration {
 		Schema::create('correo', function(Blueprint $table)
 		{
 			$table->bigIncrements('correo_id');
-			$table->string('correo_electronico', 320)->unique('correo_electronico');
-			$table->boolean('correo_principal')->default(0);
+			$table->string('electronico', 320)->unique('electronico');
+			$table->boolean('principal')->default(0);
 			$table->unsignedBigInteger('personanatural_id')->index('correo_FK');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();

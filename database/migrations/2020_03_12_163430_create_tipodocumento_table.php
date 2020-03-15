@@ -16,9 +16,9 @@ class CreateTipodocumentoTable extends Migration {
 		Schema::create('tipodocumento', function(Blueprint $table)
 		{
 			$table->bigIncrements('tipodocumento_id');
-			$table->string('tipodocumento_abreviatura', 5)->unique('tipodocumento_abreviatura');
-			$table->string('tipodocumento_descripcion', 30);
-			$table->string('tipodocumento_comentario', 1000)->nullable();
+			$table->string('abreviatura', 5)->unique('abreviatura');
+			$table->string('descripcion', 30);
+			$table->string('comentario', 1000)->nullable();
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

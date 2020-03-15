@@ -17,4 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/admin', 'HomeController@index')->name('admin');
+Route::get('admin', 'HomeController@index')->name('admin');
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::resource('estado','EstadoController');
+});

@@ -16,7 +16,7 @@ class CreatePonenteTable extends Migration {
 		Schema::create('ponente', function(Blueprint $table)
 		{
 			$table->bigIncrements('ponente_id');
-			$table->string('ponente_nombrecompleto', 200)->unique('magistrado_nombrecompleto');
+			$table->string('nombrecompleto', 200)->unique('nombrecompleto');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

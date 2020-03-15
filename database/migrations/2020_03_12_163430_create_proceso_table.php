@@ -16,8 +16,8 @@ class CreateProcesoTable extends Migration {
 		Schema::create('proceso', function(Blueprint $table)
 		{
 			$table->bigIncrements('proceso_id');
-			$table->string('proceso_codigo', 15)->unique('proceso_UN');
-			$table->string('proceso_numero', 35)->unique('proceso_numero');
+			$table->string('codigo', 15)->unique('codigo');
+			$table->string('numero', 35)->unique('numero');
 			$table->unsignedBigInteger('ciudadproceso_id')->index('proceso_FK');
 			$table->unsignedBigInteger('corporacion_id')->index('proceso_FK_1');
 			$table->unsignedBigInteger('ponente_id')->index('proceso_FK_2');

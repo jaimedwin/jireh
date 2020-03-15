@@ -16,16 +16,16 @@ class CreatePersonanaturalTable extends Migration {
 		Schema::create('personanatural', function(Blueprint $table)
 		{
 			$table->bigIncrements('personanatural_id');
-			$table->string('personanatural_codigo', 15)->unique('personanatural_UN1');
-			$table->string('personanatural_nombres', 100);
-			$table->string('personanatural_apellidopaterno', 75)->nullable();
-			$table->string('personanatural_apellidomaterno', 75)->nullable();
+			$table->string('codigo', 15)->unique('personanatural_UN1');
+			$table->string('nombres', 100);
+			$table->string('apellidopaterno', 75)->nullable();
+			$table->string('apellidomaterno', 75)->nullable();
 			$table->unsignedBigInteger('tipodocumentoidentificacion_id')->index('personanatural_FK');
-			$table->string('personanatural_numerodocumento', 15)->unique('personanatural_UN');
+			$table->string('numerodocumento', 15)->unique('personanatural_UN');
 			$table->unsignedBigInteger('expedicion_id')->index('personanatural_FK_1');
-			$table->date('personanatural_fechaexpedicion')->nullable();
-			$table->date('personanatural_fechanacimiento')->nullable();
-			$table->string('personanatural_direccion', 500);
+			$table->date('fechaexpedicion')->nullable();
+			$table->date('fechanacimiento')->nullable();
+			$table->string('direccion', 500);
 			$table->unsignedBigInteger('eps_id')->index('personanatural_FK_3');
 			$table->unsignedBigInteger('fondodepensiones_id');
 			$table->unsignedBigInteger('grado_id')->nullable()->index('personanatural_FK_2');

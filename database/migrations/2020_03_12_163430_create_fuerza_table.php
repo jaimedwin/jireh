@@ -16,8 +16,8 @@ class CreateFuerzaTable extends Migration {
 		Schema::create('fuerza', function(Blueprint $table)
 		{
 			$table->bigIncrements('fuerza_id');
-			$table->string('fuerza_abreviatura', 10)->unique('fuerza_abreviatura');
-			$table->string('fuerza_descripcion', 250);
+			$table->string('abreviatura', 10)->unique('abreviatura');
+			$table->string('descripcion', 250);
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

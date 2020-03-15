@@ -16,13 +16,13 @@ class CreateActuacionprocesoTable extends Migration {
 		Schema::create('actuacionproceso', function(Blueprint $table)
 		{
 			$table->bigIncrements('actuacionproceso_id');
-			$table->date('actuacionproceso_fechaactuacion');
-			$table->string('actuacionproceso_actuacion', 250);
-			$table->string('actuacionproceso_anotacion', 1000)->nullable();
-			$table->string('actuacionproceso_nombrearchivo',250);
-			$table->date('actuacionproceso_fechainiciatermino')->nullable();
-			$table->date('actuacionproceso_fechafinalizatermino')->nullable();
-			$table->date('actuacionproceso_fecharegistro');
+			$table->date('fechaactuacion');
+			$table->string('actuacion', 250);
+			$table->string('anotacion', 1000)->nullable();
+			$table->string('nombrearchivo',250);
+			$table->date('fechainiciatermino')->nullable();
+			$table->date('fechafinalizatermino')->nullable();
+			$table->date('fecharegistro');
 			$table->unsignedBigInteger('proceso_id')->index('actuacionproceso_FK');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();

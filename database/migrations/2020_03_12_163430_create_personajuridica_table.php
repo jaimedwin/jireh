@@ -16,9 +16,9 @@ class CreatePersonajuridicaTable extends Migration {
 		Schema::create('personajuridica', function(Blueprint $table)
 		{
 			$table->bigIncrements('personajuridica_id');
-			$table->string('personajuridica_nit', 35);
-			$table->string('personajuridica_razonsocial', 500);
-			$table->string('personajuridica_direccion', 500)->nullable();
+			$table->string('nit', 35);
+			$table->string('razonsocial', 500);
+			$table->string('direccion', 500)->nullable();
 			$table->unsignedBigInteger('personanatural_id')->index('personajuridica_FK');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
