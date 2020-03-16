@@ -15,7 +15,7 @@ class CreateTipodocumentoidentificacionTable extends Migration {
 	{
 		Schema::create('tipodocumentoidentificacion', function(Blueprint $table)
 		{
-			$table->bigIncrements('tipodocumentoidentificacion_id');
+			$table->bigIncrements('id');
 			$table->string('abreviatura', 10)->unique('abreviatura');
 			$table->string('descripcion', 200);
 			$table->unsignedBigInteger('users_id');

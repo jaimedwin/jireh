@@ -15,7 +15,7 @@ class CreateTelefonoTable extends Migration {
 	{
 		Schema::create('telefono', function(Blueprint $table)
 		{
-			$table->bigIncrements('telefono_id');
+			$table->bigIncrements('id');
 			$table->string('numero', 50)->unique('numero');
 			$table->boolean('principal')->default(0);
 			$table->unsignedBigInteger('personanatural_id')->index('telefono_FK');

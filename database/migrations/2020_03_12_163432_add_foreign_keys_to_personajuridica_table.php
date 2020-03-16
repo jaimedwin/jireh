@@ -15,7 +15,7 @@ class AddForeignKeysToPersonajuridicaTable extends Migration {
 	{
 		Schema::table('personajuridica', function(Blueprint $table)
 		{
-			$table->foreign('personanatural_id', 'personajuridica_FK')->references('personanatural_id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('personanatural_id', 'personajuridica_FK')->references('id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

@@ -60,4 +60,4 @@
         </div>
     </body>
 </html>
-<?php /**PATH /var/www/laravel/jireh_test/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/views/minimal.blade.php ENDPATH**/ ?>
+<?php /**PATH /var/www/laravel/jireh/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/views/minimal.blade.php ENDPATH**/ ?>

@@ -15,7 +15,7 @@ class CreateGradoTable extends Migration {
 	{
 		Schema::create('grado', function(Blueprint $table)
 		{
-			$table->bigIncrements('grado_id');
+			$table->bigIncrements('id');
 			$table->string('abreviatura', 10)->unique('abreviatura');
 			$table->string('descripcion', 50);
 			$table->unsignedBigInteger('carrera_id')->index('FK__carrera');

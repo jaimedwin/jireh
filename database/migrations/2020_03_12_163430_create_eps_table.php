@@ -15,7 +15,7 @@ class CreateEpsTable extends Migration {
 	{
 		Schema::create('eps', function(Blueprint $table)
 		{
-			$table->bigIncrements('eps_id');
+			$table->bigIncrements('id');
 			$table->string('abreviatura', 25);
 			$table->string('descripcion', 100);
 			$table->unsignedBigInteger('users_id');

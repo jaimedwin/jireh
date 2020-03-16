@@ -15,7 +15,7 @@ class CreateRecordatorioTable extends Migration {
 	{
 		Schema::create('recordatorio', function(Blueprint $table)
 		{
-			$table->bigIncrements('recordatorio_id');
+			$table->bigIncrements('id');
 			$table->string('observacion', 1000);
 			$table->date('fecha');
 			$table->unsignedBigInteger('users_id');

@@ -15,11 +15,11 @@ class AddForeignKeysToProcesoTable extends Migration {
 	{
 		Schema::table('proceso', function(Blueprint $table)
 		{
-			$table->foreign('ciudadproceso_id', 'proceso_FK')->references('ciudadproceso_id')->on('ciudadproceso')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('corporacion_id', 'proceso_FK_1')->references('corporacion_id')->on('corporacion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('ponente_id', 'proceso_FK_2')->references('ponente_id')->on('ponente')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('estado_id', 'proceso_FK_3')->references('estado_id')->on('estado')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('recordatorio_id', 'proceso_FK_4')->references('recordatorio_id')->on('recordatorio')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('ciudadproceso_id', 'proceso_FK')->references('id')->on('ciudadproceso')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('corporacion_id', 'proceso_FK_1')->references('id')->on('corporacion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('ponente_id', 'proceso_FK_2')->references('id')->on('ponente')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('estado_id', 'proceso_FK_3')->references('id')->on('estado')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('recordatorio_id', 'proceso_FK_4')->references('id')->on('recordatorio')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

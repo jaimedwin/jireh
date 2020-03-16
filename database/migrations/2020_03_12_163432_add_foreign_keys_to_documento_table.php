@@ -15,8 +15,8 @@ class AddForeignKeysToDocumentoTable extends Migration {
 	{
 		Schema::table('documento', function(Blueprint $table)
 		{
-			$table->foreign('tipodocumento_id', 'documento_FK')->references('tipodocumento_id')->on('tipodocumento')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('personanatural_id', 'documento_FK_1')->references('personanatural_id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('tipodocumento_id', 'documento_FK')->references('id')->on('tipodocumento')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('personanatural_id', 'documento_FK_1')->references('id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

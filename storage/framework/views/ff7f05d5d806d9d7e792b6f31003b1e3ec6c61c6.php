@@ -89,4 +89,4 @@
         </div>
     </body>
 </html>
-<?php /**PATH /var/www/laravel/jireh_test/resources/views/welcome.blade.php ENDPATH**/ ?>
+<?php /**PATH /var/www/laravel/jireh/resources/views/welcome.blade.php ENDPATH**/ ?>

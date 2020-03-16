@@ -15,7 +15,7 @@ class CreateCorporacionTable extends Migration {
 	{
 		Schema::create('corporacion', function(Blueprint $table)
 		{
-			$table->bigIncrements('corporacion_id');
+			$table->bigIncrements('id');
 			$table->string('nombre', 100)->unique('nombre');
 			$table->string('correonotificacion', 320)->nullable();
 			$table->unsignedBigInteger('users_id');

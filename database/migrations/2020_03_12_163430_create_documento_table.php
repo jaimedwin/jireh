@@ -15,7 +15,7 @@ class CreateDocumentoTable extends Migration {
 	{
 		Schema::create('documento', function(Blueprint $table)
 		{
-			$table->bigIncrements('documento_id', true);
+			$table->bigIncrements('id', true);
 			$table->string('nombrearchivo', 250);
 			$table->unsignedBigInteger('tipodocumento_id')->index('FK__tipodocumento');
 			$table->unsignedBigInteger('personanatural_id')->index('documento_FK_1');

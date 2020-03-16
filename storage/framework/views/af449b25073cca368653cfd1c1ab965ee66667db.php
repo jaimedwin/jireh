@@ -4,4 +4,4 @@
       </div>
       <strong>Copyright &copy; <?php echo e(now()->year); ?> <a href="<?php echo e(('/')); ?> "> <?php echo e(config('app.name')); ?></a>.</strong> All rights
       reserved.
-    </footer><?php /**PATH /var/www/laravel/jireh_test/resources/views/admin/footer.blade.php ENDPATH**/ ?>
+    </footer><?php /**PATH /var/www/laravel/jireh/resources/views/admin/footer.blade.php ENDPATH**/ ?>

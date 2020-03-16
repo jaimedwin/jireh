@@ -15,7 +15,7 @@ class AddForeignKeysToGradoTable extends Migration {
 	{
 		Schema::table('grado', function(Blueprint $table)
 		{
-			$table->foreign('carrera_id', 'grado_FK')->references('carrera_id')->on('carrera')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('carrera_id', 'grado_FK')->references('id')->on('carrera')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

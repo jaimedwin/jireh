@@ -173,4 +173,4 @@
     <!-- /.sidebar-menu -->
 
     <!-- /.sidebar -->
-</aside><?php /**PATH /var/www/laravel/jireh_test/resources/views/admin/menu.blade.php ENDPATH**/ ?>
+</aside><?php /**PATH /var/www/laravel/jireh/resources/views/admin/menu.blade.php ENDPATH**/ ?>

@@ -15,7 +15,7 @@ class AddForeignKeysToCarreraTable extends Migration {
 	{
 		Schema::table('carrera', function(Blueprint $table)
 		{
-			$table->foreign('fuerza_id', 'carrera_FK')->references('fuerza_id')->on('fuerza')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('fuerza_id', 'carrera_FK')->references('id')->on('fuerza')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

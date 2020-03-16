@@ -80,4 +80,4 @@
     </div>
 </body>
 </html>
-<?php /**PATH /var/www/laravel/jireh_test/resources/views/layouts/app.blade.php ENDPATH**/ ?>
+<?php /**PATH /var/www/laravel/jireh/resources/views/layouts/app.blade.php ENDPATH**/ ?>

@@ -15,7 +15,7 @@ class CreateCiudadprocesoTable extends Migration {
 	{
 		Schema::create('ciudadproceso', function(Blueprint $table)
 		{
-			$table->bigIncrements('ciudadproceso_id');
+			$table->bigIncrements('id');
 			$table->string('nombre', 500)->unique('nombre');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();

@@ -15,7 +15,7 @@ class AddForeignKeysToCorreoTable extends Migration {
 	{
 		Schema::table('correo', function(Blueprint $table)
 		{
-			$table->foreign('personanatural_id', 'correo_FK')->references('personanatural_id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('personanatural_id', 'correo_FK')->references('id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

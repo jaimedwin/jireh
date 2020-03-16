@@ -15,7 +15,7 @@ class CreatePersonanaturalTable extends Migration {
 	{
 		Schema::create('personanatural', function(Blueprint $table)
 		{
-			$table->bigIncrements('personanatural_id');
+			$table->bigIncrements('id');
 			$table->string('codigo', 15)->unique('personanatural_UN1');
 			$table->string('nombres', 100);
 			$table->string('apellidopaterno', 75)->nullable();
@@ -27,7 +27,7 @@ class CreatePersonanaturalTable extends Migration {
 			$table->date('fechanacimiento')->nullable();
 			$table->string('direccion', 500);
 			$table->unsignedBigInteger('eps_id')->index('personanatural_FK_3');
-			$table->unsignedBigInteger('fondodepensiones_id');
+			$table->unsignedBigInteger('fondodepensiones_id')->index('personanatural_FK_4');
 			$table->unsignedBigInteger('grado_id')->nullable()->index('personanatural_FK_2');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();

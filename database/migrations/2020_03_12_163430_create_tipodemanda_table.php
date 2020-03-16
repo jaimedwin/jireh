@@ -15,7 +15,7 @@ class CreateTipodemandaTable extends Migration {
 	{
 		Schema::create('tipodemanda', function(Blueprint $table)
 		{
-			$table->bigIncrements('tipodemanda_id');
+			$table->bigIncrements('id');
 			$table->string('abreviatura', 10);
 			$table->string('descripcion', 250);
 			$table->string('cometario', 1000)->nullable();

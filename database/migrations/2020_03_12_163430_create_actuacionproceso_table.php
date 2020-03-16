@@ -15,7 +15,7 @@ class CreateActuacionprocesoTable extends Migration {
 	{
 		Schema::create('actuacionproceso', function(Blueprint $table)
 		{
-			$table->bigIncrements('actuacionproceso_id');
+			$table->bigIncrements('id');
 			$table->date('fechaactuacion');
 			$table->string('actuacion', 250);
 			$table->string('anotacion', 1000)->nullable();

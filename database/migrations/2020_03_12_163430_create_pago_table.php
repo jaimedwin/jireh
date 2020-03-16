@@ -15,7 +15,7 @@ class CreatePagoTable extends Migration {
 	{
 		Schema::create('pago', function(Blueprint $table)
 		{
-			$table->bigIncrements('pago_id');
+			$table->bigIncrements('id');
 			$table->date('fecha');
 			$table->unsignedBigInteger('abono');
 			$table->string('nrecibo', 20)->nullable()->unique('nrecibo');

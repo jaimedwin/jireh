@@ -15,8 +15,8 @@ class AddForeignKeysToContratoTable extends Migration {
 	{
 		Schema::table('contrato', function(Blueprint $table)
 		{
-			$table->foreign('personanatural_id', 'contrato_FK')->references('personanatural_id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('tipocontrato_id', 'contrato_FK_1')->references('tipocontrato_id')->on('tipocontrato')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('personanatural_id', 'contrato_FK')->references('id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('tipocontrato_id', 'contrato_FK_1')->references('id')->on('tipocontrato')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

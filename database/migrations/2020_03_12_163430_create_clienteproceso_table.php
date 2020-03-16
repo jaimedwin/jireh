@@ -15,7 +15,7 @@ class CreateClienteprocesoTable extends Migration {
 	{
 		Schema::create('clienteproceso', function(Blueprint $table)
 		{
-			$table->bigIncrements('clienteproceso_id');
+			$table->bigIncrements('id');
 			$table->unsignedBigInteger('personanatural_id')->index('clienteproceso_FK');
 			$table->unsignedBigInteger('proceso_id')->index('clienteproceso_FK_1');
 			$table->unsignedBigInteger('tipodemanda_id')->index('clienteproceso_FK_2');

@@ -175,7 +175,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/var/www/laravel/jireh_test/storage/framework/cache/data',
+        'path' => '/var/www/laravel/jireh/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -314,12 +314,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/laravel/jireh_test/storage/app',
+        'root' => '/var/www/laravel/jireh/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/laravel/jireh_test/storage/app/public',
+        'root' => '/var/www/laravel/jireh/storage/app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -365,13 +365,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/var/www/laravel/jireh_test/storage/logs/laravel.log',
+        'path' => '/var/www/laravel/jireh/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/var/www/laravel/jireh_test/storage/logs/laravel.log',
+        'path' => '/var/www/laravel/jireh/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -421,7 +421,7 @@
       ),
       'emergency' => 
       array (
-        'path' => '/var/www/laravel/jireh_test/storage/logs/laravel.log',
+        'path' => '/var/www/laravel/jireh/storage/logs/laravel.log',
       ),
     ),
   ),
@@ -444,7 +444,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/var/www/laravel/jireh_test/resources/views/vendor/mail',
+        0 => '/var/www/laravel/jireh/resources/views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -523,7 +523,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/var/www/laravel/jireh_test/storage/framework/sessions',
+    'files' => '/var/www/laravel/jireh/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -543,9 +543,9 @@
   array (
     'paths' => 
     array (
-      0 => '/var/www/laravel/jireh_test/resources/views',
+      0 => '/var/www/laravel/jireh/resources/views',
     ),
-    'compiled' => '/var/www/laravel/jireh_test/storage/framework/views',
+    'compiled' => '/var/www/laravel/jireh/storage/framework/views',
   ),
   'flare' => 
   array (

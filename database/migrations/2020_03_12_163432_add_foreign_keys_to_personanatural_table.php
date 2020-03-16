@@ -15,11 +15,11 @@ class AddForeignKeysToPersonanaturalTable extends Migration {
 	{
 		Schema::table('personanatural', function(Blueprint $table)
 		{
-			$table->foreign('tipodocumentoidentificacion_id', 'personanatural_FK')->references('tipodocumentoidentificacion_id')->on('tipodocumentoidentificacion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('expedicion_id', 'personanatural_FK_1')->references('expedicion_id')->on('expedicion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('grado_id', 'personanatural_FK_2')->references('grado_id')->on('grado')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('eps_id', 'personanatural_FK_3')->references('eps_id')->on('eps')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('personanatural_id', 'personanatural_FK_4')->references('fondodepension_id')->on('fondodepension')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('tipodocumentoidentificacion_id', 'personanatural_FK')->references('id')->on('tipodocumentoidentificacion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('expedicion_id', 'personanatural_FK_1')->references('id')->on('expedicion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('grado_id', 'personanatural_FK_2')->references('id')->on('grado')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('eps_id', 'personanatural_FK_3')->references('id')->on('eps')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('fondodepensiones_id', 'personanatural_FK_4')->references('id')->on('fondodepension')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

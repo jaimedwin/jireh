@@ -15,9 +15,9 @@ class AddForeignKeysToClienteprocesoTable extends Migration {
 	{
 		Schema::table('clienteproceso', function(Blueprint $table)
 		{
-			$table->foreign('personanatural_id', 'clienteproceso_FK')->references('personanatural_id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('proceso_id', 'clienteproceso_FK_1')->references('proceso_id')->on('proceso')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('tipodemanda_id', 'clienteproceso_FK_2')->references('tipodemanda_id')->on('tipodemanda')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('personanatural_id', 'clienteproceso_FK')->references('id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('proceso_id', 'clienteproceso_FK_1')->references('id')->on('proceso')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('tipodemanda_id', 'clienteproceso_FK_2')->references('id')->on('tipodemanda')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

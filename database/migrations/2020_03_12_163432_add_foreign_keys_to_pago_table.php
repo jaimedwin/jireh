@@ -15,7 +15,7 @@ class AddForeignKeysToPagoTable extends Migration {
 	{
 		Schema::table('pago', function(Blueprint $table)
 		{
-			$table->foreign('contrato_id', 'FK_pago')->references('contrato_id')->on('contrato')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('contrato_id', 'FK_pago')->references('id')->on('contrato')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

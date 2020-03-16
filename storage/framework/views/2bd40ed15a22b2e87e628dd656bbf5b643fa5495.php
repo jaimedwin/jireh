@@ -119,4 +119,4 @@
         </li>
       </ul>
     </nav>
-    <!-- /.navbar --><?php /**PATH /var/www/laravel/jireh_test/resources/views/admin/navbar.blade.php ENDPATH**/ ?>
+    <!-- /.navbar --><?php /**PATH /var/www/laravel/jireh/resources/views/admin/navbar.blade.php ENDPATH**/ ?>

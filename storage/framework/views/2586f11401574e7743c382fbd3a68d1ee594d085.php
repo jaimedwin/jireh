@@ -79,4 +79,4 @@
   <script src="../../adminlte/dist/js/demo.js"></script>
 </body>
 
-</html><?php /**PATH /var/www/laravel/jireh_test/resources/views/admin/index.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /var/www/laravel/jireh/resources/views/admin/index.blade.php ENDPATH**/ ?>

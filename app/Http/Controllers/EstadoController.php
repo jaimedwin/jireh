@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Estado;
+use App\User;
 use Illuminate\Http\Request;
 
 class EstadoController extends Controller
@@ -18,9 +19,20 @@ class EstadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $buscar =  $request->post('buscar');   
+        if ($buscar){
+            $estados['Estados'] = Estado::orderBy('id', 'DESC')
+                    ->orwhere('descripcion', 'LIKE', '%'. $buscar. '%')
+                    ->paginate(100);
+            return view('estado.index', $estados)->with('success','Busqueda realizada');
+        }else{
+            $estados['Estados'] = Estado::paginate(10);
+            return view('estado.index', $estados);
+        }
+        
+        
     }
 
     /**
@@ -30,7 +42,7 @@ class EstadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('estado.create');
     }
 
     /**
@@ -41,7 +53,9 @@ class EstadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $d = $request->except('_token');
+        Estado::create($d);
+        return redirect()->route('estado.index')->with('success','Estado almacenado completamente');
     }
 
     /**
@@ -52,7 +66,8 @@ class EstadoController extends Controller
      */
     public function show(Estado $estado)
     {
-        //
+        $auditoria = User::findOrFail($estado)->first();
+        return view('estado.show', compact('estado', 'auditoria'));
     }
 
     /**
@@ -62,8 +77,8 @@ class EstadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Estado $estado)
-    {
-        //
+    {   
+        return view('estado.edit', compact('estado'));
     }
 
     /**
@@ -75,7 +90,8 @@ class EstadoController extends Controller
      */
     public function update(Request $request, Estado $estado)
     {
-        //
+        $estado->update($request->all());
+        return redirect()->route('estado.index')->with('success','Estado actualizado completamente');
     }
 
     /**
@@ -86,6 +102,7 @@ class EstadoController extends Controller
      */
     public function destroy(Estado $estado)
     {
-        //
+        $estado->delete();
+        return redirect()->route('estado.index')->with('success','Estado borrado completamente');
     }
 }

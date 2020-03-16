@@ -15,8 +15,8 @@ class AddForeignKeysToRegistroconsultaTable extends Migration {
 	{
 		Schema::table('registroconsulta', function(Blueprint $table)
 		{
-			$table->foreign('personanatural_id', 'registroconsulta_FK')->references('personanatural_id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('proceso_id', 'registroconsulta_FK_1')->references('proceso_id')->on('proceso')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('personanatural_id', 'registroconsulta_FK')->references('id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('proceso_id', 'registroconsulta_FK_1')->references('id')->on('proceso')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

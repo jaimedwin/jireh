@@ -15,7 +15,7 @@ class AddForeignKeysToActuacionprocesoTable extends Migration {
 	{
 		Schema::table('actuacionproceso', function(Blueprint $table)
 		{
-			$table->foreign('proceso_id', 'actuacionproceso_FK')->references('proceso_id')->on('proceso')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('proceso_id', 'actuacionproceso_FK')->references('id')->on('proceso')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 
