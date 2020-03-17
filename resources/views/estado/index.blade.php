@@ -24,7 +24,6 @@
   <div class="card-body">
     <div class="row  mb-4">
       <div class="col-12">
-
         <a href="{{route('estado.create')}}" class="btn btn-primary" role="button" aria-label="Buscar">
           <i class="fas fa-plus-square"></i>
           {{'Crear nuevo estado'}}
@@ -40,7 +39,9 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <h5><i class="icon fa fa-check"></i> Alerta!</h5>
-          <p>{{ $message }}</p>
+          <ul>
+            <li>{{ $message }}</li>
+          </ul>
         </div>
       </div>
     </div>

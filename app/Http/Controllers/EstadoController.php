@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Estado;
 use App\User;
+use App\Http\Requests\EstadoFormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class EstadoController extends Controller
 {
@@ -51,7 +53,7 @@ class EstadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EstadoFormRequest $request)
     {
         $d = $request->except('_token');
         Estado::create($d);
@@ -88,7 +90,7 @@ class EstadoController extends Controller
      * @param  \App\Estado  $estado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Estado $estado)
+    public function update(EstadoFormRequest $request, Estado $estado)
     {
         $estado->update($request->all());
         return redirect()->route('estado.index')->with('success','Estado actualizado completamente');
