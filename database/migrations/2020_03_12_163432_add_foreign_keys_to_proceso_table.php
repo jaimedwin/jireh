@@ -19,7 +19,6 @@ class AddForeignKeysToProcesoTable extends Migration {
 			$table->foreign('corporacion_id', 'proceso_FK_1')->references('id')->on('corporacion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('ponente_id', 'proceso_FK_2')->references('id')->on('ponente')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('estado_id', 'proceso_FK_3')->references('id')->on('estado')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('recordatorio_id', 'proceso_FK_4')->references('id')->on('recordatorio')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 
@@ -37,7 +36,6 @@ class AddForeignKeysToProcesoTable extends Migration {
 			$table->dropForeign('proceso_FK_1');
 			$table->dropForeign('proceso_FK_2');
 			$table->dropForeign('proceso_FK_3');
-			$table->dropForeign('proceso_FK_4');
 		});
 	}
 

@@ -6,14 +6,13 @@ use App\Estado;
 use App\User;
 use App\Http\Requests\EstadoFormRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+//use Illuminate\Support\Facades\Validator;
 
 class EstadoController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-
     }
 
     /**
@@ -33,8 +32,6 @@ class EstadoController extends Controller
             $estados['Estados'] = Estado::paginate(10);
             return view('estado.index', $estados);
         }
-        
-        
     }
 
     /**

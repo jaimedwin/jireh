@@ -38,9 +38,9 @@
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5><i class="icon fa fa-check"></i> Alerta!</h5>
+          <h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
           <ul>
-            <li>{{ $message }}</li>
+            <li>{{$message}}</li>
           </ul>
         </div>
       </div>
@@ -54,7 +54,7 @@
             <tr>
               <th style="width: 10px">{{'#'}}</th>
               <th>{{'Descripción'}}</th>
-              <th style="width: 160px">{{'Acciones'}}</th>
+              <th style="width: 160px" class="text-center">{{'Acciones'}}</th>
             </tr>
           </thead>
           <tbody>
@@ -62,7 +62,7 @@
             <tr>
               <td>{{$loop->iteration}}</td>
               <td>{{$estado->descripcion}}</td>
-              <td>
+              <td class="text-center">
                 <form action="{{route('estado.destroy', $estado->id)}}" method="post">
                   @method('DELETE')
                   @csrf

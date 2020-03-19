@@ -74,10 +74,118 @@
             <li class="nav-header">PROCESOS</li>
 
             <li class="nav-item">
+                <a href="{{ route ('proceso.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Proceso'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ route ('estado.index')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>
                         {{'Estado del proceso'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('fondodepension.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Fondo de pensión'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('tipodocumento.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Tipo de documento'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('eps.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Eps'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('fuerza.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Fuerza'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('expedicion.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Expedición'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('tipocontrato.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Tipo de contrato'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('tipodocumentoidentificacion.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Documento de identificación'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('tipodemanda.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Tipo de demanda'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('corporacion.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Corporación'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('ponente.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Ponente'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('ciudadproceso.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Ciudad de proceso'}}
                     </p>
                 </a>
             </li>

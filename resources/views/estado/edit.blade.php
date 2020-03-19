@@ -8,10 +8,14 @@
 
 
     <div class="card-body">
-
         @if ($errors->any())
         <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                <span aria-hidden="true">&times;</span> 
+            </button>
+            <h5><i class="fas fa-exclamation-triangle"></i>
+                    <strong>{{'Error!'}}</strong>
+            </h5>
             <ul>
                 @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -26,25 +30,24 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="formGroupExampleInput">{{'Descripción'}}</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" name="descripcion"
+                        <label for="estado.descripcion">{{'Descripción'}}</label>
+                        <input type="text" class="form-control" id="estado.descripcion" name="descripcion"
                             value="{{$estado->descripcion}}">
-                        <input type="hidden" name="users_id" value="{{ Auth::id()}}">
                     </div>
-
+                    <div class="form-group">
+                        <label class="sr-only" for="users_id">users_id</label>
+                        <input id="users_id" class="form-control" type="hidden" name="users_id" value="{{ Auth::id()}}">
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-
                     <a href="{{route('estado.index')}}" class="btn btn-secondary" role="button" aria-label="Cancelar">
                         {{'Cancelar'}}
                     </a>
                     <button type="submit" class="btn btn-success float-right">
                         {{'Actualizar'}}
                     </button>
-
-
                 </div>
             </div>
         </form>

@@ -18,6 +18,7 @@ class CreateRecordatorioTable extends Migration {
 			$table->bigIncrements('id');
 			$table->string('observacion', 1000);
 			$table->date('fecha');
+			$table->unsignedBigInteger('proceso_id')->index('recordatorio_FK');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

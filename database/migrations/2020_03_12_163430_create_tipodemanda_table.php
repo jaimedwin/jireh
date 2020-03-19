@@ -18,7 +18,7 @@ class CreateTipodemandaTable extends Migration {
 			$table->bigIncrements('id');
 			$table->string('abreviatura', 10);
 			$table->string('descripcion', 250);
-			$table->string('cometario', 1000)->nullable();
+			$table->string('comentario', 1000)->nullable();
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

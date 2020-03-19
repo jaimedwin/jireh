@@ -29,7 +29,7 @@
                             <td>{{$estado->descripcion}}</td>
                         </tr>
                     </tbody>
-                    <tfoot class="bg-aqua color-palette-set color-palette">
+                    <tfoot>
                         <tr>
                             <td class="table-secondary">{{'3.'}}</td>
                             <td class="table-secondary">{{'Usuario'}}</td>

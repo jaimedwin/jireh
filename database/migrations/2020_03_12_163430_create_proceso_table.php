@@ -22,7 +22,6 @@ class CreateProcesoTable extends Migration {
 			$table->unsignedBigInteger('corporacion_id')->index('proceso_FK_1');
 			$table->unsignedBigInteger('ponente_id')->index('proceso_FK_2');
 			$table->unsignedBigInteger('estado_id')->index('proceso_FK_3');
-			$table->unsignedBigInteger('recordatorio_id')->nullable()->index('proceso_FK_4');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

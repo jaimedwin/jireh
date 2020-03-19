@@ -21,4 +21,23 @@ Route::get('admin', 'HomeController@index')->name('admin');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::resource('estado','EstadoController');
+    Route::resource('fondodepension', 'FondodepensionController');
+    Route::resource('tipodocumento', 'TipodocumentoController');
+    Route::resource('eps', 'EpsController');
+    Route::resource('fuerza', 'FuerzaController');
+    Route::resource('expedicion', 'ExpedicionController');
+    Route::resource('tipocontrato', 'TipocontratoController');
+    Route::resource('tipodocumentoidentificacion', 'TipodocumentoidentificacionController');
+    Route::resource('tipodemanda', 'TipodemandaController');
+    Route::resource('corporacion', 'CorporacionController');
+    Route::resource('ponente', 'PonenteController');
+    Route::resource('ciudadproceso', 'CiudadprocesoController');
+    Route::resource('proceso', 'ProcesoController');
 });
+
+
+
+
+
+
+

@@ -5,8 +5,7 @@
     <div class="card-header">
         <h3 class="card-title"><a href="{{route('estado.index')}}">{{'Estado'}}</a></h3>
     </div>
-
-
+    
     <div class="card-body">
 
         @if ($errors->any())
@@ -14,9 +13,11 @@
             <div class="col-12">
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span> 
                     </button>
-                    <h5><i class="fas fa-exclamation-triangle">Error!</i></h5>
+                    <h5><i class="fas fa-exclamation-triangle"></i>
+                            <strong>{{'Error!'}}</strong>
+                    </h5>
                     <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -32,12 +33,13 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="formGroupExampleInput">{{'Descripción'}}</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" name="descripcion"
-                            placeholder="{{'ej: Activo'}}">
-                        <input type="hidden" name="users_id" id="users_id" value="{{ Auth::id()}}">
+                        <label for="estado.descripcion">{{'Descripción'}}</label>
+                        <input type="text" class="form-control" id="estado.descripcion" name="descripcion">
                     </div>
-
+                    <div class="form-group">
+                        <label class="sr-only" for="users_id">users_id</label>
+                        <input id="users_id" class="form-control" type="hidden" name="users_id" value="{{ Auth::id()}}">
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -55,6 +57,5 @@
             </div>
         </form>
     </div>
-
-
-    @endsection
+</div>
+@endsection
