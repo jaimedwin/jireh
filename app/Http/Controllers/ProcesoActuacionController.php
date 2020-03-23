@@ -21,14 +21,35 @@ class ProcesoActuacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($proceso_id)
+    public function index($proceso_id, Request $request)
     {
-        $Actuacionprocesos = Actuacionproceso::select( 'id',
+        $buscar =  $request->post('buscar'); 
+        if ($buscar){
+            $Actuacionprocesos = Actuacionproceso::select( 'id',
             'fechaactuacion','actuacion', 'anotacion',
             'nombrearchivo', 'fechainiciatermino', 'fechafinalizatermino', 
             'fecharegistro', 'proceso_id', 
-            'users_id', 'created_at', 'updated_at')->where('proceso_id', $proceso_id)->paginate(20);
-        return view('proceso.actuacion.index', compact('Actuacionprocesos','proceso_id'));
+            'users_id', 'created_at', 'updated_at')
+            ->orwhere('actuacion', 'LIKE', '%'. $buscar. '%')
+            ->orwhere('anotacion', 'LIKE', '%'. $buscar. '%')
+            ->orwhere('fechaactuacion', 'LIKE', '%'. $buscar. '%')
+            ->orwhere('fechainiciatermino', 'LIKE', '%'. $buscar. '%')
+            ->orwhere('fechafinalizatermino', 'LIKE', '%'. $buscar. '%')
+            ->orwhere('fecharegistro', 'LIKE', '%'. $buscar. '%')
+            ->where('proceso_id', $proceso_id)
+            ->paginate(100);
+            return view('proceso.actuacion.index', compact('Actuacionprocesos','proceso_id'));
+
+            $procesos= $this->getProcesoJoin(100, $buscar);
+            return view('proceso.index', $procesos)->with('success','Busqueda realizada');
+        }else{
+            $Actuacionprocesos = Actuacionproceso::select( 'id',
+            'fechaactuacion','actuacion', 'anotacion',
+            'nombrearchivo', 'fechainiciatermino', 'fechafinalizatermino', 
+            'fecharegistro', 'proceso_id', 
+            'users_id', 'created_at', 'updated_at')->where('proceso_id', $proceso_id)->paginate(10);
+            return view('proceso.actuacion.index', compact('Actuacionprocesos','proceso_id'));
+        }
     }
 
     /**
@@ -122,7 +143,7 @@ class ProcesoActuacionController extends Controller
                 $path = $file->storeAs('actuaciones/'. $proceso_id, $fileName);
                 if (Storage::exists($path)){
                     return redirect()->route('proceso.actuacion.index', $proceso_id)
-                    ->with('success',['data1' => 'Actuación del proceso almacenado completamente', 
+                    ->with('success',['data1' => 'Actuación del proceso actualizado completamente', 
                     'data2' => 'Archivo de actuación del proceso almacenado completamente']);
                 }else{
                     return redirect()->route('proceso.actuacion.edit', compact('actuacionproceso', 'proceso_id', 'id'))
@@ -134,7 +155,7 @@ class ProcesoActuacionController extends Controller
                     + ['proceso_id' => $proceso_id] 
                     + ['nombrearchivo' => '']);
                 return redirect()->route('proceso.actuacion.index', $proceso_id)
-                    ->with('success',['data1' => 'Actuación del proceso almacenado completamente']);
+                    ->with('success',['data1' => 'Actuación del proceso actualizado completamente']);
             }
         } else {
             if ($request->options == 1){
@@ -148,7 +169,7 @@ class ProcesoActuacionController extends Controller
                     $path = $file->storeAs('actuaciones/'. $proceso_id, $fileName);
                     if (Storage::exists($path)){
                         return redirect()->route('proceso.actuacion.index', $proceso_id)
-                        ->with('success',['data1' => 'Actuación del proceso almacenado', 
+                        ->with('success',['data1' => 'Actuación del proceso actualizado', 
                         'data2' => 'Archivo previo de actuacion borrado completamente',
                         'data3' => 'Se carga un nuevo archivo para la actuación']);
                     }else{
@@ -160,7 +181,7 @@ class ProcesoActuacionController extends Controller
                     + ['proceso_id' => $proceso_id]
                     + ['nombrearchivo' => '']);
                     return redirect()->route('proceso.actuacion.index', $proceso_id)
-                        ->with('success',['data1' => 'Actuación del proceso almacenado', 
+                        ->with('success',['data1' => 'Actuación del proceso actualizado', 
                         'data2' => 'Archivo previo de actuacion borrado completamente',
                         'data3' => 'No se carga un nuevo archivo para la actuación']);
                 }
@@ -169,7 +190,7 @@ class ProcesoActuacionController extends Controller
                 $actuacionproceso->update($request->except(['nombrearchivo', '_token']) 
                     + ['proceso_id' => $proceso_id]);
                 return redirect()->route('proceso.actuacion.index', $proceso_id)
-                    ->with('success',['data1' => 'Actuación del proceso almacenado completamente']);
+                    ->with('success',['data1' => 'Actuación del proceso actualizado completamente']);
             }
         }
         

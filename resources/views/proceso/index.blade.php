@@ -97,14 +97,15 @@
                 <div class="btn-group">
                   <a href="{{route ('proceso.actuacion.index',$proceso->id)}}" class="btn btn-outline-primary"
                     role="button">
-                    <i class="fas fa-cogs">
-                    </i>
+                    <i class="fas fa-cogs"></i>
                     <span data-toggle="tooltip" title="{{'Total de actuaciones: '. $proceso->total_actuacion}}"
                       class="badge badge-info">{{$proceso->total_actuacion}}</span>
                   </a>
                   <a href="{{route ('proceso.recordatorio.index',$proceso->id)}}" class="btn btn-outline-success"
                     role="button">
                     <i class="fas fa-bell"></i>
+                    <span data-toggle="tooltip" title="{{'Total de recordatorios: '. $proceso->total_recordatorio}}"
+                      class="badge badge-info">{{$proceso->total_recordatorio}}</span>
                   </a>
                 </div>
               </td>

@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label for="proceso.actuacion.fechaactuacion"
                             class="col-2 col-form-label">{{'Fecha de actuacion'}}</label>
-                        <input class="form-control" type="date" value="" id="proceso.actuacion.fechaactuacion"
+                        <input class="form-control" type="date" id="proceso.actuacion.fechaactuacion"
                             name="fechaactuacion">
                     </div>
                     <div class="form-group">
@@ -50,17 +50,17 @@
                     </div>
                     <div class="form-group">
                         <label for="proceso.actuacion.fechainiciatermino">{{'Fecha inicia termino'}}</label>
-                        <input class="form-control" type="date" value="" id="proceso.actuacion.fechainiciatermino"
+                        <input class="form-control" type="date" id="proceso.actuacion.fechainiciatermino"
                             name="fechainiciatermino">
                     </div>
                     <div class="form-group">
                         <label for="proceso.actuacion.fechafinalizatermino">{{'Fecha finaliza termino'}}</label>
-                        <input class="form-control" type="date" value="" id="proceso.actuacion.fechafinalizatermino"
+                        <input class="form-control" type="date" id="proceso.actuacion.fechafinalizatermino"
                             name="fechafinalizatermino">
                     </div>
                     <div class="form-group">
                         <label for="proceso.actuacion.fecharegistro">{{'Fecha registro'}}</label>
-                        <input class="form-control" type="date" value="" id="proceso.actuacion.fecharegistro"
+                        <input class="form-control" type="date" id="proceso.actuacion.fecharegistro"
                             name="fecharegistro">
                     </div>
                     
