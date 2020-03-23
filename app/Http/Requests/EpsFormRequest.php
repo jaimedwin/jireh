@@ -24,11 +24,11 @@ class EpsFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'abreviatura' => 'required|unique:eps|string|max:25',
-            'descripcion' => 'required|string|max:100',
-            'users_id' => 'required|numeric',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'abreviatura'   => 'required|unique:eps|string|max:25',
+            'descripcion'   => 'required|string|max:100',
+            'users_id'      => 'required|numeric',
+            'created_at'    => 'nullable|date',
+            'updated_at'    => 'nullable|date',
         ];
     }
 }

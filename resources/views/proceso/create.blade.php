@@ -1,0 +1,96 @@
+@extends('admin.index')
+
+@section('content')
+<div class="card card-secondary">
+    <div class="card-header">
+        <h3 class="card-title"><a href="{{route('proceso.index')}}">{{'Proceso'}}</a></h3>
+    </div>
+
+    <div class="card-body">
+
+        <form action="{{ route('proceso.store')}}" method="post">
+            @csrf
+            <div class="row mb-4">
+
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="proceso.codigo">{{'Código'}}</label>
+                        <input type="text" class="form-control" id="proceso.codigo" name="codigo">
+                    </div>
+                    <div class="form-group">
+                        <label for="proceso.numero">{{'Número del proceso'}}</label>
+                        <input type="text" class="form-control" id="proceso.numero" name="numero">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="proceso.ciudadproceso">{{'Ciudad de proceso'}}</label>
+                        <select class="form-control custom-select" id="proceso.ciudadproceso" name="ciudadproceso_id">
+                            <option selected>Seleccione ...</option>
+                            @foreach ($ciudadprocesos as $ciudadproceso)
+                                <option value="{{$ciudadproceso->id}}">
+                                    {{$ciudadproceso->id}}- {{$ciudadproceso->nombre}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proceso.coporacion">{{'Corporación'}}</label>
+                        <select class="form-control custom-select" id="proceso.coporacion" name="corporacion_id">
+                            <option selected>Seleccione ...</option>
+                            @foreach ($corporacions as $corporacion)
+                                <option value="{{$corporacion->id}}">
+                                    {{$corporacion->id}}- {{$corporacion->nombre}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proceso.ponente">{{'Ponente'}}</label>
+                        <select class="form-control custom-select" id="proceso.ponente" name="ponente_id">
+                            <option selected>Seleccione ...</option>
+                            @foreach ($ponentes as $ponente)
+                                <option value="{{$ponente->id}}">
+                                    {{$ponente->id}}- {{$ponente->nombrecompleto}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proceso.estado">{{'Estado'}}</label>
+                        <select class="form-control custom-select" id="proceso.estado" name="estado_id">
+                            <option selected>Seleccione ...</option>
+                            @foreach ($estados as $estado)
+                                <option value="{{$estado->id}}">
+                                    {{$estado->id}}- {{$estado->descripcion}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" for="users_id">users_id</label>
+                        <input id="users_id" class="form-control" type="hidden" name="users_id" value="{{ Auth::id()}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+
+                    <a href="{{route('proceso.index')}}" class="btn btn-secondary" role="button" aria-label="Buscar">
+                        {{'Cancelar'}}
+                    </a>
+                    <button type="submit" class="btn btn-success float-right">
+                        {{'Agregar'}}
+                    </button>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

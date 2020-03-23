@@ -24,10 +24,10 @@ class EstadoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'descripcion' => 'required|unique:estado|string|max:50',
-            'users_id' => 'required|numeric',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'descripcion'   => 'required|unique:estado|string|max:50',
+            'users_id'      => 'required|numeric',
+            'created_at'    => 'nullable|date',
+            'updated_at'    => 'nullable|date',
         ];
     }
 }

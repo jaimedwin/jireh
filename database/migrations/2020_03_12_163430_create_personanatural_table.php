@@ -27,7 +27,7 @@ class CreatePersonanaturalTable extends Migration {
 			$table->date('fechanacimiento')->nullable();
 			$table->string('direccion', 500);
 			$table->unsignedBigInteger('eps_id')->index('personanatural_FK_3');
-			$table->unsignedBigInteger('fondodepensiones_id')->index('personanatural_FK_4');
+			$table->unsignedBigInteger('fondodepension_id')->index('personanatural_FK_4');
 			$table->unsignedBigInteger('grado_id')->nullable()->index('personanatural_FK_2');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();

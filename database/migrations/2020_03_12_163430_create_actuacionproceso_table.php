@@ -19,7 +19,7 @@ class CreateActuacionprocesoTable extends Migration {
 			$table->date('fechaactuacion');
 			$table->string('actuacion', 250);
 			$table->string('anotacion', 1000)->nullable();
-			$table->string('nombrearchivo',250);
+			$table->string('nombrearchivo')->nullable();
 			$table->date('fechainiciatermino')->nullable();
 			$table->date('fechafinalizatermino')->nullable();
 			$table->date('fecharegistro');

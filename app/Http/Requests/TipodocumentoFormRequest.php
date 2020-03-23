@@ -24,12 +24,12 @@ class TipodocumentoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'abreviatura' => 'required|unique:tipodocumento|string|max:5',
-            'descripcion' => 'required|string|max:30',
-            'comentario' => 'nullable|string|max:1000',
-            'users_id' => 'required|numeric',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'abreviatura'   => 'required|unique:tipodocumento|string|max:5',
+            'descripcion'   => 'required|string|max:30',
+            'comentario'    => 'nullable|string|max:1000',
+            'users_id'      => 'required|numeric',
+            'created_at'    => 'nullable|date',
+            'updated_at'    => 'nullable|date',
         ];
     }
 }

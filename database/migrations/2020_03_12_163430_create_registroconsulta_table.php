@@ -18,8 +18,6 @@ class CreateRegistroconsultaTable extends Migration {
 			$table->bigIncrements('id');
 			$table->unsignedBigInteger('personanatural_id')->index('registroconsulta_FK');
 			$table->unsignedBigInteger('proceso_id')->index('registroconsulta_FK_1');
-			$table->date('fecha');
-			$table->time('hora');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

@@ -24,11 +24,11 @@ class CorporacionFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:corporacion|max:500',
-            'correonotificacion' => 'nullable|email|max:320',
-            'users_id' => 'required|numeric',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'nombre'                => 'required|unique:corporacion|max:500',
+            'correonotificacion'    => 'nullable|email|max:320',
+            'users_id'              => 'required|numeric',
+            'created_at'            => 'nullable|date',
+            'updated_at'            => 'nullable|date',
         ];
     }
 }

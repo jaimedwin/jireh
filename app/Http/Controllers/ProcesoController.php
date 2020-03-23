@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use DB; 
 use App\Proceso;
+use App\Ciudadproceso;
+use App\Corporacion;
+use App\Ponente;
+use App\Estado;
+use App\Actuacionproceso;
 use App\User;
+use App\Http\Requests\ProcesoFormRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class ProcesoController extends Controller
@@ -18,9 +26,16 @@ class ProcesoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request)
+    {   
+        $buscar =  $request->post('buscar'); 
+        if ($buscar){
+            $procesos= $this->getProcesoJoin(100, $buscar);
+            return view('proceso.index', $procesos)->with('success','Busqueda realizada');
+        }else{
+            $procesos = $this->getProcesoJoin(10);
+            return view('proceso.index', $procesos);
+        }
     }
 
     /**
@@ -30,7 +45,11 @@ class ProcesoController extends Controller
      */
     public function create()
     {
-        //
+        $ciudadprocesos = Ciudadproceso::all();
+        $corporacions = Corporacion::all();
+        $ponentes = Ponente::all();
+        $estados = Estado::all();
+        return view('proceso.create', compact ('ciudadprocesos', 'corporacions', 'ponentes', 'estados'));
     }
 
     /**
@@ -39,9 +58,11 @@ class ProcesoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProcesoFormRequest $request)
     {
-        //
+        $d = $request->except('_token');
+        Proceso::create($d);
+        return redirect()->route('proceso.index')->with('success','Proceso almacenado completamente');
     }
 
     /**
@@ -52,7 +73,8 @@ class ProcesoController extends Controller
      */
     public function show(Proceso $proceso)
     {
-        //
+        $auditoria = User::findOrFail($proceso)->first();
+        return view('proceso.show', compact('proceso', 'auditoria'));
     }
 
     /**
@@ -63,7 +85,11 @@ class ProcesoController extends Controller
      */
     public function edit(Proceso $proceso)
     {
-        //
+        $ciudadprocesos = Ciudadproceso::all();
+        $corporacions = Corporacion::all();
+        $ponentes = Ponente::all();
+        $estados = Estado::all();
+        return view('proceso.edit', compact('proceso','ciudadprocesos', 'corporacions', 'ponentes', 'estados'));
     }
 
     /**
@@ -73,9 +99,10 @@ class ProcesoController extends Controller
      * @param  \App\Proceso  $proceso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proceso $proceso)
+    public function update(ProcesoFormRequest $request, Proceso $proceso)
     {
-        //
+        $proceso->update($request->all());
+        return redirect()->route('proceso.index')->with('success','Registro actualizado completamente');
     }
 
     /**
@@ -86,6 +113,81 @@ class ProcesoController extends Controller
      */
     public function destroy(Proceso $proceso)
     {
-        //
+        if($this->getNumeroactuacionesJoin($proceso->id) == 0){
+            $proceso->delete();
+            return redirect()->route('proceso.index')->with('success','Registro borrado completamente');
+        }else {
+            return redirect()->route('proceso.index')->with('success','Borre primero las actuaciones del proceso'   );
+        }
+            
+            
+            
+
+        
+        return redirect()->route('proceso.index')->with('success','Registro borrado completamente');
+    }
+
+    private function getConsulta($pag, $buscar = null){
+        
+        $consultas['Consultas'] = Proceso::addSelect(
+            [
+                'ciudadproceso' => Ciudadproceso::select('nombre')
+                ->whereColumn('ciudadproceso_id', 'ciudadproceso.id')
+                ->limit(1)
+            ]
+        )->addSelect(
+            [
+                'corporacion' => Corporacion::select('nombre')
+                ->whereColumn('corporacion_id', 'corporacion.id')
+                ->limit(1)
+            ]
+        )->addSelect(
+            [
+                'ponente' => Ponente::select('nombrecompleto')
+                ->whereColumn('ponente_id', 'ponente.id')
+                ->limit(1)
+            ]
+        )->addSelect(
+            [
+                'estado' => Estado::select('descripcion')
+                ->whereColumn('estado_id', 'estado.id')
+                ->limit(1)
+            ]
+        )
+        ->orwhere('codigo', 'LIKE', '%'. $buscar. '%')
+        ->orwhere('numero', 'LIKE', '%'. $buscar. '%')
+        ->paginate($pag);
+        
+        return $consultas;
+    }
+
+    private function getProcesoJoin($pag, $buscar = null){
+        
+        $consultas['Consultas'] = Proceso::select(
+            'proceso.id','proceso.numero', 'proceso.codigo',
+            'ciudadproceso.nombre AS ciudadproceso', 
+            'corporacion.nombre AS corporacion', 
+            'ponente.nombrecompleto AS ponente', 
+            'estado.descripcion AS estado')
+        ->join('ciudadproceso', 'proceso.ciudadproceso_id', '=', 'ciudadproceso.id')
+        ->join('corporacion','proceso.corporacion_id', '=', 'corporacion.id')
+        ->join('ponente', 'proceso.ponente_id', '=', 'ponente.id')
+        ->join('estado', 'proceso.estado_id', '=', 'estado.id')
+        ->leftjoin('actuacionproceso', 'actuacionproceso.proceso_id', '=', 'proceso.id')
+        ->selectRaw('COALESCE(count(actuacionproceso.proceso_id),0) as total_actuacion')
+        ->whereNotNull('actuacionproceso.proceso_id')
+        ->orwhere('codigo', 'LIKE', '%'. $buscar. '%')
+        ->orwhere('numero', 'LIKE', '%'. $buscar. '%')
+        ->groupBy('proceso.id', 'proceso.codigo', 'proceso.numero', 
+        'proceso.ponente_id', 'proceso.estado_id',
+        'ciudadproceso.nombre', 'corporacion.nombre', 
+        'ponente.nombrecompleto', 'estado.descripcion')
+        ->paginate($pag);
+        return $consultas;
+    }
+
+    private function getNumeroactuacionesJoin($proceso_id){
+        $consultas = Actuacionproceso::where('proceso_id', $proceso_id)->count();
+        return $consultas;
     }
 }

@@ -6,7 +6,7 @@ use App\Recordatorio;
 use App\User;
 use Illuminate\Http\Request;
 
-class RecordatorioController extends Controller
+class ProcesoRecordatorioController extends Controller
 {
     public function __construct()
     {
@@ -18,9 +18,9 @@ class RecordatorioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($proceso_id)
     {
-        //
+        dd($proceso_id);
     }
 
     /**

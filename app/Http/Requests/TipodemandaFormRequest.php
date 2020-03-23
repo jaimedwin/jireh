@@ -24,12 +24,12 @@ class TipodemandaFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'abreviatura' => 'required|unique:tipodemanda|string|max:10',
-            'descripcion' => 'required|string|max:250',
-            'comentario' => 'nullable|string|max:1000',
-            'users_id' => 'required|numeric',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'abreviatura'   => 'required|unique:tipodemanda|string|max:10',
+            'descripcion'   => 'required|string|max:250',
+            'comentario'    => 'nullable|string|max:1000',
+            'users_id'      => 'required|numeric',
+            'created_at'    => 'nullable|date',
+            'updated_at'    => 'nullable|date',
         ];
     }
 }

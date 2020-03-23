@@ -33,6 +33,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('ponente', 'PonenteController');
     Route::resource('ciudadproceso', 'CiudadprocesoController');
     Route::resource('proceso', 'ProcesoController');
+    Route::resource('proceso.actuacion', 'ProcesoActuacionController');
+    Route::resource('proceso.recordatorio', 'ProcesoRecordatorioController');
+    Route::get('descargas/{proceso_id}/{name}','ProcesoActuacionController@downloadFile')->name('descargas');
 });
 
 

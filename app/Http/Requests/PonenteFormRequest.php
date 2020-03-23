@@ -24,10 +24,10 @@ class PonenteFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombrecompleto' => 'required|unique:ponente|string|max:200',
-            'users_id' => 'required|numeric',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'nombrecompleto'    => 'required|unique:ponente|string|max:200',
+            'users_id'          => 'required|numeric',
+            'created_at'        => 'nullable|date',
+            'updated_at'        => 'nullable|date',
         ];
     }
 }

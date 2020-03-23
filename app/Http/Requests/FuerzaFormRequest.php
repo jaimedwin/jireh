@@ -24,11 +24,11 @@ class FuerzaFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'abreviatura' => 'required|unique:fuerza|string|max:10',
-            'descripcion' => 'required|string|max:250',
-            'users_id' => 'required|numeric',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'abreviatura'   => 'required|unique:fuerza|string|max:10',
+            'descripcion'   => 'required|string|max:250',
+            'users_id'      => 'required|numeric',
+            'created_at'    => 'nullable|date',
+            'updated_at'    => 'nullable|date',
         ];
     }
 }

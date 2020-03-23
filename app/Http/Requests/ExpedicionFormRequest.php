@@ -24,10 +24,10 @@ class ExpedicionFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'lugar' => 'required|unique:expedicion|string|max:50',
-            'users_id' => 'required|numeric',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'lugar'         => 'required|unique:expedicion|string|max:50',
+            'users_id'      => 'required|numeric',
+            'created_at'    => 'nullable|date',
+            'updated_at'    => 'nullable|date',
         ];
     }
 }

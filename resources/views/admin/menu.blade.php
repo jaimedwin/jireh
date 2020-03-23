@@ -75,9 +75,18 @@
 
             <li class="nav-item">
                 <a href="{{ route ('proceso.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-cog nav-icon"></i>
                     <p>
                         {{'Proceso'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cogs nav-icon"></i>
+                    <p>
+                        {{'Actuaciòn proceso'}}
                     </p>
                 </a>
             </li>

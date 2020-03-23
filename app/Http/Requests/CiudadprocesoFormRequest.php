@@ -24,10 +24,10 @@ class CiudadprocesoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:ciudadproceso|string|max:500',
-            'users_id' => 'required|numeric',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'nombre'        => 'required|unique:ciudadproceso|string|max:500',
+            'users_id'      => 'required|numeric',
+            'created_at'    => 'nullable|date',
+            'updated_at'    => 'nullable|date',
         ];
     }
 }
