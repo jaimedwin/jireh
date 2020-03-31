@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Eps;
+use App\Models\Eps;
 use App\User;
 use App\Http\Requests\EpsFormRequest;
 use Illuminate\Http\Request;

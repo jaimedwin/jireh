@@ -65,7 +65,7 @@
 
                     @if ($actuacionproceso->nombrearchivo)
                         <div class="form-group">
-                            <label for="proceso.actuacion.fecharegistro">{{'Hay un archivo cargado previamente, ¿desea remplazarlo?'}}</label>
+                            <label for="proceso.actuacion.nombrearchivo">{{'Hay un archivo cargado previamente, ¿desea remplazarlo?'}}</label>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-primary active" onclick="show({{'1'}})">
                                     <input type="radio" name="options" id="option1" autocomplete="off" value="1" checked> 
@@ -116,7 +116,7 @@
 </div>
 @endsection
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
 function show(id) {
     //$('.topic').addClass('hidden');
     //$('#' + id).removeClass('hidden');
@@ -129,4 +129,4 @@ $(".custom-file-input").on("change", function() {
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
-</script>
+</script> --}}

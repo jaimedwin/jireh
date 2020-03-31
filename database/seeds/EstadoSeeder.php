@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Estado;
+use App\Models\Estado;
+use Illuminate\Support\Facades\DB;
 
 class EstadoSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class EstadoSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('estado')->delete();
+
         Estado::insert([
             [ 'descripcion' => 'ADMITIDA', 'users_id' => 1],
             [ 'descripcion' => 'APELADA', 'users_id' => 1],

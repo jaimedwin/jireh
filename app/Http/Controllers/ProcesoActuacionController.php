@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actuacionproceso;
+use App\Models\Actuacionproceso;
 use App\User;
 use Carbon\Carbon;
 use App\Http\Requests\ActuacionprocesoFormRequest;
@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 class ProcesoActuacionController extends Controller
 {
+    const PATH = 'actuaciones/';
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -77,16 +79,15 @@ class ProcesoActuacionController extends Controller
             $actuacionproceso = Actuacionproceso::create($request->except('nombrearchivo')
             + ['proceso_id' => $proceso_id]
             + ['nombrearchivo' => $fileName]);
-            $path = $file->storeAs('actuaciones/'. $proceso_id, $fileName);
+            $path = $file->storeAs(self::PATH. $proceso_id, $fileName);
             if (Storage::exists($path)){
                 return redirect()->route('proceso.actuacion.index', $proceso_id)
                 ->with('success',['data1' => 'Actuación del proceso almacenado completamente', 
                 'data2' => 'Archivo de actuación del proceso almacenado completamente']);
             }else{
-                return redirect()->route('proceso.actuacion.edit', compact('actuacionproceso', 'proceso_id', 'id'))
+                return redirect()->route('proceso.actuacion.index', $proceso_id)
                         ->with('success',['Error no se escribio archivo en disco']);
             }
-            
         } else {
             Actuacionproceso::create($request->all() 
                 + ['proceso_id' => $proceso_id] 
@@ -140,7 +141,7 @@ class ProcesoActuacionController extends Controller
                 $actuacionproceso->update($request->except('nombrearchivo')
                 + ['proceso_id' => $proceso_id]
                 + ['nombrearchivo' => $fileName]);
-                $path = $file->storeAs('actuaciones/'. $proceso_id, $fileName);
+                $path = $file->storeAs(self::PATH . $proceso_id, $fileName);
                 if (Storage::exists($path)){
                     return redirect()->route('proceso.actuacion.index', $proceso_id)
                     ->with('success',['data1' => 'Actuación del proceso actualizado completamente', 
@@ -166,7 +167,7 @@ class ProcesoActuacionController extends Controller
                     $actuacionproceso->update($request->except('nombrearchivo')
                     + ['proceso_id' => $proceso_id]
                     + ['nombrearchivo' => $fileName]);
-                    $path = $file->storeAs('actuaciones/'. $proceso_id, $fileName);
+                    $path = $file->storeAs(self::PATH. $proceso_id, $fileName);
                     if (Storage::exists($path)){
                         return redirect()->route('proceso.actuacion.index', $proceso_id)
                         ->with('success',['data1' => 'Actuación del proceso actualizado', 
@@ -222,11 +223,11 @@ class ProcesoActuacionController extends Controller
 
     public function downloadFile($id, $name)
     {
-        return Storage::download('actuaciones/'. $id.'/'.$name);
+        return Storage::download(self::PATH. $id.'/'.$name);
     }
 
     public function deleteFile($id, $name)
     {
-        return Storage::delete('actuaciones/'. $id.'/'.$name);
+        return Storage::delete(self::PATH. $id.'/'.$name);
     }
 }

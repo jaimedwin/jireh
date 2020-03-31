@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Tipodocumento;
+use App\Models\Tipodocumento;
 use App\User;
 use App\Http\Requests\TipodocumentoFormRequest;
 use Illuminate\Http\Request;

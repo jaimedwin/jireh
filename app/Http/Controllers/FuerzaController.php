@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Fuerza;
+use App\Models\Fuerza;
 use App\User;
 use App\Http\Requests\FuerzaFormRequest;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class FuerzaController extends Controller
      */
     public function index(Request $request)
     {
-        $buscar =  $request->post('buscar');   
+        $buscar =  $request->post('buscar');
         if ($buscar){
             $fuerzas['Fuerzas'] = Fuerza::orderBy('id', 'DESC')
                     ->orwhere('abreviatura', 'LIKE', '%'. $buscar. '%')
@@ -32,16 +32,6 @@ class FuerzaController extends Controller
             $fuerzas['Fuerzas'] = Fuerza::paginate(10);
             return view('fuerza.index', $fuerzas);
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('fuerza.create');
     }
 
     /**
@@ -87,7 +77,7 @@ class FuerzaController extends Controller
      * @param  \App\Fuerza  $fuerza
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fuerza $fuerza)
+    public function update(FuerzaFormRequest $request, Fuerza $fuerza)
     {
         $fuerza->update($request->all());
         return redirect()->route('fuerza.index')->with('success','Registro actualizado completamente');

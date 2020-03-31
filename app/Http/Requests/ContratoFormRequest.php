@@ -24,9 +24,10 @@ class ContratoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'ruta'                  => 'required|string|max:250',
+            'nombrearchivo'         => 'required|max:20000',
+            'numero'                => 'required|string|max:10', 
             'valor'                 => 'required|numeric', 
-            'personanatural_id'     => 'required|numeric', 
+            'personanatural_id'     => 'required|numeric',
             'tipocontrato_id'       => 'required|numeric',
             'users_id'              => 'required|numeric',
             'created_at'            => 'nullable|date',

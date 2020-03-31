@@ -24,7 +24,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('fondodepension', 'FondodepensionController');
     Route::resource('tipodocumento', 'TipodocumentoController');
     Route::resource('eps', 'EpsController');
-    Route::resource('fuerza', 'FuerzaController');
+    Route::resource('fuerza', 'FuerzaController')->except(['create']);
+    Route::resource('fuerza.carrera', 'FuerzaCarreraController')->except(['create']);
+    Route::resource('fuerza.carrera.grado', 'FuerzaCarreraGradoController')->except(['create']);
     Route::resource('expedicion', 'ExpedicionController');
     Route::resource('tipocontrato', 'TipocontratoController');
     Route::resource('tipodocumentoidentificacion', 'TipodocumentoidentificacionController');
@@ -35,7 +37,13 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('proceso', 'ProcesoController');
     Route::resource('proceso.actuacion', 'ProcesoActuacionController');
     Route::resource('proceso.recordatorio', 'ProcesoRecordatorioController');
-    Route::get('descargas/{proceso_id}/{name}','ProcesoActuacionController@downloadFile')->name('descargas');
+    Route::resource('contrato', 'ContratoController');
+    Route::resource('contrato.pago', 'ContratoPagoController');
+    Route::resource('personanatural', 'PersonanaturalController');
+    //Route::resource('contrato.pago', 'ContratoPagoController')->except(['create']);
+    Route::get('descargas_actuaciones/{proceso}/{name}','ProcesoActuacionController@downloadFile')->name('descargas_actuaciones');
+    Route::get('descargas_otrosdocumentos/{personanatural}/{name}','ContratoController@downloadFile')->name('descargas_otrosdocumentos');
+    
 });
 
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Telefono;
+use App\Models\Telefono;
 use App\User;
 use Illuminate\Http\Request;
 

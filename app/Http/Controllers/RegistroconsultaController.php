@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Registroconsulta;
+use App\Models\Registroconsulta;
 use App\User;
 use Illuminate\Http\Request;
 

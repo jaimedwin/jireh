@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Ciudadproceso;
+use App\Models\Ciudadproceso;
 use App\User;
 use App\Http\Requests\CiudadprocesoFormRequest;
 use Illuminate\Http\Request;

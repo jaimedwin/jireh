@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Personajuridica;
+use App\Models\Personajuridica;
 use App\User;
 use Illuminate\Http\Request;
 

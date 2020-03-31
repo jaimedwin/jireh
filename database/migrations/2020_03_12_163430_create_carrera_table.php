@@ -16,8 +16,8 @@ class CreateCarreraTable extends Migration {
 		Schema::create('carrera', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->string('abreviatura', 10)->unique('abreviatura');
-			$table->string('descripción', 50);
+			$table->string('abreviatura', 10);
+			$table->string('descripcion', 50);
 			$table->unsignedBigInteger('fuerza_id')->index('FK_carrera_fuerza');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Tipodemanda;
+use App\Models\Tipodemanda;
 use App\User;
 use App\Http\Requests\TipodemandaFormRequest;
 use Illuminate\Http\Request;

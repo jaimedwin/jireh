@@ -19,17 +19,10 @@
       </form>
     </div>
   </div>
-  <!-- /.card-header -->
-  <div class="card-body">
-    <div class="row  mb-4">
-      <div class="col-12">
-        <a href="{{route('fuerza.create')}}" class="btn btn-primary" role="button" aria-label="Buscar">
-          <i class="fas fa-plus-square"></i>
-          {{'Crear nuevo fuerza'}}
-        </a>
-      </div>
-    </div>
+  
 
+  <div class="card-body">
+    
     @if ($message = Session::get('success'))
     <div class="row">
       <div class="col-12">
@@ -45,15 +38,72 @@
       </div>
     </div>
     @endif
+    
+    <div class="row mb-4"">
+      <div class="col-12">
+      @if ($errors->any())
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        <span aria-hidden="true">&times;</span> 
+                    </button>
+                    <h5><i class="fas fa-exclamation-triangle"></i>
+                            <strong>{{'Error!'}}</strong>
+                    </h5>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        <form action="{{ route('fuerza.store')}}" method="post">
+            @csrf
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="fuerza.abreviatura">{{'Abreviatura'}}</label>
+                        <input type="text" class="form-control" id="fuerza.abreviatura" name="abreviatura">
+                    </div>
+                    <div class="form-group">
+                        <label for="fuerza.descripcion">{{'Descripción'}}</label>
+                        <input type="text" class="form-control" id="fuerza.descripcion" name="descripcion">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="users_id">users_id</label>
+                        <input id="users_id" class="form-control" type="hidden" name="users_id" value="{{ Auth::id()}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a href="{{route('fuerza.index')}}" class="btn btn-secondary" role="button" aria-label="Buscar">
+                        {{'Cancelar'}}
+                    </a>
+                    <button type="submit" class="btn btn-success float-right">
+                        {{'Agregar'}}
+                    </button>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+
+    
 
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 table-responsive">
         <table class="table table-bordered table-striped">
           <thead class="">
             <tr>
               <th style="width: 10px">{{'#'}}</th>
               <th>{{'Abreviatura'}}</th>
               <th>{{'Descripción'}}</th>
+              <th style="width: 80px" class="text-center">{{'Carrera'}}</th>
               <th style="width: 160px" class="text-center">{{'Acciones'}}</th>
             </tr>
           </thead>
@@ -63,6 +113,12 @@
               <td>{{$loop->iteration}}</td>
               <td>{{$fuerza->abreviatura}}</td>
               <td>{{$fuerza->descripcion}}</td>
+              <td class="text-center">
+                <a href="{{route('fuerza.carrera.index', $fuerza->id)}}" class="btn btn-outline-success" role="button"
+                  aria-label="Mostrar">
+                  <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                </a>
+              </td>
               <td class="text-center">
                 <form action="{{route('fuerza.destroy', $fuerza->id)}}" method="post">
                   @method('DELETE')

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Ponente;
-use App\User;
+use App\Models\Ponente;
+use App\Models\User;
 use App\Http\Requests\PonenteFormRequest;
 use Illuminate\Http\Request;
 

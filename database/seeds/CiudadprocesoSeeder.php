@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Ciudadproceso;
+use App\Models\Ciudadproceso;
+use Illuminate\Support\Facades\DB;
 
 class CiudadprocesoSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class CiudadprocesoSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('ciudadproceso')->delete();
+
         Ciudadproceso::insert([
             ['nombre' => 'BARRANQUILLA', 'users_id' => 1],
             ['nombre' => 'BOGOTÁ D.C.', 'users_id' => 1],

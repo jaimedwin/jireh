@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Clienteproceso;
+use App\Models\Clienteproceso;
 use App\User;
 use Illuminate\Http\Request;
 

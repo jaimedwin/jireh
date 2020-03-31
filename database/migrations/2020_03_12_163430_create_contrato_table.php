@@ -16,7 +16,8 @@ class CreateContratoTable extends Migration {
 		Schema::create('contrato', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->string('ruta', 250);
+			$table->string('nombrearchivo', 250);
+			$table->string('numero', 10);
 			$table->unsignedBigInteger('valor');
 			$table->unsignedBigInteger('personanatural_id')->index('contrato_FK');
 			$table->unsignedBigInteger('tipocontrato_id')->index('contrato_FK_1');

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Estado;
+use App\Models\Estado;
 use App\User;
 use App\Http\Requests\EstadoFormRequest;
 use Illuminate\Http\Request;

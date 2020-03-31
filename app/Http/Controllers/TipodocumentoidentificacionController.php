@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Tipodocumentoidentificacion;
+use App\Models\Tipodocumentoidentificacion;
 use App\User;
 use App\Http\Requests\TipodocumentoidentificacionFormRequest;
 use Illuminate\Http\Request;

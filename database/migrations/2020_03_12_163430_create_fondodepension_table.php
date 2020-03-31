@@ -16,8 +16,8 @@ class CreateFondodepensionTable extends Migration {
 		Schema::create('fondodepension', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->string('abreviatura', 15);
-			$table->string('descripcion', 100);
+			$table->string('abreviatura', 15)->unique('abreviatura');
+			$table->string('descripcion', 100)->nullable();
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

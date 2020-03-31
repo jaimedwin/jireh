@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Fondodepension;
+use App\Models\Fondodepension;
 use App\User;
 use App\Http\Requests\FondodepensionFormRequest;
 use Illuminate\Http\Request;
@@ -29,7 +29,7 @@ class FondodepensionController extends Controller
                     ->paginate(100);
             return view('fondodepension.index', $fondodepensiones)->with('success','Busqueda realizada');
         }else{
-            $fondodepensiones['Fondodepensiones'] =Fondodepension::paginate(10);
+            $fondodepensiones['Fondodepensiones'] = Fondodepension::paginate(10);
             return view('fondodepension.index', $fondodepensiones);
         }
     }

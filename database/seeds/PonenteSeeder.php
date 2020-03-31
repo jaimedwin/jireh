@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Ponente;
+use App\Models\Ponente;
+use Illuminate\Support\Facades\DB;
 
 class PonenteSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class PonenteSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('ponente')->delete();
+
         Ponente::insert([
             [ 'nombrecompleto' => 'ALBERTO ESPINOSA BOLAÑOS', 'users_id' => 1],
             [ 'nombrecompleto' => 'AMPARO OVIEDO PINTO', 'users_id' => 1],

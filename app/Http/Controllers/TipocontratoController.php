@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Tipocontrato;
+use App\Models\Tipocontrato;
 use App\User;
 use App\Http\Requests\TipocontratoFormRequest;
 use Illuminate\Http\Request;

@@ -17,7 +17,7 @@ class CreateEpsTable extends Migration {
 		{
 			$table->bigIncrements('id');
 			$table->string('abreviatura', 25);
-			$table->string('descripcion', 100);
+			$table->string('descripcion', 100)->nullable();
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

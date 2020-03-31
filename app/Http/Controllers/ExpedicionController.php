@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Expedicion;
+use App\Models\Expedicion;
 use App\User;
 use App\Http\Requests\ExpedicionFormRequest;
 use Illuminate\Http\Request;

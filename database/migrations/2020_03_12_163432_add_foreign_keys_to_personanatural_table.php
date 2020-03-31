@@ -17,7 +17,7 @@ class AddForeignKeysToPersonanaturalTable extends Migration {
 		{
 			$table->foreign('tipodocumentoidentificacion_id', 'personanatural_FK')->references('id')->on('tipodocumentoidentificacion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('expedicion_id', 'personanatural_FK_1')->references('id')->on('expedicion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('grado_id', 'personanatural_FK_2')->references('id')->on('grado')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('grado_id', 'personanatural_FK_2')->references('id')->on('grado')->onUpdate('SET NULL')->onDelete('SET NULL');
 			$table->foreign('eps_id', 'personanatural_FK_3')->references('id')->on('eps')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('fondodepension_id', 'personanatural_FK_4')->references('id')->on('fondodepension')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});

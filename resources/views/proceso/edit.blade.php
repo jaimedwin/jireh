@@ -43,15 +43,15 @@
 
                     <div class="form-group">
                         <label for="proceso.ciudadproceso">{{'Ciudad de proceso'}}</label>
-                        <select class="form-control custom-select" id="proceso.ciudadproceso" name="ciudadproceso_id">
+                        <select class="form-control selectpicker" data-live-search="true" id="proceso.ciudadproceso" name="ciudadproceso_id">
                             @foreach ($ciudadprocesos as $ciudadproceso)
                             @if ($ciudadproceso->id == $proceso->ciudadproceso_id)
-                            <option value="{{$ciudadproceso->id}}" selected>
-                                {{$ciudadproceso->id}}- {{$ciudadproceso->nombre}}
+                            <option data-tokens="{{$ciudadproceso->nombre}}" value="{{$ciudadproceso->id}}" selected>
+                                {{$ciudadproceso->nombre}}
                             </option>
                             @else
-                            <option value="{{$ciudadproceso->id}}">
-                                {{$ciudadproceso->id}}- {{$ciudadproceso->nombre}}
+                            <option data-tokens="{{$ciudadproceso->nombre}}" value="{{$ciudadproceso->id}}">
+                                {{$ciudadproceso->nombre}}
                             </option>
                             @endif
                             @endforeach
@@ -60,15 +60,15 @@
 
                     <div class="form-group">
                         <label for="proceso.coporacion">{{'Corporación'}}</label>
-                        <select class="form-control custom-select" id="proceso.coporacion" name="corporacion_id">
+                        <select class="form-control selectpicker" data-live-search="true" id="proceso.coporacion" name="corporacion_id">
                             @foreach ($corporacions as $corporacion)
                             @if ($corporacion->id == $proceso->corporacion_id)
-                            <option value="{{$corporacion->id}}" selected>
-                                {{$corporacion->id}}- {{$corporacion->nombre}}
+                            <option data-tokens="{{$corporacion->nombre}}" value="{{$corporacion->id}}" selected>
+                                {{$corporacion->nombre}}
                             </option>
                             @else
-                            <option value="{{$corporacion->id}}">
-                                {{$corporacion->id}}- {{$corporacion->nombre}}
+                            <option data-tokens="{{$corporacion->nombre}}" value="{{$corporacion->id}}">
+                                {{$corporacion->nombre}}
                             </option>
                             @endif
                             @endforeach
@@ -77,15 +77,15 @@
 
                     <div class="form-group">
                         <label for="proceso.ponente">{{'Ponente'}}</label>
-                        <select class="form-control custom-select" id="proceso.ponente" name="ponente_id">
+                        <select class="form-control selectpicker" data-live-search="true" id="proceso.ponente" name="ponente_id">
                             @foreach ($ponentes as $ponente)
                                 @if ($ponente->id == $proceso->ponente_id)
-                                    <option value="{{$ponente->id}}" selected>
-                                        {{$ponente->id}}- {{$ponente->nombrecompleto}}
+                                    <option data-tokens="{{$ponente->nombrecompleto}}" value="{{$ponente->id}}" selected>
+                                        {{$ponente->nombrecompleto}}
                                     </option>
                                 @else
-                                    <option value="{{$ponente->id}}">
-                                        {{$ponente->id}}- {{$ponente->nombrecompleto}}
+                                    <option data-tokens="{{$ponente->nombrecompleto}}" value="{{$ponente->id}}">
+                                        {{$ponente->nombrecompleto}}
                                     </option>
                                 @endif
                             @endforeach
@@ -94,15 +94,15 @@
 
                     <div class="form-group">
                         <label for="proceso.estado">{{'Estado'}}</label>
-                        <select class="form-control custom-select" id="proceso.estado" name="estado_id">
+                        <select class="form-control selectpicker" data-live-search="true" id="proceso.estado" name="estado_id">
                             @foreach ($estados as $estado)
                                 @if ($estado->id == $proceso->estado_id)
-                                    <option value="{{$estado->id}}" selected>
-                                        {{$estado->id}}- {{$estado->descripcion}}
+                                    <option data-tokens="{{$estado->descripcion}}" value="{{$estado->id}}" selected>
+                                        {{$estado->descripcion}}
                                     </option>
                                 @else
-                                    <option value="{{$estado->id}}">
-                                        {{$estado->id}}- {{$estado->descripcion}}
+                                    <option data-tokens="{{$estado->descripcion}}" value="{{$estado->id}}">
+                                        {{$estado->descripcion}}
                                     </option>
                                 @endif
                             @endforeach

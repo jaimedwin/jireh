@@ -49,7 +49,7 @@
     @endif
 
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 table-responsive">
         <table class="table table-bordered table-striped">
           <thead class="">
             <tr>
@@ -79,9 +79,9 @@
               <td>{{$actuacionproceso->fecharegistro}}</td>
               <td class="text-center">
                 @if ($actuacionproceso->nombrearchivo)
-                  <a href="{{route('descargas', 
+                  <a href="{{route('descargas_actuaciones', 
                   [
-                    'proceso_id' => $proceso_id, 
+                    'proceso' => $proceso_id, 
                     'name' => $actuacionproceso->nombrearchivo
                   ])}}" 
                   class="btn btn-outline-success">

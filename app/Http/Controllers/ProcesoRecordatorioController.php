@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Recordatorioproceso;
+use App\Models\Recordatorioproceso;
 use App\User;
 use Carbon\Carbon;
 use App\Http\Requests\RecordatorioprocesoFormRequest;

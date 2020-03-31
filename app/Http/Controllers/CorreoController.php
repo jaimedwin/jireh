@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Correo;
+use App\Models\Correo;
 use App\User;
 use Illuminate\Http\Request;
 

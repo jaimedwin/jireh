@@ -36,7 +36,7 @@ class PersonanaturalFormRequest extends FormRequest
             'direccion'                         => 'required|string|max:500', 
             'eps_id'                            => 'required|numeric', 
             'fondodepension_id'                 => 'required|numeric', 
-            'grado_id'                          => 'nullable|numeric',
+            'grado_id'                          => 'nullable',
             'users_id'                          => 'required|numeric',
             'created_at'                        => 'nullable|date',
             'updated_at'                        => 'nullable|date',

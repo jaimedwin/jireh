@@ -14,7 +14,7 @@
 
             <li class="nav-item has-treeview nav-compact">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-user"></i>
+                    <i class="fas fa-user-circle nav-icon"></i>
                     <p>
                         {{ Auth::user()->name }}
                         <i class="right fas fa-angle-left"></i>
@@ -45,8 +45,8 @@
             <li class="nav-header">CLIENTES</li>
             
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                <a href="{{ route ('personanatural.index')}}" class="nav-link">
+                    <i class="fas fa-male nav-icon"></i>
                     <p>
                         {{'Persona natural'}}
                     </p>
@@ -55,7 +55,7 @@
             
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-industry nav-icon"></i>
                     <p>
                         {{'Persona jurica'}}
                     </p>
@@ -63,7 +63,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route ('contrato.index')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>
                         {{'Contrato'}}
@@ -129,7 +129,7 @@
 
             <li class="nav-item">
                 <a href="{{ route ('fuerza.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-shield-alt nav-icon"></i>
                     <p>
                         {{'Fuerza'}}
                     </p>

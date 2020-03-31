@@ -25,7 +25,7 @@ class FondodepensionFormRequest extends FormRequest
     {
         return [
             'abreviatura'   => 'required|unique:fondodepension|string|max:15',
-            'descripcion'   => 'required|string|max:100',
+            'descripcion'   => 'nullable|string|max:100',
             'users_id'      => 'required|numeric',
             'created_at'    => 'nullable|date',
             'updated_at'    => 'nullable|date',

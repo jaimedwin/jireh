@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Corporacion;
+use App\Models\Corporacion;
 use App\User;
 use App\Http\Requests\CorporacionFormRequest;
 use Illuminate\Http\Request;

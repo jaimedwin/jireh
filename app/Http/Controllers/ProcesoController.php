@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use DB; 
-use App\Proceso;
-use App\Ciudadproceso;
-use App\Corporacion;
-use App\Ponente;
-use App\Estado;
-use App\Actuacionproceso;
+use App\Models\Proceso;
+use App\Models\Ciudadproceso;
+use App\Models\Corporacion;
+use App\Models\Ponente;
+use App\Models\Estado;
+use App\Models\Actuacionproceso;
+use App\Models\Recordatorioproceso;
 use App\User;
 use App\Http\Requests\ProcesoFormRequest;
 use Illuminate\Support\Facades\Log;
@@ -113,17 +114,16 @@ class ProcesoController extends Controller
      */
     public function destroy(Proceso $proceso)
     {
-        if($this->getNumeroactuacionesJoin($proceso->id) == 0){
+        $valida1 = Actuacionproceso::where('proceso_id', '=', $proceso->id)->get();
+        $valida2 = Recordatorioproceso::where('proceso_id', '=', $proceso->id)->get();
+        if ($valida1->isEmpty() and $valida2->isEmpty()) {
+        //if($this->getNumeroactuacionesJoin($proceso->id) == 0){
             $proceso->delete();
             return redirect()->route('proceso.index')->with('success','Registro borrado completamente');
         }else {
-            return redirect()->route('proceso.index')->with('success','Borre primero las actuaciones del proceso'   );
+            return redirect()->route('proceso.index')->withErrors(['No se puede borrar el proceso', 
+            'El proceso tiene actuaciones o recordatorios asociados asociados']);
         }
-            
-            
-            
-
-        
         return redirect()->route('proceso.index')->with('success','Registro borrado completamente');
     }
 
