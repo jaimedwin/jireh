@@ -47,6 +47,8 @@
     </div>
     @endif
 
+    @include('admin.errors')
+    
     <div class="row">
       <div class="col-12 table-responsive">
         <table class="table table-bordered table-striped">

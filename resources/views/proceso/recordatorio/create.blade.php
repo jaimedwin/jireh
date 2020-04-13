@@ -37,10 +37,11 @@
                     <div class="form-group">
                         <label for="proceso.recordatorio.fecha"
                             class="col-2 col-form-label">{{'Fecha'}}</label>
-                        <input class="form-control" type="date" id="proceso.recordatorio.fecha" name="fecha">
+                        <input class="form-control" type="date" id="proceso.recordatorio.fecha" name="fecha"
+                        min="{{ \Carbon\Carbon::now()->toDateString() }}">
                     </div>
                     <div class="form-group">
-                        <label for="proceso.recordatorio.observacion">{{'Observacion'}}</label>
+                        <label for="proceso.recordatorio.observacion">{{'Observación'}}</label>
                         <input type="text" class="form-control" id="proceso.recordatorio.observacion" name="observacion">
                     </div>
                     

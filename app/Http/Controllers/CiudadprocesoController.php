@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ciudadproceso;
+use App\Models\Proceso;
 use App\User;
 use App\Http\Requests\CiudadprocesoFormRequest;
 use Illuminate\Http\Request;
@@ -100,7 +101,13 @@ class CiudadprocesoController extends Controller
      */
     public function destroy(Ciudadproceso $ciudadproceso)
     {
-        $ciudadproceso->delete();
-        return redirect()->route('ciudadproceso.index')->with('success','Registro borrado completamente');
+        $valida = Proceso::where('ciudadproceso_id', '=', $ciudadproceso->id)->get();
+        if ($valida->isEmpty()) {
+            $ciudadproceso->delete();
+            return redirect()->route('ciudadproceso.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('ciudadproceso.index')
+            ->withErrors(['No se puede borrar la ciudad', 'La ciudad tiene proceso(s) asociado(s)']);
+        }
     }
 }

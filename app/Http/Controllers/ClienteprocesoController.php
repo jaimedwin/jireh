@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Clienteproceso;
+use App\Models\Personanatural;
+use App\Models\Proceso;
+use App\Models\Tipodemanda;
 use App\User;
+use App\Http\Requests\ClienteprocesoFormRequest;
 use Illuminate\Http\Request;
 
 class ClienteprocesoController extends Controller
@@ -18,9 +22,27 @@ class ClienteprocesoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $palabrasbuscar = explode(" ",$request->post('buscar'));
+        print(implode(" ",$palabrasbuscar));
+        $clientesprocesos = Clienteproceso::orderBy('id', 'ASC')
+                        ->select('clienteproceso.*', 'proceso.numero AS proceso', 'tipodemanda.abreviatura AS tipodemanda')
+                        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                        ->join('proceso','proceso_id','=','proceso.id')
+                        ->join('personanatural','personanatural_id','=','personanatural.id')
+                        ->join('tipodemanda','tipodemanda_id','=','tipodemanda.id');
+        $emptypalabrasbuscar = array_filter($palabrasbuscar);
+        if (!empty($emptypalabrasbuscar)){
+            $columnas = ['tipodocumento.abreviatura', 
+            'personanatural.nombres', 'personanatural.apellidopaterno', 'personanatural.apellidomaterno'];
+            $Clientesprocesos['Clientesprocesos'] = $clientesprocesos->whereOrSearch($palabrasbuscar, $columnas);
+            return view('clienteproceso.index', $Clientesprocesos)
+            ->with('success','Busqueda realizada');
+        }else{
+            $Clientesprocesos['Clientesprocesos'] = $clientesprocesos->paginate(10);
+            return view('clienteproceso.index', $Clientesprocesos);
+        }
     }
 
     /**
@@ -30,7 +52,12 @@ class ClienteprocesoController extends Controller
      */
     public function create()
     {
-        //
+        $Personasnaturales = Personanatural::select('id', 'numerodocumento')
+        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+        ->get();
+        $Procesos = Proceso::select('id', 'numero')->get();
+        $Tiposdemandas = Tipodemanda::select('id', 'abreviatura', 'descripcion')->get();
+        return view('clienteproceso.create', compact('Personasnaturales', 'Procesos', 'Tiposdemandas'));
     }
 
     /**
@@ -39,9 +66,11 @@ class ClienteprocesoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClienteprocesoFormRequest $request)
     {
-        //
+        $clienteoricesi = Clienteproceso::create($request->except('_token'));
+        return redirect()->route('clienteproceso.index')
+                ->with('success',['Registro del proceso almacenada completamente']);
     }
 
     /**
@@ -52,7 +81,13 @@ class ClienteprocesoController extends Controller
      */
     public function show(Clienteproceso $clienteproceso)
     {
-        //
+        $auditoria = User::findOrFail($clienteproceso)->first();
+        $personanatural = Personanatural::select('id', 'numerodocumento', 'codigo')
+        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+        ->findOrFail($clienteproceso->personanatural_id);
+        $proceso = Proceso::select('id', 'numero', 'codigo')->findOrFail($clienteproceso->proceso_id);
+        $tipodemanda = Tipodemanda::select('id', 'abreviatura', 'descripcion')->findOrFail($clienteproceso->tipodemanda_id);
+        return view('clienteproceso.show', compact('clienteproceso', 'auditoria', 'personanatural', 'proceso', 'tipodemanda'));
     }
 
     /**
@@ -63,7 +98,12 @@ class ClienteprocesoController extends Controller
      */
     public function edit(Clienteproceso $clienteproceso)
     {
-        //
+        $Personasnaturales = Personanatural::select('id', 'numerodocumento')
+        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+        ->get();
+        $Procesos = Proceso::select('id', 'numero')->get();
+        $Tiposdemandas = Tipodemanda::select('id', 'abreviatura', 'descripcion')->get();
+        return view('clienteproceso.edit', compact('clienteproceso', 'Personasnaturales', 'Procesos', 'Tiposdemandas'));    
     }
 
     /**
@@ -73,9 +113,10 @@ class ClienteprocesoController extends Controller
      * @param  \App\Clienteproceso  $clienteproceso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Clienteproceso $clienteproceso)
+    public function update(ClienteprocesoFormRequest $request, Clienteproceso $clienteproceso)
     {
-        //
+        $clienteproceso->update($request->all());
+        return redirect()->route('clienteproceso.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -86,6 +127,7 @@ class ClienteprocesoController extends Controller
      */
     public function destroy(Clienteproceso $clienteproceso)
     {
-        //
+        $clienteproceso->delete();
+        return redirect()->route('clienteproceso.index')->with('success',['Registro borrado completamente']);
     }
 }

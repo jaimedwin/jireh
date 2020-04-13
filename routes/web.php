@@ -40,6 +40,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('contrato', 'ContratoController');
     Route::resource('contrato.pago', 'ContratoPagoController');
     Route::resource('personanatural', 'PersonanaturalController');
+    Route::resource('personanatural.telefono', 'PersonanaturalTelefonoController')->except(['create']);
+    Route::resource('personanatural.correo', 'PersonanaturalCorreoController')->except(['create']);
+    Route::resource('documento', 'DocumentoController');
+    Route::resource('personajuridica', 'PersonajuridicaController');
+    Route::resource('clienteproceso', 'ClienteprocesoController');
     //Route::resource('contrato.pago', 'ContratoPagoController')->except(['create']);
     Route::get('descargas_actuaciones/{proceso}/{name}','ProcesoActuacionController@downloadFile')->name('descargas_actuaciones');
     Route::get('descargas_otrosdocumentos/{personanatural}/{name}','ContratoController@downloadFile')->name('descargas_otrosdocumentos');

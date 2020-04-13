@@ -47,29 +47,7 @@
         </div>
         @endif
 
-        <div class="row mb-4"">
-            <div class=" col-12">
-                @if ($errors->any())
-                    <div class="col-12">
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h5><i class="fas fa-exclamation-triangle"></i>
-                                <strong>{{'Error!'}}</strong>
-                            </h5>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                @endif
-            </div>
-        </div>
-
-
+        @include('admin.errors')
 
         <div class="row">
             <div class="col-12 table-responsive">
@@ -88,7 +66,8 @@
                             <th>{{'Eps'}}</th>
                             <th>{{'Fondo de pensión'}}</th>
                             <th>{{'Fuerza -Grado'}}</th>
-                            <th style="width: 80px" class="text-center">{{'Pagos'}}</th>
+                            <th style="width: 80px" class="text-center">{{'Telefono'}}</th>
+                            <th style="width: 80px" class="text-center">{{'Correo'}}</th>
                             <th style="width: 160px" class="text-center">{{'Acciones'}}</th>
                         </tr>
                     </thead>
@@ -97,9 +76,7 @@
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$personanatural->codigo}}</td>
-                            <td>{{$personanatural->nombres}} {{$personanatural->apellidopaterno}}
-                                {{$personanatural->apellidomaterno}}
-                            </td>
+                            <td>{{$personanatural->nombrecompleto}}</td>
                             <td>{{$personanatural->tipodocumentoidentificacion}}</td>
                             <td>{{$personanatural->numerodocumento}}</td>
                             <td>{{$personanatural->expedicion}}</td>
@@ -116,9 +93,15 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                <a href="{{route('personanatural.index', $personanatural->id)}}"
+                                <a href="{{route('personanatural.telefono.index', $personanatural->id)}}"
                                     class="btn btn-outline-success" role="button" aria-label="Pagos">
-                                    <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                                    <i class="fas fa-phone-alt"></i>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{route('personanatural.correo.index', $personanatural->id)}}"
+                                    class="btn btn-outline-success" role="button" aria-label="Pagos">
+                                    <i class="fas fa-envelope-open-text"></i>
                                 </a>
                             </td>
                             <td class="text-center">

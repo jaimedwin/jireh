@@ -10,6 +10,7 @@ use App\Models\Ponente;
 use App\Models\Estado;
 use App\Models\Actuacionproceso;
 use App\Models\Recordatorioproceso;
+use App\Models\Clienteproceso;
 use App\User;
 use App\Http\Requests\ProcesoFormRequest;
 use Illuminate\Support\Facades\Log;
@@ -116,15 +117,24 @@ class ProcesoController extends Controller
     {
         $valida1 = Actuacionproceso::where('proceso_id', '=', $proceso->id)->get();
         $valida2 = Recordatorioproceso::where('proceso_id', '=', $proceso->id)->get();
-        if ($valida1->isEmpty() and $valida2->isEmpty()) {
-        //if($this->getNumeroactuacionesJoin($proceso->id) == 0){
+        $valida3 = Clienteproceso::where('proceso_id', '=', $proceso->id)->get();
+        if ($valida1->isEmpty() && $valida2->isEmpty() && $valida3->isEmpty()) {
             $proceso->delete();
             return redirect()->route('proceso.index')->with('success','Registro borrado completamente');
         }else {
-            return redirect()->route('proceso.index')->withErrors(['No se puede borrar el proceso', 
-            'El proceso tiene actuaciones o recordatorios asociados asociados']);
+            $errors = array('No se puede borrar el proceso');
+            if (!$valida1->isEmpty()){
+                array_push($errors, 'El proceso tiene actuacione(s) asociada(s)');
+            }
+            if (!$valida2->isEmpty()){
+                array_push($errors,'El proceso tiene recordatorio(s) asociado(s)');
+            }
+            if (!$valida3->isEmpty()){
+                array_push($errors,'El proceso está asociado con persona(s) naturales(s)');
+            }
+
+            return redirect()->route('proceso.index')->withErrors($errors);
         }
-        return redirect()->route('proceso.index')->with('success','Registro borrado completamente');
     }
 
     private function getConsulta($pag, $buscar = null){

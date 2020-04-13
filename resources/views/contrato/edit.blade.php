@@ -101,7 +101,7 @@
                     @endif --}}
 
                     <div class="form-group">
-                        <label for="contrato.nombrearchivo">{{'Seleccione documento'}}</label>
+                        <label for="contrato.nombrearchivo">{{'El archivo cargado previamente será borrado. Seleccione documento'}}</label><br>
                         <input class="btn btn-primary" type="file" id="contrato.nombrearchivo" name="nombrearchivo"
                             aria-describedby="nombrearchivo"
                             accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">

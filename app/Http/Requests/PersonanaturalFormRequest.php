@@ -24,12 +24,12 @@ class PersonanaturalFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigo'                            => 'required|string|max:15', 
+            'codigo'                            => 'required|unique:personanatural|string|max:15', 
             'nombres'                           => 'required|string|max:100', 
             'apellidopaterno'                   => 'nullable|string|max:75', 
             'apellidomaterno'                   => 'nullable|string|max:75',
             'tipodocumentoidentificacion_id'    => 'required|numeric',
-            'numerodocumento'                   => 'required|string|max:15', 
+            'numerodocumento'                   => 'required|unique:personanatural|string|max:15', 
             'expedicion_id'                     => 'required|numeric',
             'fechaexpedicion'                   => 'nullable|date', 
             'fechanacimiento'                   => 'nullable|date',

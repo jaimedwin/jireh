@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tipodemanda;
+use App\Models\Clienteproceso;
 use App\User;
 use App\Http\Requests\TipodemandaFormRequest;
 use Illuminate\Http\Request;
@@ -102,7 +103,13 @@ class TipodemandaController extends Controller
      */
     public function destroy(Tipodemanda $tipodemanda)
     {
-        $tipodemanda->delete();
-        return redirect()->route('tipodemanda.index')->with('success','Registro borrado completamente');
+        $valida = Clienteproceso::where('tipodemanda_id', '=', $tipodemanda->id)->get();
+        if ($valida->isEmpty()) {
+            $tipodemanda->delete();
+            return redirect()->route('tipodemanda.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('tipodemanda.index')
+            ->withErrors(['No se puede borrar el tipo de demanda', 'El tipo de demanda tiene cliente(s) y proceso(s) asociado(s)']);
+        }
     }
 }

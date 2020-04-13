@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expedicion;
+use App\Models\Personanatural;
 use App\User;
 use App\Http\Requests\ExpedicionFormRequest;
 use Illuminate\Http\Request;
@@ -100,8 +101,14 @@ class ExpedicionController extends Controller
      */
     public function destroy(Expedicion $expedicion)
     {
-        $expedicion->delete();
-        return redirect()->route('expedicion.index')->with('success','Registro borrado completamente');
-
+        $valida = Personanatural::where('expedicion_id', '=', $expedicion->id)->get();
+        if ($valida->isEmpty()) {
+            $expedicion->delete();
+            return redirect()->route('expedicion.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('expedicion.index')
+             ->withErrors(['No se puede borrar el lugar de expedición', 
+             'El lugar de expedición tiene persona(s) naturales(s) asociada(s)']);
+        }
     }
 }

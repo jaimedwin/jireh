@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tipodocumentoidentificacion;
+use App\Models\Personanatural;
 use App\User;
 use App\Http\Requests\TipodocumentoidentificacionFormRequest;
 use Illuminate\Http\Request;
@@ -101,7 +102,14 @@ class TipodocumentoidentificacionController extends Controller
      */
     public function destroy(Tipodocumentoidentificacion $tipodocumentoidentificacion)
     {
-        $tipodocumentoidentificacion->delete();
-        return redirect()->route('tipodocumentoidentificacion.index')->with('success','Registro borrado completamente');
+        $valida = Personanatural::where('tipodocumentoidentificacion_id', '=', $tipodocumentoidentificacion->id)->get();
+        if ($valida->isEmpty()) {
+            $tipodocumentoidentificacion->delete();
+            return redirect()->route('tipodocumentoidentificacion.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('tipodocumentoidentificacion.index')
+             ->withErrors(['No se puede borrar el tipo de documento de indentificación', 
+             'El tipo de documento de indentificación tiene persona(s) naturales(s) asociada(s)']);
+        }
     }
 }

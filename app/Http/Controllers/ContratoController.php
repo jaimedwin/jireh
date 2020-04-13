@@ -33,7 +33,8 @@ class ContratoController extends Controller
                         ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('tipocontrato','tipocontrato_id','=','tipocontrato.id')
                         ->join('personanatural','personanatural_id','=','personanatural.id');
-        if (empty($palabrasbuscar)){
+        $emptypalabrasbuscar = array_filter($palabrasbuscar);
+        if (!empty($emptypalabrasbuscar)){
             $columnas = ['valor', 'numero', 'tipocontrato.descripcion', 
             'personanatural.nombres', 'personanatural.apellidopaterno', 'personanatural.apellidomaterno'];
             $Contratos['Contratos'] = $contratos
@@ -131,8 +132,8 @@ class ContratoController extends Controller
         if (Storage::exists($path)){
             return redirect()->route('contrato.index')
             ->with('success',['data1' => 'Contrato actualizado', 
-            'data2' => 'Archivo previo de contrato borrado completamente',
-            'data3' => 'Se carga un nuevo archivo para el contrato']);
+            'data2' => 'Archivo previo borrado completamente: '. $nombrearchivo_anterior,
+            'data3' => 'Se carga nuevo archivo: '. $fileName]);
         }else{
             return redirect()->route('contrato.edit')
             ->with('success',['Error no se escribio archivo en disco']);
@@ -161,7 +162,6 @@ class ContratoController extends Controller
             return redirect()->route('contrato.index')
             ->withErrors(['No se puede borrar el contrato', 'El contrato tiene pagos asociados']);
         }
-        
     }
 
     public function downloadFile($id, $name)

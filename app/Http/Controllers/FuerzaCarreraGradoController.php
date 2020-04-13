@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Grado;
 use App\Models\Carrera;
+use App\Models\Personanatural;
 use App\User;
 use App\Http\Requests\GradoFormRequest;
 use Illuminate\Http\Request;
@@ -110,9 +111,16 @@ class FuerzaCarreraGradoController extends Controller
      */
     public function destroy($fuerza_id, $carrera_id, $id)
     {
-        $grado =  Grado::find($id);
-        $grado->delete();
-        return redirect()->route('fuerza.carrera.grado.index', [$carrera_id, $carrera_id])
-        ->with('success','Registro borrado completamente');
+        $valida = Personanatural::where('grado_id', '=', $id)->get();
+        if ($valida->isEmpty()) {
+            $grado =  Grado::find($id);
+            $grado->delete();
+            return redirect()->route('fuerza.carrera.grado.index', [$carrera_id, $carrera_id])
+            ->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('fuerza.carrera.grado.index', [$carrera_id, $carrera_id])
+             ->withErrors(['No se puede borrar el grado', 
+             'El grado tiene persona(s) naturales(s) asociada(s)']);
+          }
     }
 }

@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EpsSeeder::class);   
         $this->call(ExpedicionSeeder::class);
         $this->call(FuerzaCarreraGradoSeeder::class);   
+        $this->call(TipodocumentoSeeder::class);
+        $this->call(TipodemandaSeeder::class);
     }
 }

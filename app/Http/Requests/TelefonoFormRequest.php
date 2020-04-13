@@ -13,7 +13,7 @@ class TelefonoFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class TelefonoFormRequest extends FormRequest
     {
         return [
             'prefijo'               => 'required|string|max:10',
-            'numero'                => 'required|string|unique:telefono|max:15',
+            'numero'                => 'required|string|max:15',
             'principal'             => 'required|boolean', 
             'personanatural_id'     => 'required|numeric',
             'users_id'              => 'required|numeric',

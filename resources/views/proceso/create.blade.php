@@ -8,6 +8,8 @@
 
     <div class="card-body">
 
+        @include('admin.errors')
+            
         <form action="{{ route('proceso.store')}}" method="post">
             @csrf
             <div class="row mb-4">

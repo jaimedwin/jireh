@@ -10,7 +10,7 @@
     </li>
   </ul>
 
-  <!-- SEARCH FORM -->
+  <!-- SEARCH FORM 
   <form class="form-inline ml-3">
     <div class="input-group input-group-sm">
       <input class="form-control form-control-navbar" type="search" placeholder="Buscar" aria-label="Buscar">
@@ -21,10 +21,11 @@
       </div>
     </div>
   </form>
-
+  -->
+  
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
-    <!-- Notifications Dropdown Menu -->
+    <!-- Notifications Dropdown Menu 
     <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="#">
         <i class="far fa-bell"></i>
@@ -51,7 +52,7 @@
         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
       </div>
     </li>
-    <!--
+    
     <li class="nav-item">
       <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
         <i class="fas fa-th-large"></i>

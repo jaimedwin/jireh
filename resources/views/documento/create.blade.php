@@ -5,7 +5,7 @@
 <div class="card card-secondary">
 
     <div class="card-header">
-        <h3 class="card-title"><a href="{{route('contrato.index')}}">{{'Contrato'}}</a></h3>
+        <h3 class="card-title"><a href="{{route('documento.index')}}">{{'Documento'}}</a></h3>
     </div>
 
 
@@ -47,30 +47,18 @@
         </div>
         @endif
 
-        <form action="{{ route('contrato.store')}}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('documento.store')}}" method="post" enctype="multipart/form-data">
             <div class="row mb-4">
                 <div class="col-12">
-
                     @csrf
                     <div class="form-group">
-                        <label for="contrato.numero">{{'Número del contrato'}}</label>
-                        <input type="text" class="form-control" id="contrato.numero" name="numero">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="contrato.valor">{{'Valor'}}</label>
-                        <input type="text" class="form-control" id="contrato.valor" name="valor">
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="tipocontrato_id">{{'Tipo de contrato'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="tipocontrato_id"
-                            name="tipocontrato_id">
+                        <label for="tipodocumento_id">{{'Tipo de documento'}}</label>
+                        <select class="form-control selectpicker" data-live-search="true" id="tipodocumento_id"
+                            name="tipodocumento_id">
                             <option selected>Seleccione ...</option>
-                            @foreach ($Tipocontratos as $tipocontrato)
-                            <option data-tokens="{{$tipocontrato->descripcion}}" value="{{$tipocontrato->id}}">
-                                {{$tipocontrato->descripcion}}
+                            @foreach ($Tipodocumentos as $tipodocumento)
+                            <option data-tokens="{{$tipodocumento->descripcion}} {{$tipodocumento->abreviatura}} " value="{{$tipodocumento->id}}">
+                                {{$tipodocumento->abreviatura}} - {{$tipodocumento->descripcion}}
                             </option>
                             @endforeach
                         </select>
@@ -82,17 +70,17 @@
                             <option selected>Seleccione ...</option>
                             @foreach ($Personasnaturales as $personanatural)
                             <option
-                                data-tokens="{{$personanatural->nombres}} {{$personanatural->apellidopaterno}} {{$personanatural->apellidomaterno}}"
+                                data-tokens="{{$personanatural->numerodocumento}} {{$personanatural->nombrecompleto}}"
                                 value="{{$personanatural->id}}">
-                                {{$personanatural->nombres}} {{$personanatural->apellidopaterno}} {{$personanatural->apellidomaterno}}
+                                {{$personanatural->numerodocumento}} - {{$personanatural->nombrecompleto}}
                             </option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="contrato.nombrearchivo">{{'Seleccione documento'}}</label>
-                        <input class="btn btn-primary" type="file" id="contrato.nombrearchivo" name="nombrearchivo"
+                        <label for="documento.nombrearchivo">{{'Seleccione documento'}}</label>
+                        <input class="btn btn-primary" type="file" id="documento.nombrearchivo" name="nombrearchivo"
                             aria-describedby="nombrearchivo"
                             accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                     </div>
@@ -104,7 +92,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('contrato.index')}}" class="btn btn-secondary" role="button" aria-label="Buscar">
+                    <a href="{{route('documento.index')}}" class="btn btn-secondary" role="button" aria-label="Buscar">
                         {{'Cancelar'}}
                     </a>
                     <button type="submit" class="btn btn-success float-right">

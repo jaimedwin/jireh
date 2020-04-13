@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tipodocumento;
+use App\Models\Documento;
 use App\User;
 use App\Http\Requests\TipodocumentoFormRequest;
 use Illuminate\Http\Request;
@@ -102,7 +103,14 @@ class TipodocumentoController extends Controller
      */
     public function destroy(Tipodocumento $tipodocumento)
     {
-        $tipodocumento->delete();
-        return redirect()->route('tipodocumento.index')->with('success','Registro borrado completamente');
+        $valida = Documento::where('tipodocumento_id', '=', $tipodocumento->id)->get();
+        if ($valida->isEmpty()) {
+            $tipodocumento->delete();
+            return redirect()->route('tipodocumento.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('tipodocumento.index')
+             ->withErrors(['No se puede borrar el tipo de documento', 
+             'El tipo de documento tiene documento(s) asociado(s)']);
+        }
     }
 }

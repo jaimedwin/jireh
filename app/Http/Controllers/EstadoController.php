@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estado;
+use App\Models\Proceso;
 use App\User;
 use App\Http\Requests\EstadoFormRequest;
 use Illuminate\Http\Request;
@@ -101,7 +102,13 @@ class EstadoController extends Controller
      */
     public function destroy(Estado $estado)
     {
-        $estado->delete();
-        return redirect()->route('estado.index')->with('success','Estado borrado completamente');
+        $valida = Proceso::where('estado_id', '=', $estado->id)->get();
+        if ($valida->isEmpty()) {
+            $estado->delete();
+            return redirect()->route('estado.index')->with('success','Estado borrado completamente');
+        }else{
+            return redirect()->route('estado.index')
+            ->withErrors(['No se puede borrar el estado', 'El estado tiene proceso(s) asociado(s)']);
+        }
     }
 }

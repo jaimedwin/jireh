@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrera;
 use App\Models\Fuerza;
+use App\Models\Grado;
 use App\User;
 use App\Http\Requests\CarreraFormRequest;
 use Illuminate\Http\Request;
@@ -110,8 +111,15 @@ class FuerzaCarreraController extends Controller
      */
     public function destroy($fuerza_id, $id)
     {
-        $carrera =  Carrera::find($id);
-        $carrera->delete();
-        return redirect()->route('fuerza.carrera.index', $fuerza_id)->with('success','Registro borrado completamente');
+        $valida = Grado::where('carrera_id', '=', $id)->get();
+        if ($valida->isEmpty()) {
+            $carrera =  Carrera::find($id);
+            $carrera->delete();
+            return redirect()->route('fuerza.carrera.index', $fuerza_id)->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('fuerza.carrera.index', $fuerza_id)
+             ->withErrors(['No se puede borrar la carrera', 
+             'La carrera tiene grado(s) asociado(s)']);
+        }
     }
 }

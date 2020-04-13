@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fondodepension;
+use App\Models\Personanatural;
 use App\User;
 use App\Http\Requests\FondodepensionFormRequest;
 use Illuminate\Http\Request;
@@ -101,7 +102,14 @@ class FondodepensionController extends Controller
      */
     public function destroy(Fondodepension $fondodepension)
     {
-        $fondodepension->delete();
-        return redirect()->route('fondodepension.index')->with('success','Registro borrado completamente');
+        $valida = Personanatural::where('fondodepension_id', '=', $fondodepension->id)->get();
+        if ($valida->isEmpty()) {
+            $fondodepension->delete();
+            return redirect()->route('fondodepension.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('fondodepension.index')
+             ->withErrors(['No se puede borrar el fonde de pension', 
+             'El fondo de pesión tiene persona(s) naturales(s) asociada(s)']);
+          }
     }
 }

@@ -42,7 +42,7 @@
                     <div class="form-group">
                         <label for="contrato.pago.fecha">{{'Fecha de recibo'}}</label>
                         <input class="form-control" type="date" id="contrato.pago.fecha" name="fecha"
-                        value="{{$pago->fecha}}">
+                        value="{{$pago->fecha}}" max="{{ \Carbon\Carbon::now()->toDateString() }}">
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="users_id">users_id</label>

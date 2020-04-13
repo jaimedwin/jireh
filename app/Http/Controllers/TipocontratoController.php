@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tipocontrato;
+use App\Models\Contrato;
 use App\User;
 use App\Http\Requests\TipocontratoFormRequest;
 use Illuminate\Http\Request;
@@ -100,7 +101,14 @@ class TipocontratoController extends Controller
      */
     public function destroy(Tipocontrato $tipocontrato)
     {
-        $tipocontrato->delete();
-        return redirect()->route('tipocontrato.index')->with('success','Registro borrado completamente');
+        $valida = Contrato::where('tipocontrato_id', '=', $tipocontrato->id)->get();
+        if ($valida->isEmpty()) {
+            $tipocontrato->delete();
+            return redirect()->route('tipocontrato.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('tipocontrato.index')
+             ->withErrors(['No se puede borrar el tipo de contrato', 
+             'El tipo de contrato tiene contrato(s) asociado(s)']);
+          }
     }
 }

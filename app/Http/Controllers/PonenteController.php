@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ponente;
-use App\Models\User;
+use App\Models\Proceso;
+use App\User;
 use App\Http\Requests\PonenteFormRequest;
 use Illuminate\Http\Request;
 
@@ -100,7 +101,13 @@ class PonenteController extends Controller
      */
     public function destroy(Ponente $ponente)
     {
-        $ponente->delete();
-        return redirect()->route('ponente.index')->with('success','Registro borrado completamente');
+        $valida = Proceso::where('ponente_id', '=', $ponente->id)->get();
+        if ($valida->isEmpty()) {
+            $ponente->delete();
+            return redirect()->route('ponente.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('ponente.index')
+            ->withErrors(['No se puede borrar él ponente', 'Él ponente tiene proceso(s) asociado(s)']);
+        }
     }
 }

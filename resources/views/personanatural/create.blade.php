@@ -11,28 +11,7 @@
 
 	<div class="card-body">
 
-		@if ($errors->any())
-		<div class="row mb-4">
-
-			<div class="col-12">
-				<div class="alert alert-danger alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h5><i class="fas fa-exclamation-triangle"></i>
-						<strong>{{'Error!'}}</strong>
-					</h5>
-					<ul>
-						@foreach ($errors->all() as $error)
-						<li>{{ $error }}</li>
-						@endforeach
-					</ul>
-				</div>
-			</div>
-
-		</div>
-		@endif
-
+		@include('admin.errors')
 
 		<form action="{{ route('personanatural.store')}}" method="post">
 			@csrf
@@ -98,14 +77,16 @@
 				<div class="col-lg">
 					<div class="form-group">
 						<label for="personanatural.fechaexpedicion">{{'Fecha de expedicion'}}</label>
-						<input class="form-control" type="date" id="personanatural.fechaexpedicion" name="fechaexpedicion">
+						<input class="form-control" type="date" id="personanatural.fechaexpedicion" name="fechaexpedicion"
+						max="{{ \Carbon\Carbon::now()->toDateString() }}">
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-lg-4">
 					<label for="personanatural.fechanacimiento">{{'Fecha de nacimiento'}}</label>
-					<input class="form-control" type="date" id="personanatural.fechanacimiento" name="fechanacimiento">
+					<input class="form-control" type="date" id="personanatural.fechanacimiento" name="fechanacimiento" 
+					max="{{ \Carbon\Carbon::now()->toDateString() }}">
 				</div>
 				<div class="form-group col-lg-8">
 					<label for="personanatural.direccion">{{'Dirección *'}}</label>
@@ -155,7 +136,7 @@
 				</div>
 			</div>
 
-
+			<!--
 			<div class="row">
 				<div class="form-group col-lg">
 					<label for="telefonos">{{'Telefono(s) *'}}</label>
@@ -234,6 +215,8 @@
 					</p>
 				</div>
 			</div>
+			-->
+			
 			<div class="row">
 				<div class="col-lg">
 					<a href="{{route('personanatural.index')}}" class="btn btn-secondary" role="button"

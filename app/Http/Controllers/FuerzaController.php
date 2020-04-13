@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fuerza;
+use App\Models\Carrera;
 use App\User;
 use App\Http\Requests\FuerzaFormRequest;
 use Illuminate\Http\Request;
@@ -42,8 +43,7 @@ class FuerzaController extends Controller
      */
     public function store(FuerzaFormRequest $request)
     {
-        $d = $request->except('_token');
-        Fuerza::create($d);
+        Fuerza::create($request->except('_token'));
         return redirect()->route('fuerza.index')->with('success','Fuerza almacenado completamente');
     }
 
@@ -91,7 +91,14 @@ class FuerzaController extends Controller
      */
     public function destroy(Fuerza $fuerza)
     {
-        $fuerza->delete();
-        return redirect()->route('fuerza.index')->with('success','Registro borrado completamente');
+        $valida = Carrera::where('fuerza_id', '=', $fuerza->id)->get();
+        if ($valida->isEmpty()) {
+            $fuerza->delete();
+            return redirect()->route('fuerza.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('fuerza.index')
+             ->withErrors(['No se puede borrar el registro de la fuerza', 
+             'Laa fuerza tiene carrera(s) asociada(s)']);
+        }
     }
 }

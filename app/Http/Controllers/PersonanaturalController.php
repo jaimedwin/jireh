@@ -11,6 +11,8 @@ use App\Models\Eps;
 use App\Models\Grado;
 use App\Models\Correo;
 use App\Models\Telefono;
+use App\Models\Documento;
+use App\Models\Clienteproceso;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -40,6 +42,7 @@ class PersonanaturalController extends Controller
                                 'grado.abreviatura AS grado',
                                 'carrera.descripcion AS carrera',
                                 'fuerza.abreviatura AS fuerza')
+                                ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
                                 ->join('tipodocumentoidentificacion',
                                     'tipodocumentoidentificacion_id','=','tipodocumentoidentificacion.id')
                                 ->join('expedicion','expedicion_id','=','expedicion.id')
@@ -48,7 +51,8 @@ class PersonanaturalController extends Controller
                                 ->join('grado','grado_id','=','grado.id')
                                 ->join('carrera','carrera.id','=','carrera_id')
                                 ->join('fuerza', 'fuerza.id', '=', 'carrera.fuerza_id');  
-        if (empty($palabrasbuscar)){            
+        $emptypalabrasbuscar = array_filter($palabrasbuscar);
+        if (!empty($emptypalabrasbuscar)){         
             $columnas = ['codigo', 'nombres', 'apellidopaterno', 'apellidomaterno', 
             'numerodocumento', 'direccion', 'eps', 'grado', 'expedicion'];
             $personasnaturales['Personasnaturales'] = $Personasnaturales
@@ -91,14 +95,9 @@ class PersonanaturalController extends Controller
     public function store(PersonanaturalFormRequest $request)
     {
         $d = $request->except('_token');
-        if($request->exists(['telefono_principal', 'correo_principal'])){   
-            //dd($request->all());
-            $grado = Personanatural::create($d);
-            return redirect()->route('personanatural.index')
+        $personanatural = Personanatural::create($d);
+        return redirect()->route('personanatural.index')
                 ->with('success','Recordatorio del proceso almacenado completamente');
-        }else{
-            return Redirect::back()->withErrors(['Seleccione el correo y el telefono principal']);
-        }
     }
 
     /**
@@ -109,7 +108,28 @@ class PersonanaturalController extends Controller
      */
     public function show(Personanatural $personanatural)
     {
-        //
+
+        $auditoria = User::findOrFail($personanatural)->first();
+        $id = $personanatural->id;
+        $personanatural = Personanatural::select('personanatural.*',  
+                                'fondodepension.abreviatura AS fondodepension',
+                                'tipodocumentoidentificacion.abreviatura AS tipodocumentoidentificacion',
+                                'expedicion.lugar AS expedicion',
+                                'eps.abreviatura AS eps', 
+                                'grado.abreviatura AS grado',
+                                'carrera.descripcion AS carrera',
+                                'fuerza.abreviatura AS fuerza')
+                                ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                                ->join('tipodocumentoidentificacion',
+                                    'tipodocumentoidentificacion_id','=','tipodocumentoidentificacion.id')
+                                ->join('expedicion','expedicion_id','=','expedicion.id')
+                                ->join('eps','eps_id','=','eps.id')
+                                ->join('fondodepension','fondodepension_id','=','fondodepension.id')
+                                ->join('grado','grado_id','=','grado.id')
+                                ->join('carrera','carrera.id','=','carrera_id')
+                                ->join('fuerza', 'fuerza.id', '=', 'carrera.fuerza_id')
+                                ->findOrFail($id);  
+        return view('personanatural.show', compact('auditoria', 'personanatural'));
     }
 
     /**
@@ -120,7 +140,19 @@ class PersonanaturalController extends Controller
      */
     public function edit(Personanatural $personanatural)
     {
-        //
+        $Tiposdocumentosidentificacion = Tipodocumentoidentificacion::
+            select('id', 'abreviatura', 'descripcion')->orderBy('abreviatura', 'ASC')->get();
+        $Fondodepensiones = Fondodepension::
+            select('id', 'abreviatura', 'descripcion')->orderBy('abreviatura', 'ASC')->get();
+        $Expediciones = Expedicion::
+            select('id', 'lugar')->orderBy('lugar', 'ASC')->get();
+        $Eps = Eps::select('id', 'abreviatura')->orderBy('abreviatura', 'ASC')->get();
+        $Grados = Grado::select('grado.id', 'grado.abreviatura', 'grado.descripcion', 'fuerza.abreviatura AS fuerza')
+                        ->join('carrera','carrera.id','=','carrera_id')
+                        ->join('fuerza', 'fuerza.id', '=', 'carrera.fuerza_id')
+                        ->orderBy('fuerza.abreviatura', 'ASC')
+                        ->get();
+        return view('personanatural.edit', compact('personanatural', 'Tiposdocumentosidentificacion', 'Fondodepensiones', 'Expediciones', 'Eps', 'Grados'));
     }
 
     /**
@@ -130,9 +162,11 @@ class PersonanaturalController extends Controller
      * @param  \App\Personanatural  $personanatural
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Personanatural $personanatural)
+    public function update(PersonanaturalFormRequest $request, Personanatural $personanatural)
     {
-        //
+        
+        $personanatural->update($request->all());
+        return redirect()->route('personanatural.index')->with('success','Registro actualizado completamente');
     }
 
     /**
@@ -143,6 +177,29 @@ class PersonanaturalController extends Controller
      */
     public function destroy(Personanatural $personanatural)
     {
-        //
+        $valida1 = Correo::where('personanatural_id', '=', $personanatural->id)->get();
+        $valida2 = Telefono::where('personanatural_id', '=', $personanatural->id)->get();
+        $valida3 = Documento::where('personanatural_id', '=', $personanatural->id)->get();
+        $valida4 = Clienteproceso::where('personanatural_id', '=', $personanatural->id)->get();
+        if ($valida1->isEmpty() && $valida2->isEmpty() && $valida3->isEmpty()) {
+            $personanatural->delete();
+            return redirect()->route('personanatural.index')->with('success','Registro borrado completamente');
+        }else {
+            $errors = array('No se puede borrar la persona natural');
+            if (!$valida1->isEmpty()){
+                array_push($errors, 'El proceso tiene correo(s) eletronico(s) asociado(s)');
+            }
+            if (!$valida2->isEmpty()){
+                array_push($errors,'El proceso tiene telefo(s) asociado(s)');
+            }
+            if (!$valida3->isEmpty()){
+                array_push($errors,'El proceso tiene documento(s) asociado(s)');
+            }
+            if (!$valida4->isEmpty()){
+                array_push($errors,'El proceso está asociado con proceso(s)');
+            }
+
+            return redirect()->route('personanatural.index')->withErrors($errors);
+        }
     }
 }

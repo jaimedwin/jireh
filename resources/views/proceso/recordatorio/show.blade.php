@@ -25,7 +25,7 @@
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'2.'}}</td>
-                            <td class="table-secondary">{{'Observacion'}}</td>
+                            <td class="table-secondary">{{'Observación'}}</td>
                             <td>{{$recordatorioproceso->observacion}}</td>
               
                         </tr>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eps;
+use App\Models\Personanatural;
 use App\User;
 use App\Http\Requests\EpsFormRequest;
 use Illuminate\Http\Request;
@@ -101,7 +102,14 @@ class EpsController extends Controller
      */
     public function destroy(Eps $ep)
     {
-        $ep->delete();
-        return redirect()->route('eps.index')->with('success','Registro borrado completamente');
+        $valida = Personanatural::where('eps_id', '=', $ep->id)->get();
+        if ($valida->isEmpty()) {
+            $ep->delete();
+            return redirect()->route('eps.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('eps.index')
+             ->withErrors(['No se puede borrar la eps', 
+             'La eps tiene persona(s) naturales(s) asociada(s)']);
+        }
     }
 }

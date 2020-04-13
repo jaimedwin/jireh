@@ -24,8 +24,8 @@ class CorreoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'electronico'           => 'required|email|unique:correo|max:320',
-            'principal'             => 'required|numeric|boolean', 
+            'electronico'           => 'required|email|max:320',
+            'principal'             => 'required|boolean', 
             'personanatural_id'     => 'required|numeric',
             'users_id'              => 'required|numeric',
             'created_at'            => 'nullable|date',

@@ -40,36 +40,148 @@
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
 
             <li class="nav-header">CLIENTES</li>
             
-            <li class="nav-item">
-                <a href="{{ route ('personanatural.index')}}" class="nav-link">
-                    <i class="fas fa-male nav-icon"></i>
+            <li class="nav-item has-treeview menu-open nav-compact">
+                <a href="#" class="nav-link active">
+                    <i class="nav-icon far fa-plus-square"></i>
                     <p>
-                        {{'Persona natural'}}
+                        Persona
+                        <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
-            </li>
-            
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-industry nav-icon"></i>
-                    <p>
-                        {{'Persona jurica'}}
-                    </p>
-                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route ('personanatural.index')}}" class="nav-link">
+                            <i class="fas fa-male nav-icon"></i>
+                            <p>
+                                {{'Persona natural'}}
+                            </p>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="{{ route ('fondodepension.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                {{'Fondo de pensión'}}
+                            </p>
+                        </a>
+                    </li>
+        
+                    <li class="nav-item">
+                        <a href="{{ route ('eps.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                {{'Eps'}}
+                            </p>
+                        </a>
+                    </li>
+        
+                    <li class="nav-item">
+                        <a href="{{ route ('fuerza.index')}}" class="nav-link">
+                            <i class="fas fa-shield-alt nav-icon"></i>
+                            <p>
+                                {{'Fuerza'}}
+                            </p>
+                        </a>
+                    </li>
+        
+                    <li class="nav-item">
+                        <a href="{{ route ('expedicion.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                {{'Expedición'}}
+                            </p>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="{{ route ('tipodocumentoidentificacion.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                {{'Documento de identificación'}}
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{route ('personajuridica.index')}}" class="nav-link">
+                            <i class="fas fa-industry nav-icon"></i>
+                            <p>
+                                {{'Persona jurica'}}
+                            </p>
+                        </a>
+                    </li>
+
+                </ul>
             </li>
 
-            <li class="nav-item">
-                <a href="{{ route ('contrato.index')}}" class="nav-link">
+            <li class="nav-item has-treeview nav-compact">
+                <a href="#" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>
-                        {{'Contrato'}}
+                        Contratos
+                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
+
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route ('contrato.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                {{'Contrato'}}
+                            </p>
+                        </a>
+                    </li>
+        
+                    <li class="nav-item">
+                        <a href="{{ route ('tipocontrato.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                {{'Tipo de contrato'}}
+                            </p>
+                        </a>
+                    </li>
+                </ul>
             </li>
+
+            
+
+            <li class="nav-item has-treeview nav-compact">
+                <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        Archivos
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route ('documento.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                {{'Documento'}}
+                            </p>
+                        </a>
+                    </li>
+        
+                    <li class="nav-item">
+                        <a href="{{ route ('tipodocumento.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                {{'Tipo de documento'}}
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            
 
             <li class="nav-header">PROCESOS</li>
 
@@ -83,91 +195,10 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-cogs nav-icon"></i>
-                    <p>
-                        {{'Actuaciòn proceso'}}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
                 <a href="{{ route ('estado.index')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>
                         {{'Estado del proceso'}}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route ('fondodepension.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                        {{'Fondo de pensión'}}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route ('tipodocumento.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                        {{'Tipo de documento'}}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route ('eps.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                        {{'Eps'}}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route ('fuerza.index')}}" class="nav-link">
-                    <i class="fas fa-shield-alt nav-icon"></i>
-                    <p>
-                        {{'Fuerza'}}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route ('expedicion.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                        {{'Expedición'}}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route ('tipocontrato.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                        {{'Tipo de contrato'}}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route ('tipodocumentoidentificacion.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                        {{'Documento de identificación'}}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route ('tipodemanda.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                        {{'Tipo de demanda'}}
                     </p>
                 </a>
             </li>
@@ -199,8 +230,55 @@
                 </a>
             </li>
 
+            <li class="nav-header">CLIENTES Y PROCESOS</li>
+
+            <li class="nav-item">
+                <a href="{{ route ('clienteproceso.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Persona natural y proceso'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route ('tipodemanda.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Tipo de demanda'}}
+                    </p>
+                </a>
+            </li>
+
             <li class="nav-header">REPORTES</li>
 
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Lista de personas naturales'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Lista de procesos'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Lista de recordatorios'}}
+                    </p>
+                </a>
+            </li>
+            
             <!--
             <li class="nav-item has-treeview menu-open nav-compact">
                 <a href="#" class="nav-link active">

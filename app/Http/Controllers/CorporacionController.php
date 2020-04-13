@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Corporacion;
+use App\Models\Proceso;
 use App\User;
 use App\Http\Requests\CorporacionFormRequest;
 use Illuminate\Http\Request;
@@ -101,7 +102,13 @@ class CorporacionController extends Controller
      */
     public function destroy(Corporacion $corporacion)
     {
-        $corporacion->delete();
-        return redirect()->route('corporacion.index')->with('success','Registro borrado completamente');
+        $valida = Proceso::where('corporacion_id', '=', $corporacion->id)->get();
+        if ($valida->isEmpty()) {
+            $corporacion->delete();
+            return redirect()->route('corporacion.index')->with('success','Registro borrado completamente');
+        }else{
+            return redirect()->route('corporacion.index')
+            ->withErrors(['No se puede borrar la corporación', 'La corporación tiene proceso(s) asociado(s)']);
+        }
     }
 }

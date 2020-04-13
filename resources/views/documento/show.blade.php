@@ -3,7 +3,7 @@
 @section('content')
 <div class="card card-secondary">
     <div class="card-header">
-        <h3 class="card-title"><a href="{{route('contrato.index')}}">{{'Contrato'}}</a></h3>
+        <h3 class="card-title"><a href="{{route('documento.index')}}">{{'Documento'}}</a></h3>
     </div>
 
     <div class="card-body">
@@ -21,49 +21,39 @@
                         <tr>
                             <td class="table-secondary">{{'1.'}}</td>
                             <td class="table-secondary">{{'id'}}</td>
-                            <td>{{$contrato->id}}</td>
+                            <td>{{$documento->id}}</td>
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'2.'}}</td>
-                            <td class="table-secondary">{{'Número de contrato'}}</td>
-                            <td>{{$contrato->numero}}</td>
+                            <td class="table-secondary">{{'Tipo de documento'}}</td>
+                            <td>{{$documento->tipodocumento_id}} - {{$tipodocumento->abreviatura}}</td>
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'3.'}}</td>
-                            <td class="table-secondary">{{'Tipo de contrato'}}</td>
-                            <td>{{$contrato->tipocontrato_id}} - {{$tipocontrato->descripcion}}</td>
+                            <td class="table-secondary">{{'Persona natural'}}</td>
+                            <td>{{$documento->personanatural_id}} - {{$personanatural->nombrecompleto}}</td>
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'4.'}}</td>
-                            <td class="table-secondary">{{'Valor'}}</td>
-                            <td>{{$contrato->valor}}</td>
-                        </tr>
-                        <tr>
-                            <td class="table-secondary">{{'5.'}}</td>
-                            <td class="table-secondary">{{'Persona natural'}}</td>
-                            <td>{{$contrato->personanatural_id}} - {{$personanatural->nombres}} {{$personanatural->apellidopaterno}} {{$personanatural->apellidomaterno}}</td>
-                        </tr>
-                        <tr>
-                            <td class="table-secondary">{{'6.'}}</td>
                             <td class="table-secondary">{{'Documento'}}</td>
-                            <td>{{$contrato->nombrearchivo}}</td>
+                            <td>{{$documento->nombrearchivo}}</td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td class="table-secondary">{{'7.'}}</td>
+                            <td class="table-secondary">{{'5.'}}</td>
                             <td class="table-secondary">{{'Usuario'}}</td>
-                            <td>{{$contrato->users_id}} - {{$auditoria->email}}</td>
+                            <td>{{$documento->users_id}} - {{$auditoria->email}}</td>
                         </tr>
                         <tr>
-                            <td class="table-secondary">{{'8.'}}</td>
+                            <td class="table-secondary">{{'6.'}}</td>
                             <td class="table-secondary">{{'Fecha de creación'}}</td>
-                            <td>{{$contrato->created_at}}</td>
+                            <td>{{$documento->created_at}}</td>
                         </tr>
                         <tr>
-                            <td class="table-secondary">{{'9.'}}</td>
+                            <td class="table-secondary">{{'7.'}}</td>
                             <td class="table-secondary">{{'Fecha de actualización'}}</td>
-                            <td>{{$contrato->updated_at}}</td>
+                            <td>{{$documento->updated_at}}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -71,7 +61,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <a href="{{route('contrato.index')}}" class="btn btn-secondary" role="button" aria-label="Regresar">
+                <a href="{{route('documento.index')}}" class="btn btn-secondary" role="button" aria-label="Regresar">
                     {{'Regresar'}}
                 </a>
             </div>

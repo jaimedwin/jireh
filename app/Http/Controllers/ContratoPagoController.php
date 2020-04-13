@@ -26,8 +26,9 @@ class ContratoPagoController extends Controller
                     ->select('pago.*')
                     ->join('contrato','contrato_id','=','contrato.id')
                     ->where('contrato_id', '=', $contrato_id);
-        if (empty($palabrasbuscar)){
-            $columnas = ['fecha', 'abono'];
+        $emptypalabrasbuscar = array_filter($palabrasbuscar);
+        if (!empty($emptypalabrasbuscar)){
+            $columnas = ['nrecibo', 'fecha', 'abono'];
             $Pagos = $pagos->whereOrSearch($palabrasbuscar, $columnas);
             return view('contrato.pago.index', compact('contrato_id', 'Pagos'))
                     ->with('success','Busqueda realizada');

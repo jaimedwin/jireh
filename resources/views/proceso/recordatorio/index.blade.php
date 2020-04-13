@@ -55,7 +55,7 @@
             <tr>
               <th style="width: 10px">{{'#'}}</th>
               <th>{{'Fecha'}}</th>
-              <th>{{'Observacion'}}</th>
+              <th>{{'Observación'}}</th>
             
               <th style="width: 160px" class="text-center">{{'Acciones'}}</th>
             </tr>

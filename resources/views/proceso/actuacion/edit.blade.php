@@ -35,7 +35,8 @@
                         <label for="proceso.actuacion.fechaactuacion"
                             class="col-2 col-form-label">{{'Fecha de actuacion'}}</label>
                         <input class="form-control" type="date" id="proceso.actuacion.fechaactuacion"
-                            name="fechaactuacion" value="{{$actuacionproceso->fechaactuacion}}">
+                            name="fechaactuacion" value="{{$actuacionproceso->fechaactuacion}}"
+                            max="{{ \Carbon\Carbon::now()->toDateString() }}">
                     </div>
                     <div class="form-group">
                         <label for="proceso.actuacion.actuacion">{{'Actuacion'}}</label>

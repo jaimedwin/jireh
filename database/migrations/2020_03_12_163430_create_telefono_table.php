@@ -17,7 +17,7 @@ class CreateTelefonoTable extends Migration {
 		{
 			$table->bigIncrements('id');
 			$table->string('prefijo', 10);
-			$table->string('numero', 15)->unique('numero');
+			$table->string('numero', 15);
 			$table->boolean('principal')->default(0);
 			$table->unsignedBigInteger('personanatural_id')->index('telefono_FK');
 			$table->unsignedBigInteger('users_id');
