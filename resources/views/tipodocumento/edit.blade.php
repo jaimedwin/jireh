@@ -30,20 +30,19 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="tipodocumento.abreviatura">{{'Abreviatura'}}</label>
+                        <label for="tipodocumento.abreviatura">{{'Abreviatura *'}}</label>
                         <input type="text" class="form-control" id="tipodocumento.abreviatura" name="abreviatura"
                             value="{{$tipodocumento->abreviatura}}">
                     </div>
                     <div class="form-group">
-                        <label for="tipodocumento.descripcion">{{'Descripción'}}</label>
+                        <label for="tipodocumento.descripcion">{{'Descripción *'}}</label>
                         <input type="text" class="form-control" id="tipodocumento.descripcion" name="descripcion"
                             value="{{$tipodocumento->descripcion}}">
                     </div>
                     <div class="form-group">
                         <label for="tipodocumento.comentario">{{'Comentario'}}</label>
                         <textarea class="form-control" rows="3" class="form-control" id="tipodocumento.comentario"
-                            name="comentario" value="{{$tipodocumento->comentario}}">
-                        </textarea>
+                            name="comentario">{{$tipodocumento->comentario}}</textarea>
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="users_id">users_id</label>

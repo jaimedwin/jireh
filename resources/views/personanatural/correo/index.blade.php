@@ -49,20 +49,19 @@
 				<div class="row mb-4">
 					<div class="col-12">
 						<div class="form-group">
-							<label for="personanatural.correo.electronico">{{'Email'}}</label>
+							<label for="personanatural.correo.electronico">{{'Email *'}}</label>
 							<input type="text" class="form-control" id="personanatural.correo.electronico" name="electronico">
 						</div>
 						<div class="form-group">
 							<label
-								for="proceso.actuacion.nombrearchivo">{{'Correo principal?'}}</label>
+								for="proceso.actuacion.nombrearchivo">{{'¿Correo principal? *'}}</label>
 							<div class="btn-group btn-group-toggle" data-toggle="buttons">
 								<label class="btn btn-primary">
 									<input type="radio" name="principal" id="option1" autocomplete="off" value="1">
 									{{'Sí'}}
 								</label>
-								<label class="btn btn-primary active">
-									<input type="radio" name="principal" id="option0" autocomplete="off" value="0"
-									checked>
+								<label class="btn btn-primary">
+									<input type="radio" name="principal" id="option0" autocomplete="off" value="0">
 									{{'No'}}
 								</label>
 							</div>

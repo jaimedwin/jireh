@@ -24,7 +24,7 @@ class DocumentoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombrearchivo'         => 'required|mimes:pdf|unique:documento|max:250',
+            'nombrearchivo'         => 'required|mimes:pdf|unique:documento',
             'tipodocumento_id'      => 'required|numeric',
             'personanatural_id'     => 'required|numeric',
             'users_id'              => 'required|numeric',

@@ -30,13 +30,13 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="personanatural.correo.electronico">{{'Email'}}</label>
+                        <label for="personanatural.correo.electronico">{{'Email *'}}</label>
                         <input type="text" class="form-control" id="personanatural.correo.electronico" name="electronico"
                         value="{{$correo->electronico}}">
                     </div>
                     <div class="form-group">
                         <label
-                            for="proceso.actuacion.nombrearchivo">{{'Correo principal?'}}</label>
+                            for="proceso.actuacion.nombrearchivo">{{'¿Correo principal? *'}}</label>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             @if ($correo->principal == 0)
                                 <label class="btn btn-primary">

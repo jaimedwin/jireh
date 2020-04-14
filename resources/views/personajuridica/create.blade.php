@@ -53,12 +53,12 @@
 
                     @csrf
                     <div class="form-group">
-                        <label for="personajuridica.nit">{{'Nit'}}</label>
+                        <label for="personajuridica.nit">{{'Nit *'}}</label>
                         <input type="text" class="form-control" id="personasjuridica.nit" name="nit">
                     </div>
 
                     <div class="form-group">
-                        <label for="personajuridica.razonsocial">{{'Razón social'}}</label>
+                        <label for="personajuridica.razonsocial">{{'Razón social *'}}</label>
                         <input type="text" class="form-control" id="personasjuridica.razonsocial" name="razonsocial">
                     </div>
                     <div class="form-group">
@@ -66,7 +66,7 @@
                         <input type="text" class="form-control" id="personasjuridica.direccion" name="direccion">
                     </div>
                     <div class="form-group">
-                        <label for="personanatural_id">{{'Persona natural'}}</label>
+                        <label for="personanatural_id">{{'Persona natural *'}}</label>
                         <select class="form-control selectpicker" data-live-search="true" id="personanatural_id"
                             name="personanatural_id">
                             <option selected>Seleccione ...</option>

@@ -33,11 +33,11 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="tipodocumentoidentificacion.abreviatura">{{'Abreviatura'}}</label>
+                        <label for="tipodocumentoidentificacion.abreviatura">{{'Abreviatura *'}}</label>
                         <input type="text" class="form-control" id="tipodocumentoidentificacion.abreviatura" name="abreviatura">
                     </div>
                     <div class="form-group">
-                        <label for="tipodocumentoidentificacion.descripcion">{{'Descripción'}}</label>
+                        <label for="tipodocumentoidentificacion.descripcion">{{'Descripción *'}}</label>
                         <input type="text" class="form-control" id="tipodocumentoidentificacion.descripcion" name="descripcion">
                     </div>
                     <div class="form-group">

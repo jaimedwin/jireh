@@ -87,7 +87,7 @@ class PonenteController extends Controller
      * @param  \App\Ponente  $ponente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ponente $ponente)
+    public function update(PonenteFormRequest $request, Ponente $ponente)
     {
         $ponente->update($request->all());
         return redirect()->route('ponente.index')->with('success','Registro actualizado completamente');

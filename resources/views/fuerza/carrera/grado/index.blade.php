@@ -47,11 +47,11 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="fuerza.carrera.grado.abreviatura">{{'Abreviatura'}}</label>
+                        <label for="fuerza.carrera.grado.abreviatura">{{'Abreviatura *'}}</label>
                         <input type="text" class="form-control" id="fuerza.carrera.grado.abreviatura" name="abreviatura">
                     </div>
                     <div class="form-group">
-                        <label for="fuerza.carrera.grado.descripcion">{{'Descripción'}}</label>
+                        <label for="fuerza.carrera.grado.descripcion">{{'Descripción *'}}</label>
                         <input type="text" class="form-control" id="fuerza.carrera.grado.descripcion" name="descripcion">
                     </div>
                     <div class="form-group">

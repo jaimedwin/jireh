@@ -33,13 +33,13 @@
                     
                     <div class="form-group">
                         <label for="proceso.actuacion.fechaactuacion"
-                            class="col-2 col-form-label">{{'Fecha de actuacion'}}</label>
+                            class="col-2 col-form-label">{{'Fecha de actuacion *'}}</label>
                         <input class="form-control" type="date" id="proceso.actuacion.fechaactuacion"
                             name="fechaactuacion" value="{{$actuacionproceso->fechaactuacion}}"
                             max="{{ \Carbon\Carbon::now()->toDateString() }}">
                     </div>
                     <div class="form-group">
-                        <label for="proceso.actuacion.actuacion">{{'Actuacion'}}</label>
+                        <label for="proceso.actuacion.actuacion">{{'Actuacion *'}}</label>
                         <input type="text" class="form-control" id="proceso.actuacion.actuacion" name="actuacion"
                             value="{{$actuacionproceso->actuacion}}">
                     </div>
@@ -59,7 +59,7 @@
                             name="fechafinalizatermino" value="{{$actuacionproceso->fechafinalizatermino}}">
                     </div>
                     <div class="form-group">
-                        <label for="proceso.actuacion.fecharegistro">{{'Fecha registro'}}</label>
+                        <label for="proceso.actuacion.fecharegistro">{{'Fecha registro *'}}</label>
                         <input class="form-control" type="date" id="proceso.actuacion.fecharegistro"
                             name="fecharegistro" value="{{$actuacionproceso->fecharegistro}}">
                     </div>

@@ -30,18 +30,18 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="personanatural.telefono.prefijo">{{'Prefijo'}}</label>
+                        <label for="personanatural.telefono.prefijo">{{'Prefijo *'}}</label>
                         <input type="text" class="form-control" id="personanatural.telefono.prefijo" name="prefijo"
                         value="{{$telefono->prefijo}}">
                     </div>
                     <div class="form-group">
-                        <label for="personanatural.telefono.numero">{{'Número'}}</label>
+                        <label for="personanatural.telefono.numero">{{'Número *'}}</label>
                         <input type="text" class="form-control" id="personanatural.telefono.numero" name="numero"
                         value="{{$telefono->numero}}">
                     </div>
                     <div class="form-group">
                         <label
-                            for="proceso.actuacion.nombrearchivo">{{'¿Telefono principal?'}}</label>
+                            for="proceso.actuacion.nombrearchivo">{{'¿Telefono principal? *'}}</label>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             @if ($telefono->principal == 0)
                                 <label class="btn btn-primary">

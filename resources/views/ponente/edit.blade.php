@@ -30,7 +30,7 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="ponente.nombrecompleto">{{'Nombre y apellido:'}}</label>
+                        <label for="ponente.nombrecompleto">{{'Nombre(s) y apellido(s) *'}}</label>
                         <input type="text" class="form-control" id="ponente.nombrecompleto" name="nombrecompleto"
                             value="{{$ponente->nombrecompleto}}">
                     </div>

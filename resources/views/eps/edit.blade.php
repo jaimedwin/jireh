@@ -30,7 +30,7 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="eps.abreviatura">{{'Abreviatura'}}</label>
+                        <label for="eps.abreviatura">{{'Abreviatura *'}}</label>
                         <input type="text" class="form-control" id="eps.abreviatura" name="abreviatura"
                             value="{{$ep->abreviatura}}">
                     </div>

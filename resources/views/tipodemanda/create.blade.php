@@ -33,18 +33,17 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="tipodemanda.abreviatura">{{'Abreviatura'}}</label>
+                        <label for="tipodemanda.abreviatura">{{'Abreviatura *'}}</label>
                         <input type="text" class="form-control" id="tipodemanda.abreviatura" name="abreviatura">
                     </div>
                     <div class="form-group">
-                        <label for="tipodemanda.descripcion">{{'Descripción'}}</label>
+                        <label for="tipodemanda.descripcion">{{'Descripción *'}}</label>
                         <input type="text" class="form-control" id="tipodemanda.descripcion" name="descripcion">
                     </div>
                     <div class="form-group">
                         <label for="tipodemanda.comentario">{{'Comentario'}}</label>
                         <textarea class="form-control" rows="3" class="form-control" id="tipodemanda.comentario"
-                            name="comentario">
-                        </textarea>
+                            name="comentario"></textarea>
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="users_id">users_id</label>

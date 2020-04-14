@@ -88,7 +88,7 @@ class TipodocumentoidentificacionController extends Controller
      * @param  \App\Tipodocumentoidentificacion  $tipodocumentoidentificacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tipodocumentoidentificacion $tipodocumentoidentificacion)
+    public function update(TipodocumentoidentificacionFormRequest $request, Tipodocumentoidentificacion $tipodocumentoidentificacion)
     {
         $tipodocumentoidentificacion->update($request->all());
         return redirect()->route('tipodocumentoidentificacion.index')->with('success','Registro actualizado completamente');

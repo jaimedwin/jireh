@@ -30,12 +30,12 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="fuerza.carrera.abreviatura">{{'Abreviatura'}}</label>
+                        <label for="fuerza.carrera.abreviatura">{{'Abreviatura *'}}</label>
                         <input type="text" class="form-control" id="fuerza.carrera.abreviatura" name="abreviatura"
                             value="{{$carrera->abreviatura}}">
                     </div>
                     <div class="form-group">
-                        <label for="fuerza.carrera.descripcion">{{'Descripción'}}</label>
+                        <label for="fuerza.carrera.descripcion">{{'Descripción *'}}</label>
                         <input type="text" class="form-control" id="fuerza.carrera.descripcion" name="descripcion"
                             value="{{$carrera->descripcion}}">
                     </div>

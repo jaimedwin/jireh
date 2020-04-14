@@ -52,7 +52,7 @@
                 <div class="col-12">
                     @csrf
                     <div class="form-group">
-                        <label for="tipodocumento_id">{{'Tipo de documento'}}</label>
+                        <label for="tipodocumento_id">{{'Tipo de documento *'}}</label>
                         <select class="form-control selectpicker" data-live-search="true" id="tipodocumento_id"
                             name="tipodocumento_id">
                             <option selected>Seleccione ...</option>
@@ -64,7 +64,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="personanatural_id">{{'Persona natural'}}</label>
+                        <label for="personanatural_id">{{'Persona natural *'}}</label>
                         <select class="form-control selectpicker" data-live-search="true" id="personanatural_id"
                             name="personanatural_id">
                             <option selected>Seleccione ...</option>
@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="documento.nombrearchivo">{{'Seleccione documento'}}</label>
+                        <label for="documento.nombrearchivo">{{'Seleccione documento *'}}</label>
                         <input class="btn btn-primary" type="file" id="documento.nombrearchivo" name="nombrearchivo"
                             aria-describedby="nombrearchivo"
                             accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">

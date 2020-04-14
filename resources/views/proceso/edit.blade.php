@@ -30,19 +30,19 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="proceso.codigo">{{'Código'}}</label>
+                        <label for="proceso.codigo">{{'Código *'}}</label>
                         <input type="text" class="form-control" id="proceso.codigo" name="codigo"
                             value="{{$proceso->codigo}}">
                     </div>
                     <div class="form-group">
-                        <label for="proceso.numero">{{'Número del proceso'}}</label>
+                        <label for="proceso.numero">{{'Número del proceso *'}}</label>
                         <input type="text" class="form-control" id="proceso.numero" name="numero"
                             value="{{$proceso->numero}}">
                     </div>
 
 
                     <div class="form-group">
-                        <label for="proceso.ciudadproceso">{{'Ciudad de proceso'}}</label>
+                        <label for="proceso.ciudadproceso">{{'Ciudad de proceso *'}}</label>
                         <select class="form-control selectpicker" data-live-search="true" id="proceso.ciudadproceso" name="ciudadproceso_id">
                             @foreach ($ciudadprocesos as $ciudadproceso)
                             @if ($ciudadproceso->id == $proceso->ciudadproceso_id)
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="proceso.coporacion">{{'Corporación'}}</label>
+                        <label for="proceso.coporacion">{{'Corporación *'}}</label>
                         <select class="form-control selectpicker" data-live-search="true" id="proceso.coporacion" name="corporacion_id">
                             @foreach ($corporacions as $corporacion)
                             @if ($corporacion->id == $proceso->corporacion_id)
@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="proceso.ponente">{{'Ponente'}}</label>
+                        <label for="proceso.ponente">{{'Ponente *'}}</label>
                         <select class="form-control selectpicker" data-live-search="true" id="proceso.ponente" name="ponente_id">
                             @foreach ($ponentes as $ponente)
                                 @if ($ponente->id == $proceso->ponente_id)
@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="proceso.estado">{{'Estado'}}</label>
+                        <label for="proceso.estado">{{'Estado *'}}</label>
                         <select class="form-control selectpicker" data-live-search="true" id="proceso.estado" name="estado_id">
                             @foreach ($estados as $estado)
                                 @if ($estado->id == $proceso->estado_id)

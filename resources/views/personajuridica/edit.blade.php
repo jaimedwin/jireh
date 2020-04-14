@@ -30,13 +30,13 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="personajuridica.nit">{{'Nit'}}</label>
+                        <label for="personajuridica.nit">{{'Nit *'}}</label>
                         <input type="text" class="form-control" id="personajuridica.nit" name="nit"
                         value="{{$personajuridica->nit}}">
                     </div>
 
                     <div class="form-group">
-                        <label for="personajuridica.razonsocial">{{'Razón social'}}</label>
+                        <label for="personajuridica.razonsocial">{{'Razón social *'}}</label>
                         <input type="text" class="form-control" id="personajuridica.razonsocial" name="razonsocial"
                         value="{{$personajuridica->razonsocial}}">
                     </div>
@@ -47,7 +47,7 @@
                         value="{{$personajuridica->direccion}}">
                     </div>
                     <div class="form-group">
-                        <label for="personanatural_id">{{'Persona natural'}}</label>
+                        <label for="personanatural_id">{{'Persona natural *'}}</label>
                         <select class="form-control selectpicker" data-live-search="true" id="personanatural_id"
                             name="personanatural_id">
                             @foreach ($Personasnaturales as $personanatural)

@@ -30,12 +30,12 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="fuerza.abreviatura">{{'Abreviatura'}}</label>
+                        <label for="fuerza.abreviatura">{{'Abreviatura *'}}</label>
                         <input type="text" class="form-control" id="fuerza.abreviatura" name="abreviatura"
                             value="{{$fuerza->abreviatura}}">
                     </div>
                     <div class="form-group">
-                        <label for="fuerza.descripcion">{{'Descripción'}}</label>
+                        <label for="fuerza.descripcion">{{'Descripción *'}}</label>
                         <input type="text" class="form-control" id="fuerza.descripcion" name="descripcion"
                             value="{{$fuerza->descripcion}}">
                     </div>

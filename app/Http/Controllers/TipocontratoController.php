@@ -87,7 +87,7 @@ class TipocontratoController extends Controller
      * @param  \App\Tipocontrato  $tipocontrato
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tipocontrato $tipocontrato)
+    public function update(TipocontratoFormRequest $request, Tipocontrato $tipocontrato)
     {
         $tipocontrato->update($request->all());
         return redirect()->route('tipocontrato.index')->with('success','Registro actualizado completamente');

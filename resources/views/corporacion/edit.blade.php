@@ -30,7 +30,7 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="corporacion.nombre">{{'Nombre'}}</label>
+                        <label for="corporacion.nombre">{{'Nombre *'}}</label>
                         <input type="text" class="form-control" id="corporacion.nombre" name="nombre"
                             value="{{$corporacion->nombre}}">
                     </div>

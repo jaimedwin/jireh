@@ -89,7 +89,7 @@ class TipodemandaController extends Controller
      * @param  \App\Tipodemanda  $tipodemanda
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tipodemanda $tipodemanda)
+    public function update(TipodemandaFormRequest $request, Tipodemanda $tipodemanda)
     {
         $tipodemanda->update($request->all());
         return redirect()->route('tipodemanda.index')->with('success','Registro actualizado completamente');

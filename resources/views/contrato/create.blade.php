@@ -53,18 +53,18 @@
 
                     @csrf
                     <div class="form-group">
-                        <label for="contrato.numero">{{'Número del contrato'}}</label>
+                        <label for="contrato.numero">{{'Número del contrato *'}}</label>
                         <input type="text" class="form-control" id="contrato.numero" name="numero">
                     </div>
 
                     <div class="form-group">
-                        <label for="contrato.valor">{{'Valor'}}</label>
+                        <label for="contrato.valor">{{'Valor *'}}</label>
                         <input type="text" class="form-control" id="contrato.valor" name="valor">
                     </div>
 
 
                     <div class="form-group">
-                        <label for="tipocontrato_id">{{'Tipo de contrato'}}</label>
+                        <label for="tipocontrato_id">{{'Tipo de contrato *'}}</label>
                         <select class="form-control selectpicker" data-live-search="true" id="tipocontrato_id"
                             name="tipocontrato_id">
                             <option selected>Seleccione ...</option>
@@ -76,7 +76,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="personanatural_id">{{'Persona natural'}}</label>
+                        <label for="personanatural_id">{{'Persona natural *'}}</label>
                         <select class="form-control selectpicker" data-live-search="true" id="personanatural_id"
                             name="personanatural_id">
                             <option selected>Seleccione ...</option>
@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="contrato.nombrearchivo">{{'Seleccione documento'}}</label>
+                        <label for="contrato.nombrearchivo">{{'Seleccione documento *'}}</label>
                         <input class="btn btn-primary" type="file" id="contrato.nombrearchivo" name="nombrearchivo"
                             aria-describedby="nombrearchivo"
                             accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">

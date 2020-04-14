@@ -33,7 +33,7 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="expedicion.lugar">{{'Lugar'}}</label>
+                        <label for="expedicion.lugar">{{'Lugar *'}}</label>
                         <input type="text" class="form-control" id="expedicion.lugar" name="lugar">
                     </div>
                     <div class="form-group">

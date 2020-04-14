@@ -87,7 +87,7 @@ class ExpedicionController extends Controller
      * @param  \App\Expedicion  $expedicion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Expedicion $expedicion)
+    public function update(ExpedicionFormRequest $request, Expedicion $expedicion)
     {
         $expedicion->update($request->all());
         return redirect()->route('expedicion.index')->with('success','Registro actualizado completamente');

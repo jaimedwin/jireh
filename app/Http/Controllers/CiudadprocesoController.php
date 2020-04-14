@@ -87,7 +87,7 @@ class CiudadprocesoController extends Controller
      * @param  \App\Ciudadproceso  $ciudadproceso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ciudadproceso $ciudadproceso)
+    public function update(CiudadprocesoFormRequest $request, Ciudadproceso $ciudadproceso)
     {
         $ciudadproceso->update($request->all());
         return redirect()->route('ciudadproceso.index')->with('success','Registro actualizado completamente');

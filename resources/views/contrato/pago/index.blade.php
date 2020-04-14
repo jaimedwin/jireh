@@ -66,7 +66,7 @@
 				<div class="row mb-4">
 					<div class="col-12">
 						<div class="form-group">
-							<label for="contrato.pago.abono">{{'Abono'}}</label>
+							<label for="contrato.pago.abono">{{'Abono *'}}</label>
 							<input type="text" class="form-control" id="contrato.pago.abono" name="abono">
 						</div>
 						<div class="form-group">
@@ -74,7 +74,7 @@
 							<input type="text" class="form-control" id="contrato.pago.nrecibo" name="nrecibo">
 						</div>
 						<div class="form-group">
-							<label for="contrato.pago.fecha">{{'Fecha de recibo'}}</label>
+							<label for="contrato.pago.fecha">{{'Fecha de recibo *'}}</label>
 							<input class="form-control" type="date" id="contrato.pago.fecha" name="fecha"
 							max="{{ \Carbon\Carbon::now()->toDateString() }}">
 						</div>
