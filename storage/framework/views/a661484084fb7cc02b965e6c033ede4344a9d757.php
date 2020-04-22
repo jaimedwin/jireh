@@ -68,13 +68,9 @@
             <?php if(Route::has('login')): ?>
                 <div class="top-right links">
                     <?php if(auth()->guard()->check()): ?>
-                        <a href="<?php echo e(url('/admin')); ?>">Admin</a>
+                        <a href="<?php echo e(url('/admin')); ?>">Admin JIREH</a>
                     <?php else: ?>
                         <a href="<?php echo e(route('login')); ?>">Login</a>
-
-                        <?php if(Route::has('register')): ?>
-                            <a href="<?php echo e(route('register')); ?>">Register</a>
-                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>

@@ -9,7 +9,7 @@ class Personanatural extends Model
 {
     protected $table = 'personanatural';
 
-    protected $fillable = ['codigo', 'nombres', 
+    protected $fillable = ['contrato', 'codigo', 'nombres', 
     'apellidopaterno', 'apellidomaterno',
     'tipodocumentoidentificacion_id',
     'numerodocumento', 'expedicion_id',

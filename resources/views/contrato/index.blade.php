@@ -96,7 +96,7 @@
             <tr>
               <td>{{$loop->iteration}}</td>
               <td>{{$contrato->numero}}</td>
-              <td>{{$contrato->valor}}</td>
+              <td class="row_data">{{$contrato->valor}}</td>
               <td>{{$contrato->tipocontrato}}</td>
               <td>{{$contrato->nombrecompleto}}</td>
               <td class="text-center">

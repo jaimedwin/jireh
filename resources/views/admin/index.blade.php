@@ -73,14 +73,17 @@
 	<script src="{{ url('/') }}/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- Latest compiled and JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.12/js/bootstrap-select.min.js"></script>
+	<!-- Mask for format javascrip -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="{{ url('/') }}/adminlte/dist/js/adminlte.min.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="{{ url('/') }}/adminlte/dist/js/demo.js"></script>
 	<script src="{{ url('/') }}/js/closealert.js"></script>
-	<script src="{{ url('/') }}/js/correo_telefono.js"></script>
 	<script src="{{ url('/') }}/js/hidenoptionfile.js"></script>
-
+	<script src="{{ url('/') }}/js/moneda.js"></script>
+	<script src="{{ url('/') }}/js/format_proceso.js"></script>
+	
 </body>
 
 </html>

@@ -28,6 +28,12 @@
                     <i class="fas fa-plus-square"></i>
                     {{'Crear nuevo proceso'}}
                 </a>
+                <div class="float-right">
+                    <a href="{{route('personanatural.csv')}}" class="btn btn-success" role="button" aria-label="Csv">
+                        <i class="fas fa-download"></i>
+                        {{'Descargar CSV'}}
+                    </a>
+                </div>
             </div>
         </div>
 

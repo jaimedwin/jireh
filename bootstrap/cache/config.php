@@ -314,7 +314,8 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/laravel/jireh/storage/app',
+        'root' => '/var/www/laravel/jireh/storage/app/data',
+        'url' => 'http://localhost/storage',
       ),
       'public' => 
       array (

@@ -27,6 +27,12 @@
           <i class="fas fa-plus-square"></i>
           {{'Crear nuevo actuacion'}}
         </a>
+        <div class="float-right">
+          <a href="{{route('proceso.actuacion.csv', $proceso_id)}}" class="btn btn-success" role="button" aria-label="Csv">
+              <i class="fas fa-download"></i>
+              {{'Descargar CSV'}}
+          </a>
+      </div>
       </div>
     </div>
 

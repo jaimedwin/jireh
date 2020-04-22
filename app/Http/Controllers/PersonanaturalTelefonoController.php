@@ -38,6 +38,16 @@ class PersonanaturalTelefonoController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create($personanatural_id)
+    {
+        return view('personanatural.telefono.create', compact('personanatural_id'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,8 +65,7 @@ class PersonanaturalTelefonoController extends Controller
                 return redirect()->route('personanatural.telefono.index', $personanatural_id)
                     ->with('success','Telefono almacenado completamente');
             }else{
-                return redirect()->route('personanatural.telefono.index', $personanatural_id)
-                    ->withErrors(['No se registro el telefono', 'Ya existe un telefono principal']);
+                return redirect()->back()->withErrors(['No se registro el telefono', 'Ya existe un telefono principal']);
             }
         }else{
             $telefono = Telefono::create($request->except('_token'));

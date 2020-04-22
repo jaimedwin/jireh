@@ -20,6 +20,7 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '9e4824c5afbdc1482b6025ce3d4dfde8' => __DIR__ . '/..' . '/league/csv/src/functions_include.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'b6ec61354e97f32c0ae683041c78392a' => __DIR__ . '/..' . '/scrivo/highlight.php/HighlightUtilities/functions.php',
@@ -99,9 +100,11 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
         'L' => 
         array (
             'League\\Flysystem\\' => 17,
+            'League\\Csv\\' => 11,
             'League\\CommonMark\\' => 18,
             'Laravel\\Ui\\' => 11,
             'Laravel\\Tinker\\' => 15,
+            'Laracsv\\' => 8,
         ),
         'J' => 
         array (
@@ -306,6 +309,10 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
         ),
+        'League\\Csv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/csv/src',
+        ),
         'League\\CommonMark\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/commonmark/src',
@@ -317,6 +324,10 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
         'Laravel\\Tinker\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
+        ),
+        'Laracsv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/usmanhalalit/laracsv/src/Laracsv',
         ),
         'JakubOnderka\\PhpConsoleHighlighter\\' => 
         array (
@@ -411,6 +422,7 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
 
     public static $classMap = array (
         'App\\Builders\\SearchBuilder' => __DIR__ . '/../..' . '/app/Builders/SearchBuilder.php',
+        'App\\Console\\Commands\\CopiaBasededatos' => __DIR__ . '/../..' . '/app/Console/Commands/CopiaBasededatos.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -424,6 +436,7 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
         'App\\Http\\Controllers\\ContratoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContratoController.php',
         'App\\Http\\Controllers\\ContratoPagoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContratoPagoController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\CopiabdController' => __DIR__ . '/../..' . '/app/Http/Controllers/CopiabdController.php',
         'App\\Http\\Controllers\\CorporacionController' => __DIR__ . '/../..' . '/app/Http/Controllers/CorporacionController.php',
         'App\\Http\\Controllers\\DocumentoController' => __DIR__ . '/../..' . '/app/Http/Controllers/DocumentoController.php',
         'App\\Http\\Controllers\\EpsController' => __DIR__ . '/../..' . '/app/Http/Controllers/EpsController.php',
@@ -447,6 +460,7 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
         'App\\Http\\Controllers\\TipodemandaController' => __DIR__ . '/../..' . '/app/Http/Controllers/TipodemandaController.php',
         'App\\Http\\Controllers\\TipodocumentoController' => __DIR__ . '/../..' . '/app/Http/Controllers/TipodocumentoController.php',
         'App\\Http\\Controllers\\TipodocumentoidentificacionController' => __DIR__ . '/../..' . '/app/Http/Controllers/TipodocumentoidentificacionController.php',
+        'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -512,6 +526,7 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonImmutable.php',
@@ -2190,6 +2205,7 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/Highlighter.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'Laracsv\\Export' => __DIR__ . '/..' . '/usmanhalalit/laracsv/src/Laracsv/Export.php',
         'Laravel\\Tinker\\ClassAliasAutoloader' => __DIR__ . '/..' . '/laravel/tinker/src/ClassAliasAutoloader.php',
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
         'Laravel\\Tinker\\TinkerCaster' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerCaster.php',
@@ -2355,6 +2371,28 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
         'League\\CommonMark\\Util\\RegexHelper' => __DIR__ . '/..' . '/league/commonmark/src/Util/RegexHelper.php',
         'League\\CommonMark\\Util\\UrlEncoder' => __DIR__ . '/..' . '/league/commonmark/src/Util/UrlEncoder.php',
         'League\\CommonMark\\Util\\Xml' => __DIR__ . '/..' . '/league/commonmark/src/Util/Xml.php',
+        'League\\Csv\\AbstractCsv' => __DIR__ . '/..' . '/league/csv/src/AbstractCsv.php',
+        'League\\Csv\\ByteSequence' => __DIR__ . '/..' . '/league/csv/src/ByteSequence.php',
+        'League\\Csv\\CannotInsertRecord' => __DIR__ . '/..' . '/league/csv/src/CannotInsertRecord.php',
+        'League\\Csv\\CharsetConverter' => __DIR__ . '/..' . '/league/csv/src/CharsetConverter.php',
+        'League\\Csv\\ColumnConsistency' => __DIR__ . '/..' . '/league/csv/src/ColumnConsistency.php',
+        'League\\Csv\\EncloseField' => __DIR__ . '/..' . '/league/csv/src/EncloseField.php',
+        'League\\Csv\\EscapeFormula' => __DIR__ . '/..' . '/league/csv/src/EscapeFormula.php',
+        'League\\Csv\\Exception' => __DIR__ . '/..' . '/league/csv/src/Exception.php',
+        'League\\Csv\\HTMLConverter' => __DIR__ . '/..' . '/league/csv/src/HTMLConverter.php',
+        'League\\Csv\\InvalidArgument' => __DIR__ . '/..' . '/league/csv/src/InvalidArgument.php',
+        'League\\Csv\\MapIterator' => __DIR__ . '/..' . '/league/csv/src/MapIterator.php',
+        'League\\Csv\\Polyfill\\EmptyEscapeParser' => __DIR__ . '/..' . '/league/csv/src/Polyfill/EmptyEscapeParser.php',
+        'League\\Csv\\RFC4180Field' => __DIR__ . '/..' . '/league/csv/src/RFC4180Field.php',
+        'League\\Csv\\Reader' => __DIR__ . '/..' . '/league/csv/src/Reader.php',
+        'League\\Csv\\ResultSet' => __DIR__ . '/..' . '/league/csv/src/ResultSet.php',
+        'League\\Csv\\Statement' => __DIR__ . '/..' . '/league/csv/src/Statement.php',
+        'League\\Csv\\Stream' => __DIR__ . '/..' . '/league/csv/src/Stream.php',
+        'League\\Csv\\SyntaxError' => __DIR__ . '/..' . '/league/csv/src/SyntaxError.php',
+        'League\\Csv\\TabularDataReader' => __DIR__ . '/..' . '/league/csv/src/TabularDataReader.php',
+        'League\\Csv\\UnavailableFeature' => __DIR__ . '/..' . '/league/csv/src/UnavailableFeature.php',
+        'League\\Csv\\Writer' => __DIR__ . '/..' . '/league/csv/src/Writer.php',
+        'League\\Csv\\XMLConverter' => __DIR__ . '/..' . '/league/csv/src/XMLConverter.php',
         'League\\Flysystem\\AdapterInterface' => __DIR__ . '/..' . '/league/flysystem/src/AdapterInterface.php',
         'League\\Flysystem\\Adapter\\AbstractAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/AbstractAdapter.php',
         'League\\Flysystem\\Adapter\\AbstractFtpAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/AbstractFtpAdapter.php',
@@ -3605,6 +3643,7 @@ class ComposerStaticInit6368ce07a7ff2fe34306304fdc456ceb
         'Ramsey\\Uuid\\UuidFactory' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactory.php',
         'Ramsey\\Uuid\\UuidFactoryInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactoryInterface.php',
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
+        'RolesSeeder' => __DIR__ . '/../..' . '/database/seeds/RolesSeeder.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',

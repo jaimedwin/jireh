@@ -10,18 +10,18 @@
 
         @include('admin.errors')
             
-        <form action="{{ route('proceso.store')}}" method="post">
+        <form action="{{ route('proceso.store')}}" method="post" autocomplete="off">
             @csrf
             <div class="row mb-4">
 
                 <div class="col-12">
                     <div class="form-group">
                         <label for="proceso.codigo">{{'Código *'}}</label>
-                        <input type="text" class="form-control" id="proceso.codigo" name="codigo">
+                        <input type="text" class="form-control" id="proceso.codigo" name="codigo" >
                     </div>
                     <div class="form-group">
                         <label for="proceso.numero">{{'Número del proceso *'}}</label>
-                        <input type="text" class="form-control" id="proceso.numero" name="numero">
+                        <input type="text" class="form-control" id="forma_numero_input" name="numero">
                     </div>
 
 

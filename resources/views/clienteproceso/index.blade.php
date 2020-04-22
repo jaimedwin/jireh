@@ -26,7 +26,7 @@
 			<div class="col-12">
 				<a href="{{route('clienteproceso.create')}}" class="btn btn-primary" role="button" aria-label="Buscar">
 					<i class="fas fa-plus-square"></i>
-					{{'Crear nueva persona juridica'}}
+					{{'Crear nueva relacion personanatural y proceso'}}
 				</a>
 			</div>
 		</div>

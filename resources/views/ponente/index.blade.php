@@ -24,7 +24,7 @@
   <div class="card-body">
     <div class="row  mb-4">
       <div class="col-12">
-        <a href="{{route('ponente.create')}}" class="btn btn-primary" role="button" aria-label="Buscar">
+        <a href="{{route('ponente.create')}}" class="btn btn-primary" role="button" aria-label="Crear">
           <i class="fas fa-plus-square"></i>
           {{'Crear nuevo ponente'}}
         </a>

@@ -34,7 +34,7 @@ class ClienteprocesoController extends Controller
                         ->join('tipodemanda','tipodemanda_id','=','tipodemanda.id');
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){
-            $columnas = ['tipodocumento.abreviatura', 
+            $columnas = ['proceso.numero', 'tipodemanda.abreviatura', 
             'personanatural.nombres', 'personanatural.apellidopaterno', 'personanatural.apellidomaterno'];
             $Clientesprocesos['Clientesprocesos'] = $clientesprocesos->whereOrSearch($palabrasbuscar, $columnas);
             return view('clienteproceso.index', $Clientesprocesos)

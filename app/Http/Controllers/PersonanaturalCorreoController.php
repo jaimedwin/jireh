@@ -38,6 +38,16 @@ class PersonanaturalCorreoController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create($personanatural_id)
+    {
+        return view('personanatural.correo.create', compact('personanatural_id'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,8 +65,7 @@ class PersonanaturalCorreoController extends Controller
                 return redirect()->route('personanatural.correo.index', $personanatural_id)
                     ->with('success','Correo almacenado completamente');
             }else{
-                return redirect()->route('personanatural.correo.index', $personanatural_id)
-                    ->withErrors(['No se registro el correo', 'Ya existe un correo principal']);
+                return redirect()->back()->withErrors(['No se registro el correo', 'Ya existe un correo principal']);
             }
         }else{
             $correo = Correo::create($request->except('_token'));

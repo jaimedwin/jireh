@@ -28,24 +28,26 @@ class FuerzaCarreraController extends Controller
         
         $carreras = Carrera::orderBy('id', 'ASC')->where('fuerza_id', $fuerza_id);
         
-        if ($palabrasbuscar){
+        $emptypalabrasbuscar = array_filter($palabrasbuscar);
+        if (!empty($emptypalabrasbuscar)){    
             $columnas = ['abreviatura','descripcion'];
-            $Carreras = $carreras
-                    ->where(function ($query) use ($columnas, $palabrasbuscar) {
-                        foreach ($palabrasbuscar as $palabra) {
-                            $query = $query->where(function ($query) use ($columnas,$palabra) {
-                                foreach ($columnas as $columna) {
-                                    $query->orWhere($columna,'like',"%$palabra%");
-                                }
-                            });
-                        }
-                    })->paginate(100);
+            $Carreras = $carreras->whereOrSearch($palabrasbuscar, $columnas);
                     
             return view('fuerza.carrera.index', compact('fuerza_id' , 'Carreras'))->with('success','Busqueda realizada');
         }else{
             $Carreras = $carreras->paginate(10);
             return view('fuerza.carrera.index', compact('fuerza_id' , 'Carreras'));
         }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create($fuerza_id)
+    {
+        return view('fuerza.carrera.create', compact('fuerza_id'));
     }
 
     /**

@@ -26,27 +26,32 @@ class FuerzaCarreraGradoController extends Controller
     public function index($fuerza_id, $carrera_id, Request $request)
     {
         $palabrasbuscar = explode(" ",$request->post('buscar'));
-        $grados = Grado::orderBy('id', 'ASC')->where('carrera_id', $carrera_id);
-        
-        if ($palabrasbuscar){
-            $columnas = ['abreviatura','descripcion'];
-            $Grados = $grados
-                    ->where(function ($query) use ($columnas, $palabrasbuscar) {
-                        foreach ($palabrasbuscar as $palabra) {
-                            $query = $query->where(function ($query) use ($columnas,$palabra) {
-                                foreach ($columnas as $columna) {
-                                    $query->orWhere($columna,'like',"%$palabra%");
-                                }
-                            });
-                        }
-                    })->paginate(100);
-                    
+        $grados = Grado::orderBy('id', 'ASC')
+            ->join('carrera', 'grado.carrera_id', '=', 'carrera.id')
+            ->join('fuerza', 'carrera.fuerza_id', '=', 'fuerza.id')
+            ->select('grado.*', 'carrera.id as carreraid', 'carrera.fuerza_id AS carrerafuerzaid', 'fuerza.id AS fuerzaid')
+            ->where('carrera.id', '=', $carrera_id)
+            ->where('fuerza.id', '=', $fuerza_id);
+        $emptypalabrasbuscar = array_filter($palabrasbuscar);
+        if (!empty($emptypalabrasbuscar)){    
+            $columnas = ['grado.abreviatura','grado.descripcion'];
+            $Grados = $grados->whereOrSearch($palabrasbuscar, $columnas);
             return view('fuerza.carrera.grado.index', compact('fuerza_id' , 'carrera_id', 'Grados'))
             ->with('success','Busqueda realizada');
         }else{
             $Grados = $grados->paginate(10);
             return view('fuerza.carrera.grado.index', compact('fuerza_id' , 'carrera_id', 'Grados'));
         }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create($fuerza_id, $carrera_id)
+    {
+        return view('fuerza.carrera.grado.create', compact('fuerza_id', 'carrera_id'));
     }
 
     /**
@@ -115,10 +120,10 @@ class FuerzaCarreraGradoController extends Controller
         if ($valida->isEmpty()) {
             $grado =  Grado::find($id);
             $grado->delete();
-            return redirect()->route('fuerza.carrera.grado.index', [$carrera_id, $carrera_id])
+            return redirect()->route('fuerza.carrera.grado.index', [$fuerza_id, $carrera_id])
             ->with('success','Registro borrado completamente');
         }else{
-            return redirect()->route('fuerza.carrera.grado.index', [$carrera_id, $carrera_id])
+            return redirect()->route('fuerza.carrera.grado.index', [$fuerza_id, $carrera_id])
              ->withErrors(['No se puede borrar el grado', 
              'El grado tiene persona(s) naturales(s) asociada(s)']);
           }

@@ -5,7 +5,10 @@
 @section('content')
 <section class="content">
 	<div class="container-fluid">
-		<!-- Info boxes -->
+		
+		@include('admin.errors')
+		@include('admin.success')
+
 		<div class="row">
 			<div class="col-12 col-sm-6 col-md-3">
 				<div class="info-box">

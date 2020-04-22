@@ -22,17 +22,28 @@ class FuerzaController extends Controller
      */
     public function index(Request $request)
     {
-        $buscar =  $request->post('buscar');
-        if ($buscar){
-            $fuerzas['Fuerzas'] = Fuerza::orderBy('id', 'DESC')
-                    ->orwhere('abreviatura', 'LIKE', '%'. $buscar. '%')
-                    ->orwhere('descripcion', 'LIKE', '%'. $buscar. '%')
-                    ->paginate(100);
-            return view('fuerza.index', $fuerzas)->with('success','Busqueda realizada');
+        $palabrasbuscar = explode(" ",$request->post('buscar'));
+        $fuerzas = Fuerza::orderBy('id', 'DESC');
+        $emptypalabrasbuscar = array_filter($palabrasbuscar);
+        if (!empty($emptypalabrasbuscar)){    
+            $columnas = ['abreviatura','descripcion'];
+            $Fuerzas['Fuerzas'] = $fuerzas->whereOrSearch($palabrasbuscar, $columnas);
+            return view('fuerza.index', $Fuerzas)->with('success','Busqueda realizada');
         }else{
-            $fuerzas['Fuerzas'] = Fuerza::paginate(10);
-            return view('fuerza.index', $fuerzas);
+            $Fuerzas['Fuerzas'] = $fuerzas->paginate(10);
+            
+            return view('fuerza.index', $Fuerzas);
         }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('fuerza.create');
     }
 
     /**

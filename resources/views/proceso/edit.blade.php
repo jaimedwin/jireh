@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label for="proceso.numero">{{'Número del proceso *'}}</label>
-                        <input type="text" class="form-control" id="proceso.numero" name="numero"
+                        <input type="text" class="form-control" id="forma_numero_input" name="numero"
                             value="{{$proceso->numero}}">
                     </div>
 

@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('admin.index')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+                <div class="card-header">{{ __('Verificación de email') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,11 +14,10 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form method="POST" action="{{ route('reset_password', ['token' => $token]) }}">
                         @csrf
-
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Dirección de email') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -30,11 +29,12 @@
                                 @enderror
                             </div>
                         </div>
+                        <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
+                                    {{ __('Confirmar') }}
                                 </button>
                             </div>
                         </div>

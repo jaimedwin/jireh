@@ -39,8 +39,6 @@ class ProcesoRecordatorioController extends Controller
             ->where('proceso_id', $proceso_id)->paginate(10);
             return view('proceso.recordatorio.index', compact('Recordatorioprocesos','proceso_id'));
         }
-
-        
     }
 
     /**

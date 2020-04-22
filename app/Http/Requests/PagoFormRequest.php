@@ -26,7 +26,7 @@ class PagoFormRequest extends FormRequest
         return [
             'fecha'         => 'required|date',
             'abono'         => 'required|numeric', 
-            'nrecibo'       => 'nullable|string|max:20', 
+            'nrecibo'       => 'nullable|unique:pago|string|max:20', 
             'contrato_id'   => 'required|numeric',
             'users_id'      => 'required|numeric',
             'created_at'    => 'nullable|date',

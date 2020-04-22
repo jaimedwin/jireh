@@ -16,6 +16,7 @@ class CreatePersonanaturalTable extends Migration {
 		Schema::create('personanatural', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
+			$table->boolean('contrato')->default(0)->nullable();
 			$table->string('codigo', 15)->unique('personanatural_UN1');
 			$table->string('nombres', 100);
 			$table->string('apellidopaterno', 75)->nullable();

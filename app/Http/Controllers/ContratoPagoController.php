@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pago;
+use App\Models\Contrato;
 use App\User;
 use App\Http\Requests\PagoFormRequest;
 use Illuminate\Http\Request;
@@ -26,16 +27,34 @@ class ContratoPagoController extends Controller
                     ->select('pago.*')
                     ->join('contrato','contrato_id','=','contrato.id')
                     ->where('contrato_id', '=', $contrato_id);
+        $AbonoTotal = Pago::orderBy('nrecibo', 'ASC')
+                    ->select('pago.*')
+                    ->join('contrato','contrato_id','=','contrato.id')
+                    ->where('contrato_id', '=', $contrato_id)
+                    ->sum('abono');
+        $ValContrato = Contrato::select('valor')->firstOrFail($contrato_id);
+
+        $Saldo = $ValContrato->valor - $AbonoTotal;
+
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){
             $columnas = ['nrecibo', 'fecha', 'abono'];
             $Pagos = $pagos->whereOrSearch($palabrasbuscar, $columnas);
-            return view('contrato.pago.index', compact('contrato_id', 'Pagos'))
+            return view('contrato.pago.index', compact('contrato_id', 'Pagos', 'Saldo'))
                     ->with('success','Busqueda realizada');
         }else{
             $Pagos = $pagos->paginate(10);
-            return view('contrato.pago.index', compact('contrato_id', 'Pagos'));
+            return view('contrato.pago.index', compact('contrato_id', 'Pagos', 'Saldo'));
         }
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create($contrato_id)
+    {
+        return view('contrato.pago.create', compact('contrato_id'));
     }
 
     /**

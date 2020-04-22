@@ -202,4 +202,52 @@ class PersonanaturalController extends Controller
             return redirect()->route('personanatural.index')->withErrors($errors);
         }
     }
+
+    public function getCsv(){
+        $Personasnaturales = Personanatural::orderBy('personanatural.id', 'ASC')
+                                ->select('personanatural.*',  
+                                'fondodepension.abreviatura AS fondodepension',
+                                'tipodocumentoidentificacion.abreviatura AS tipodocumentoidentificacion',
+                                'expedicion.lugar AS expedicion',
+                                'eps.abreviatura AS eps', 
+                                'grado.abreviatura AS grado',
+                                'carrera.descripcion AS carrera',
+                                'fuerza.abreviatura AS fuerza')
+                                ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                                ->join('tipodocumentoidentificacion',
+                                    'tipodocumentoidentificacion_id','=','tipodocumentoidentificacion.id')
+                                ->join('expedicion','expedicion_id','=','expedicion.id')
+                                ->join('eps','eps_id','=','eps.id')
+                                ->join('fondodepension','fondodepension_id','=','fondodepension.id')
+                                ->join('grado','grado_id','=','grado.id')
+                                ->join('carrera','carrera.id','=','carrera_id')
+                                ->join('fuerza', 'fuerza.id', '=', 'carrera.fuerza_id')->get();  
+        $csvExporter = new \Laracsv\Export();
+        $csvExporter->build($Personasnaturales, [
+            'id',
+            'codigo',
+            'nombres',
+            'apellidopaterno',
+            'apellidomaterno',
+            'tipodocumentoidentificacion_id',
+            'tipodocumentoidentificacion',
+            'numerodocumento',
+            'expedicion_id' => 'lugarexpedicion_id',
+            'expedicion' => 'lugarexpedicion',
+            'fechaexpedicion',
+            'fechanacimiento',
+            'direccion',
+            'eps_id',
+            'eps',
+            'fondodepension_id',
+            'fondodepension',
+            'grado_id',
+            'grado',
+            'carrera',
+            'fuerza',
+            'users_id',
+            'created_at',
+            'updated_at',
+        ])->download();
+    }
 }

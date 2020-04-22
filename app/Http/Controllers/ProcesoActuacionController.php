@@ -25,31 +25,22 @@ class ProcesoActuacionController extends Controller
      */
     public function index($proceso_id, Request $request)
     {
-        $buscar =  $request->post('buscar'); 
-        if ($buscar){
-            $Actuacionprocesos = Actuacionproceso::select( 'id',
-            'fechaactuacion','actuacion', 'anotacion',
-            'nombrearchivo', 'fechainiciatermino', 'fechafinalizatermino', 
-            'fecharegistro', 'proceso_id', 
-            'users_id', 'created_at', 'updated_at')
-            ->orwhere('actuacion', 'LIKE', '%'. $buscar. '%')
-            ->orwhere('anotacion', 'LIKE', '%'. $buscar. '%')
-            ->orwhere('fechaactuacion', 'LIKE', '%'. $buscar. '%')
-            ->orwhere('fechainiciatermino', 'LIKE', '%'. $buscar. '%')
-            ->orwhere('fechafinalizatermino', 'LIKE', '%'. $buscar. '%')
-            ->orwhere('fecharegistro', 'LIKE', '%'. $buscar. '%')
-            ->where('proceso_id', $proceso_id)
-            ->paginate(100);
+        $palabrasbuscar = explode(" ",$request->post('buscar')); 
+
+        $actuacionprocesos = Actuacionproceso::select( 'actuacionproceso.*')
+                                ->where('proceso_id', $proceso_id);
+
+        $emptypalabrasbuscar = array_filter($palabrasbuscar);
+        if (!empty($emptypalabrasbuscar)){  
+            $columnas = ['actuacion', 'anotacion', 'fechaactuacion', 
+            'fechainiciatermino', 'fechafinalizatermino', 'fecharegistro'];
+            $Actuacionprocesos = $actuacionprocesos->whereOrSearch($palabrasbuscar, $columnas);
             return view('proceso.actuacion.index', compact('Actuacionprocesos','proceso_id'));
 
-            $procesos= $this->getProcesoJoin(100, $buscar);
-            return view('proceso.index', $procesos)->with('success','Busqueda realizada');
+
+            return view('proceso.index', $Actuacionprocesos)->with('success','Busqueda realizada');
         }else{
-            $Actuacionprocesos = Actuacionproceso::select( 'id',
-            'fechaactuacion','actuacion', 'anotacion',
-            'nombrearchivo', 'fechainiciatermino', 'fechafinalizatermino', 
-            'fecharegistro', 'proceso_id', 
-            'users_id', 'created_at', 'updated_at')->where('proceso_id', $proceso_id)->paginate(10);
+            $Actuacionprocesos = $actuacionprocesos->paginate(10);
             return view('proceso.actuacion.index', compact('Actuacionprocesos','proceso_id'));
         }
     }
@@ -229,5 +220,25 @@ class ProcesoActuacionController extends Controller
     public function deleteFile($id, $name)
     {
         return Storage::delete(self::PATH. $id.'/'.$name);
+    }
+
+    public function getCsv($proceso_id){
+        $actuacionprocesos = Actuacionproceso::select( 'actuacionproceso.*')
+        ->where('proceso_id', $proceso_id)->get();  
+        $csvExporter = new \Laracsv\Export();
+        $csvExporter->build($actuacionprocesos, [
+            'id',
+            'fechaactuacion',
+            'actuacion',
+            'anotacion',
+            'nombrearchivo',
+            'fechainiciatermino',
+            'fechafinalizatermino',
+            'fecharegistro',
+            'proceso_id',
+            'users_id',
+            'created_at',
+            'updated_at',
+        ])->download();
     }
 }
