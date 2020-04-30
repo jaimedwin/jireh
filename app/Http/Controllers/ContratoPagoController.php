@@ -41,7 +41,7 @@ class ContratoPagoController extends Controller
             $columnas = ['nrecibo', 'fecha', 'abono'];
             $Pagos = $pagos->whereOrSearch($palabrasbuscar, $columnas);
             return view('contrato.pago.index', compact('contrato_id', 'Pagos', 'Saldo'))
-                    ->with('success','Busqueda realizada');
+                    ->with('success',['Busqueda realizada']);
         }else{
             $Pagos = $pagos->paginate(10);
             return view('contrato.pago.index', compact('contrato_id', 'Pagos', 'Saldo'));
@@ -68,7 +68,7 @@ class ContratoPagoController extends Controller
         $d = $request->except('_token');
         $pago = Pago::create($d);
         return redirect()->route('contrato.pago.index', $contrato_id)
-                ->with('success','Pago del contrato almacenado completamente');
+                ->with('success',['Pago del contrato almacenado completamente']);
     }
 
     /**
@@ -79,8 +79,8 @@ class ContratoPagoController extends Controller
      */
     public function show($contrato_id, $id)
     {
-        $pago = Pago::find($id);
-        $auditoria = User::findOrFail($pago->users_id)->first();
+        $pago = Pago::findOrFail($id);
+        $auditoria = User::findOrFail($pago->users_id);
         return view('contrato.pago.show', compact('contrato_id', 'auditoria', 'pago'));
     }
 
@@ -92,7 +92,7 @@ class ContratoPagoController extends Controller
      */
     public function edit($contrato_id, $id)
     {
-        $pago = Pago::find($id);
+        $pago = Pago::findOrFail($id);
         return view('contrato.pago.edit', compact('pago', 'contrato_id', 'id'));
     }
 
@@ -105,10 +105,10 @@ class ContratoPagoController extends Controller
      */
     public function update($contrato_id, $id, PagoFormRequest $request)
     {
-        $pago = Pago::find($id);
+        $pago = Pago::findOrFail($id);
         $pago->update($request->except('_token'));
         return redirect()->route('contrato.pago.index', $contrato_id)
-                    ->with('success','Recordatorio del proceso actualizado completamente');
+                    ->with('success',['Recordatorio del proceso actualizado completamente']);
     }
 
     /**
@@ -119,8 +119,9 @@ class ContratoPagoController extends Controller
      */
     public function destroy($contrato_id, $id)
     {
-        $pago = Pago::find($id);
-        $pago->delete();
-        return redirect()->route('contrato.pago.index', $contrato_id)->with('success','Registro borrado completamente');
+        $pago = Pago::findOrFail($id);
+        if($pago->delete())
+            return redirect()->route('contrato.pago.index', $contrato_id)->with('success',['Registro borrado completamente']);
+        return redirect()->route('contrato.pago.index', $contrato_id)->withErrors(['No se pudo borrar el registro']);
     }
 }

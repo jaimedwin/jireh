@@ -28,7 +28,7 @@ class CorporacionController extends Controller
                     ->orwhere('nombre', 'LIKE', '%'. $buscar. '%')
                     ->orwhere('correonotificacion', 'LIKE', '%'. $buscar. '%')
                     ->paginate(100);
-            return view('corporacion.index', $corporaciones)->with('success','Busqueda realizada');
+            return view('corporacion.index', $corporaciones)->with('success',['Busqueda realizada']);
         }else{
             $corporaciones['Corporaciones'] = Corporacion::paginate(10);
             return view('corporacion.index', $corporaciones);
@@ -55,7 +55,7 @@ class CorporacionController extends Controller
     {
         $d = $request->except('_token');
         Corporacion::create($d);
-        return redirect()->route('corporacion.index')->with('success','Corporacion almacenado completamente');
+        return redirect()->route('corporacion.index')->with('success',['Corporacion almacenado completamente']);
     }
 
     /**
@@ -66,7 +66,7 @@ class CorporacionController extends Controller
      */
     public function show(Corporacion $corporacion)
     {
-        $auditoria = User::findOrFail($corporacion)->first();
+        $auditoria = User::findOrFail($corporacion->users_id);
         return view('corporacion.show', compact('corporacion', 'auditoria'));
     }
 
@@ -91,7 +91,7 @@ class CorporacionController extends Controller
     public function update(CorporacionFormRequest $request, Corporacion $corporacion)
     {
         $corporacion->update($request->all());
-        return redirect()->route('corporacion.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('corporacion.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -100,15 +100,16 @@ class CorporacionController extends Controller
      * @param  \App\Corporacion  $corporacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Corporacion $corporacion)
+    public function destroy($id)
     {
-        $valida = Proceso::where('corporacion_id', '=', $corporacion->id)->get();
+        $valida = Proceso::where('corporacion_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $corporacion->delete();
-            return redirect()->route('corporacion.index')->with('success','Registro borrado completamente');
-        }else{
-            return redirect()->route('corporacion.index')
-            ->withErrors(['No se puede borrar la corporación', 'La corporación tiene proceso(s) asociado(s)']);
+            $corporacion = Corporacion::findOrFail($id);
+            if($corporacion->delete())
+                return redirect()->route('corporacion.index')->with('success',['Registro borrado completamente']);
         }
+        return redirect()->route('corporacion.index')
+            ->withErrors(['No se puede borrar la corporación', 'La corporación tiene proceso(s) asociado(s)']);
+        
     }
 }

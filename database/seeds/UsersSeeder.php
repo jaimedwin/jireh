@@ -13,11 +13,13 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->delete();
-        DB::table('role_user')->delete();
+        DB::table('users')->truncate();
+        DB::table('role_user')->truncate();
 
         $adminRole = Role::where('name','admin')->first();
-        $userRole = Role::where('name','user')->first();
+        $userRole1 = Role::where('name','user')->first();
+        $userRole2 = Role::where('name','download_csv')->first();
+        $userRole3 = Role::where('name','delete')->first();
 
         $admin = User::create([
                 'name' => 'Administrador',
@@ -36,6 +38,8 @@ class UsersSeeder extends Seeder
         ]);
 
         $admin->roles()->attach($adminRole);
-        $user->roles()->attach($userRole);
+        $user->roles()->attach($userRole1);
+        $user->roles()->attach($userRole2);
+        $user->roles()->attach($userRole3);
     }
 }

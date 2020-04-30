@@ -28,7 +28,7 @@ class EstadoController extends Controller
             $estados['Estados'] = Estado::orderBy('id', 'DESC')
                     ->orwhere('descripcion', 'LIKE', '%'. $buscar. '%')
                     ->paginate(100);
-            return view('estado.index', $estados)->with('success','Busqueda realizada');
+            return view('estado.index', $estados)->with('success',['Busqueda realizada']);
         }else{
             $estados['Estados'] = Estado::paginate(10);
             return view('estado.index', $estados);
@@ -55,7 +55,7 @@ class EstadoController extends Controller
     {
         $d = $request->except('_token');
         Estado::create($d);
-        return redirect()->route('estado.index')->with('success','Estado almacenado completamente');
+        return redirect()->route('estado.index')->with('success',['Estado almacenado completamente']);
     }
 
     /**
@@ -66,7 +66,7 @@ class EstadoController extends Controller
      */
     public function show(Estado $estado)
     {
-        $auditoria = User::findOrFail($estado)->first();
+        $auditoria = User::findOrFail($estado->users_id);
         return view('estado.show', compact('estado', 'auditoria'));
     }
 
@@ -91,7 +91,7 @@ class EstadoController extends Controller
     public function update(EstadoFormRequest $request, Estado $estado)
     {
         $estado->update($request->all());
-        return redirect()->route('estado.index')->with('success','Estado actualizado completamente');
+        return redirect()->route('estado.index')->with('success',['Estado actualizado completamente']);
     }
 
     /**
@@ -100,15 +100,15 @@ class EstadoController extends Controller
      * @param  \App\Estado  $estado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Estado $estado)
+    public function destroy($id)
     {
-        $valida = Proceso::where('estado_id', '=', $estado->id)->get();
+        $valida = Proceso::where('estado_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $estado->delete();
-            return redirect()->route('estado.index')->with('success','Estado borrado completamente');
-        }else{
-            return redirect()->route('estado.index')
-            ->withErrors(['No se puede borrar el estado', 'El estado tiene proceso(s) asociado(s)']);
+            $estado = Estado::findOrFail($id);
+            if($estado->delete())
+                return redirect()->route('estado.index')->with('success',['Estado borrado completamente']);
         }
+        return redirect()->route('estado.index')
+            ->withErrors(['No se puede borrar el estado', 'El estado tiene proceso(s) asociado(s)']);
     }
 }

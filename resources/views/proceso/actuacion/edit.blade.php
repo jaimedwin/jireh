@@ -7,24 +7,10 @@
     </div>
 
     <div class="card-body">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <h5><i class="fas fa-exclamation-triangle"></i>
-                <strong>{{'Error!'}}</strong>
-            </h5>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+        @include('admin.errors')
 
         <form action="{{route('proceso.actuacion.update', 
-        ['proceso' => $proceso_id, 'actuacion' => $id])}}" method="post" enctype="multipart/form-data">
+        ['proceso' => $proceso_id, 'actuacion' => $id])}}" method="post" enctype="multipart/form-data" autocomplete="off" >
             @csrf
             @method('PUT')
             <div class="row mb-4">
@@ -69,11 +55,11 @@
                             <label for="proceso.actuacion.nombrearchivo">{{'Hay un archivo cargado previamente, ¿desea remplazarlo?'}}</label>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-primary active" onclick="show({{'1'}})">
-                                    <input type="radio" name="options" id="option1" autocomplete="off" value="1" checked> 
+                                    <input type="radio" name="options" id="option1" value="1" checked> 
                                     {{'Sí'}}
                                 </label>
                                 <label class="btn btn-primary" onclick="show({{'0'}})">
-                                    <input type="radio" name="options" id="option0" autocomplete="off" value="2"> 
+                                    <input type="radio" name="options" id="option0" value="2"> 
                                     {{'No'}}
                                 </label>
                             </div>

@@ -23,7 +23,7 @@ class CreatePersonanaturalTable extends Migration {
 			$table->string('apellidomaterno', 75)->nullable();
 			$table->unsignedBigInteger('tipodocumentoidentificacion_id')->index('personanatural_FK');
 			$table->string('numerodocumento', 15)->unique('personanatural_UN');
-			$table->unsignedBigInteger('expedicion_id')->index('personanatural_FK_1');
+			$table->unsignedBigInteger('municipio_id')->index('personanatural_FK_1');
 			$table->date('fechaexpedicion')->nullable();
 			$table->date('fechanacimiento')->nullable();
 			$table->string('direccion', 500);

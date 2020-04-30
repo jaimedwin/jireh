@@ -6,7 +6,7 @@
     <div class="card-header">
         <h3 class="card-title"><a href="{{route('personanatural.index')}}">{{'Persona natural'}}</a></h3>
         <div class="card-tools">
-            <form action="{{route('personanatural.index')}}" method="get">
+            <form action="{{route('personanatural.index')}}" method="get" autocomplete="off">
                 @csrf
                 <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="buscar" class="form-control float-right" placeholder="Buscar">
@@ -28,47 +28,32 @@
                     <i class="fas fa-plus-square"></i>
                     {{'Crear nuevo proceso'}}
                 </a>
-                <div class="float-right">
-                    <a href="{{route('personanatural.csv')}}" class="btn btn-success" role="button" aria-label="Csv">
-                        <i class="fas fa-download"></i>
-                        {{'Descargar CSV'}}
-                    </a>
-                </div>
+                @include('admin.descarga_csv',
+                [
+                'route_name' => 'personanatural.csv',
+                'parameter' => [''],
+                'title_btn' => 'Descargar CSV'
+                ])
             </div>
         </div>
 
-        @if ($message = Session::get('success'))
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
-                    <ul>
-                        <li>{{$message}}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        @endif
-
-        @include('admin.errors')
+        @include('admin.success')
+		@include('admin.errors')
 
         <div class="row">
             <div class="col-12 table-responsive">
                 <table class="table table-bordered table-striped">
-                    <thead class="">
+                    <thead>
                         <tr>
                             <th style="width: 10px">{{'#'}}</th>
                             <th>{{'Código'}}</th>
                             <th>{{'Nombre completo'}}</th>
-                            <th>{{'Documento de identificación'}}</th>
                             <th>{{'Número de documento'}}</th>
                             <th>{{'Lugar de expedición'}}</th>
                             <th>{{'Fecha de expedición'}}</th>
                             <th>{{'Fecha de nacimiento'}}</th>
                             <th>{{'Dirección'}}</th>
+
                             <th>{{'Eps'}}</th>
                             <th>{{'Fondo de pensión'}}</th>
                             <th>{{'Fuerza -Grado'}}</th>
@@ -83,19 +68,22 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$personanatural->codigo}}</td>
                             <td>{{$personanatural->nombrecompleto}}</td>
-                            <td>{{$personanatural->tipodocumentoidentificacion}}</td>
-                            <td>{{$personanatural->numerodocumento}}</td>
-                            <td>{{$personanatural->expedicion}}</td>
+                            <td>
+                                <p>{{$personanatural->tipodocumentoidentificacion}} {{$personanatural->numerodocumento}}
+                                </p>
+                            </td>
+                            <td>{{$personanatural->expedicion_municipio}}, {{$personanatural->expedicion_departamento}}
+                            </td>
                             <td>{{$personanatural->fechaexpedicion}}</td>
                             <td>{{$personanatural->fechanacimiento}}</td>
                             <td>{{$personanatural->direccion}}</td>
-                            <td>{{$personanatural->eps}}</td>
                             <td>{{$personanatural->fondodepension}}</td>
+                            <td>{{$personanatural->eps}}</td>
                             <td>
                                 @if ($personanatural->grado == 'NA')
-                                    {{$personanatural->grado}}
+                                {{$personanatural->grado}}
                                 @else
-                                    {{$personanatural->fuerza}} - {{$personanatural->grado}} 
+                                {{$personanatural->fuerza}} - {{$personanatural->grado}}
                                 @endif
                             </td>
                             <td class="text-center">
@@ -115,18 +103,15 @@
                                     @method('DELETE')
                                     @csrf
                                     <div class="btn-group" role="group" aria-label="Acciones">
-                                        <a href="{{route('personanatural.show', $personanatural->id)}}" class="btn btn-info"
-                                            role="button" aria-label="Mostrar">
+                                        <a href="{{route('personanatural.show', $personanatural->id)}}"
+                                            class="btn btn-info" role="button" aria-label="Mostrar">
                                             <i class="far fa-eye" aria-hidden="true"></i>
                                         </a>
                                         <a href="{{route('personanatural.edit', $personanatural->id)}}"
                                             class="btn btn-warning" aria-label="Editar">
                                             <i class="fas fa-pen" aria-hidden="true"></i>
                                         </a>
-                                        <button type="submit" class="btn btn-danger" aria-label="Borrar"
-                                            onclick="return confirm('¿Realmente desea eliminar?')">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </button>
+                                        @include('admin.btn_delete')
                                     </div>
                                 </form>
                             </td>
@@ -137,7 +122,7 @@
             </div>
         </div>
     </div>
-    <!-- /.card-body -->
+
     <div class="card-footer clearfix">
         <div class="float-right">{{$Personasnaturales->links()}}</div>
     </div>

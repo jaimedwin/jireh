@@ -28,7 +28,7 @@ class FuerzaController extends Controller
         if (!empty($emptypalabrasbuscar)){    
             $columnas = ['abreviatura','descripcion'];
             $Fuerzas['Fuerzas'] = $fuerzas->whereOrSearch($palabrasbuscar, $columnas);
-            return view('fuerza.index', $Fuerzas)->with('success','Busqueda realizada');
+            return view('fuerza.index', $Fuerzas)->with('success',['Busqueda realizada']);
         }else{
             $Fuerzas['Fuerzas'] = $fuerzas->paginate(10);
             
@@ -55,7 +55,7 @@ class FuerzaController extends Controller
     public function store(FuerzaFormRequest $request)
     {
         Fuerza::create($request->except('_token'));
-        return redirect()->route('fuerza.index')->with('success','Fuerza almacenado completamente');
+        return redirect()->route('fuerza.index')->with('success',['Fuerza almacenado completamente']);
     }
 
     /**
@@ -66,7 +66,7 @@ class FuerzaController extends Controller
      */
     public function show(Fuerza $fuerza)
     {
-        $auditoria = User::findOrFail($fuerza)->first();
+        $auditoria = User::findOrFail($fuerza->users_id);
         return view('fuerza.show', compact('fuerza', 'auditoria'));
     }
 
@@ -91,7 +91,7 @@ class FuerzaController extends Controller
     public function update(FuerzaFormRequest $request, Fuerza $fuerza)
     {
         $fuerza->update($request->all());
-        return redirect()->route('fuerza.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('fuerza.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -100,16 +100,16 @@ class FuerzaController extends Controller
      * @param  \App\Fuerza  $fuerza
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fuerza $fuerza)
+    public function destroy($id)
     {
-        $valida = Carrera::where('fuerza_id', '=', $fuerza->id)->get();
+        $valida = Carrera::where('fuerza_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $fuerza->delete();
-            return redirect()->route('fuerza.index')->with('success','Registro borrado completamente');
-        }else{
-            return redirect()->route('fuerza.index')
-             ->withErrors(['No se puede borrar el registro de la fuerza', 
-             'Laa fuerza tiene carrera(s) asociada(s)']);
+            $fuerza = Fuerza::findOrFail($id);
+            if($fuerza->delete())
+                return redirect()->route('fuerza.index')->with('success',['Registro borrado completamente']);
         }
+        return redirect()->route('fuerza.index')
+            ->withErrors(['No se puede borrar el registro de la fuerza', 
+            'Laa fuerza tiene carrera(s) asociada(s)']);
     }
 }

@@ -28,6 +28,7 @@ class ProcesoActuacionController extends Controller
         $palabrasbuscar = explode(" ",$request->post('buscar')); 
 
         $actuacionprocesos = Actuacionproceso::select( 'actuacionproceso.*')
+                                ->orderBy( 'fechaactuacion', 'DESC')
                                 ->where('proceso_id', $proceso_id);
 
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
@@ -38,7 +39,7 @@ class ProcesoActuacionController extends Controller
             return view('proceso.actuacion.index', compact('Actuacionprocesos','proceso_id'));
 
 
-            return view('proceso.index', $Actuacionprocesos)->with('success','Busqueda realizada');
+            return view('proceso.index', $Actuacionprocesos)->with('success',['Busqueda realizada']);
         }else{
             $Actuacionprocesos = $actuacionprocesos->paginate(10);
             return view('proceso.actuacion.index', compact('Actuacionprocesos','proceso_id'));
@@ -73,8 +74,8 @@ class ProcesoActuacionController extends Controller
             $path = $file->storeAs(self::PATH. $proceso_id, $fileName);
             if (Storage::exists($path)){
                 return redirect()->route('proceso.actuacion.index', $proceso_id)
-                ->with('success',['data1' => 'Actuación del proceso almacenado completamente', 
-                'data2' => 'Archivo de actuación del proceso almacenado completamente']);
+                ->with('success',['Actuación del proceso almacenado completamente', 
+                'Archivo de actuación del proceso almacenado completamente']);
             }else{
                 return redirect()->route('proceso.actuacion.index', $proceso_id)
                         ->with('success',['Error no se escribio archivo en disco']);
@@ -84,7 +85,7 @@ class ProcesoActuacionController extends Controller
                 + ['proceso_id' => $proceso_id] 
                 + ['nombrearchivo' =>'']);
             return redirect()->route('proceso.actuacion.index', $proceso_id)
-                ->with('success',['data1' => 'Actuación del proceso almacenado completamente']);
+                ->with('success',['Actuación del proceso almacenado completamente']);
         }
     }
 
@@ -96,8 +97,8 @@ class ProcesoActuacionController extends Controller
      */
     public function show($proceso_id, $id, Actuacionproceso $actuacionproceso)
     {
-        $actuacionproceso = Actuacionproceso::find($id);
-        $auditoria = User::findOrFail($actuacionproceso->users_id)->first();
+        $actuacionproceso = Actuacionproceso::findOrFail($id);
+        $auditoria = User::findOrFail($actuacionproceso->users_id);
         return view('proceso.actuacion.show', compact('proceso_id', 'auditoria', 'actuacionproceso'));
     }
 
@@ -109,7 +110,7 @@ class ProcesoActuacionController extends Controller
      */
     public function edit($proceso_id, $id, Actuacionproceso $actuacionproceso)
     {
-        $actuacionproceso = Actuacionproceso::find($id);
+        $actuacionproceso = Actuacionproceso::findOrFail($id);
         return view('proceso.actuacion.edit', compact('actuacionproceso', 'proceso_id', 'id'));
     }
 
@@ -122,7 +123,7 @@ class ProcesoActuacionController extends Controller
      */
     public function update($proceso_id, $id, ActuacionprocesoFormRequest $request, Actuacionproceso $actuacionproceso)
     {
-        $actuacionproceso =  Actuacionproceso::find($id);
+        $actuacionproceso =  Actuacionproceso::findOrFail($id);
         
         if ($request->options == 0){
             // No hay archivo cargado previo
@@ -135,8 +136,8 @@ class ProcesoActuacionController extends Controller
                 $path = $file->storeAs(self::PATH . $proceso_id, $fileName);
                 if (Storage::exists($path)){
                     return redirect()->route('proceso.actuacion.index', $proceso_id)
-                    ->with('success',['data1' => 'Actuación del proceso actualizado completamente', 
-                    'data2' => 'Archivo de actuación del proceso almacenado completamente']);
+                    ->with('success',['Actuación del proceso actualizado completamente', 
+                    'Archivo de actuación del proceso almacenado completamente']);
                 }else{
                     return redirect()->route('proceso.actuacion.edit', compact('actuacionproceso', 'proceso_id', 'id'))
                         ->with('success',['Error no se escribio archivo en disco']);
@@ -147,7 +148,7 @@ class ProcesoActuacionController extends Controller
                     + ['proceso_id' => $proceso_id] 
                     + ['nombrearchivo' => '']);
                 return redirect()->route('proceso.actuacion.index', $proceso_id)
-                    ->with('success',['data1' => 'Actuación del proceso actualizado completamente']);
+                    ->with('success',['Actuación del proceso actualizado completamente']);
             }
         } else {
             if ($request->options == 1){
@@ -161,9 +162,9 @@ class ProcesoActuacionController extends Controller
                     $path = $file->storeAs(self::PATH. $proceso_id, $fileName);
                     if (Storage::exists($path)){
                         return redirect()->route('proceso.actuacion.index', $proceso_id)
-                        ->with('success',['data1' => 'Actuación del proceso actualizado', 
-                        'data2' => 'Archivo previo de actuacion borrado completamente',
-                        'data3' => 'Se carga un nuevo archivo para la actuación']);
+                        ->with('success',['Actuación del proceso actualizado', 
+                        'Archivo previo de actuacion borrado completamente',
+                        'Se carga un nuevo archivo para la actuación']);
                     }else{
                         return redirect()->route('proceso.actuacion.edit', compact('actuacionproceso', 'proceso_id', 'id'))
                         ->with('success',['Error no se escribio archivo en disco']);
@@ -173,16 +174,16 @@ class ProcesoActuacionController extends Controller
                     + ['proceso_id' => $proceso_id]
                     + ['nombrearchivo' => '']);
                     return redirect()->route('proceso.actuacion.index', $proceso_id)
-                        ->with('success',['data1' => 'Actuación del proceso actualizado', 
-                        'data2' => 'Archivo previo de actuacion borrado completamente',
-                        'data3' => 'No se carga un nuevo archivo para la actuación']);
+                        ->with('success',['Actuación del proceso actualizado', 
+                        'Archivo previo de actuacion borrado completamente',
+                        'No se carga un nuevo archivo para la actuación']);
                 }
             } else {
                 // Hay archivo cargado previo. No hay archivo nuevo para subir
                 $actuacionproceso->update($request->except(['nombrearchivo', '_token']) 
                     + ['proceso_id' => $proceso_id]);
                 return redirect()->route('proceso.actuacion.index', $proceso_id)
-                    ->with('success',['data1' => 'Actuación del proceso actualizado completamente']);
+                    ->with('success',['Actuación del proceso actualizado completamente']);
             }
         }
         
@@ -194,32 +195,51 @@ class ProcesoActuacionController extends Controller
      * @param  \App\Actuacionproceso  $actuacionproceso
      * @return \Illuminate\Http\Response
      */
-    public function destroy($proceso_id, $id, Actuacionproceso $actuacionproceso)
+    public function destroy($proceso_id, $id)
     {
-        $actuacionproceso =  Actuacionproceso::find($id);
+        $actuacionproceso =  Actuacionproceso::findOrFail($id);
         if (!empty($actuacionproceso->nombrearchivo)){
-            $result = $this->deleteFile($proceso_id, $actuacionproceso->nombrearchivo);
-            $actuacionproceso->delete();
-            return redirect()->route('proceso.actuacion.index', $proceso_id)->with('success',
-            [
-                'data1' => 'Registro borrado completamente',
-                'data2' => 'Archivo borrado completamente'
-            ]);
-        }else {
-            $actuacionproceso->delete();
-            return redirect()->route('proceso.actuacion.index', $proceso_id)->with('success',['data1' =>  'Registro borrado completamente']);
+            $result1 = $this->deleteFile($proceso_id, $actuacionproceso->nombrearchivo);
+            $result2 = $actuacionproceso->delete();
+            if ($result1 && $result2)
+                return redirect()->route('proceso.actuacion.index', $proceso_id)->with('success',
+                [ 'Registro borrado completamente', 'Archivo borrado completamente'
+                ]);
+        }else{
+            $result1 = false;
+            $result2 = $actuacionproceso->delete();
+            if ($result2)
+                return redirect()->route('proceso.actuacion.index', $proceso_id)->with('success',
+                ['Registro borrado completamente']);
         }
+        $errors = array('Error al borrar la actuación');
+        if ($result1){
+            array_push($errors, 'El registro de la acutuacion del proceso en la base de datos no se pudo borrar');
+        }
+        if ($result2){
+            array_push($errors, 'El archivo '. $actuacionproceso->nombrearchivo. ' no se pudo borrar');
+        }
+        return redirect()->route('proceso.actuacion.index', $proceso_id)->withErrors($errors);
+        
         
     }
 
     public function downloadFile($id, $name)
     {
-        return Storage::download(self::PATH. $id.'/'.$name);
+        $file = Storage::exists(self::PATH. $id.'/'. $name);
+        if ($file){
+            return Storage::download(self::PATH. $id.'/'.$name);
+        }
+        return redirect()->route('proceso.actuacion.index', $id)->withErrors(['No se encuentra el archivo: '. $name]);
     }
 
     public function deleteFile($id, $name)
     {
-        return Storage::delete(self::PATH. $id.'/'.$name);
+        $file = Storage::exists(self::PATH. $id.'/'. $name);
+        if ($file){
+            return Storage::delete(self::PATH. $id.'/'.$name);
+        }
+        return redirect()->route('proceso.actuacion.index', $id)->withErrors(['No se encuentra el archivo: '. $name]);
     }
 
     public function getCsv($proceso_id){

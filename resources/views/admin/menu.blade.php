@@ -1,3 +1,5 @@
+
+@can('use-app-user')
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -9,10 +11,11 @@
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview"
+            role="menu" data-accordion="false">
 
             <li class="nav-header">CLIENTES</li>
-            
+
             <li class="nav-item has-treeview menu-open nav-compact">
                 <a href="#" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
@@ -21,7 +24,9 @@
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
+
                 <ul class="nav nav-treeview">
+
                     <li class="nav-item">
                         <a href="{{ route ('personanatural.index')}}" class="nav-link">
                             <i class="fas fa-male nav-icon"></i>
@@ -30,7 +35,17 @@
                             </p>
                         </a>
                     </li>
-                    
+
+                    <li class="nav-item">
+                        <a href="{{ route ('documento.index')}}" class="nav-link">
+                            
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <p>
+                                {{'Documento'}}
+                            </p>
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a href="{{ route ('fondodepension.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -39,7 +54,7 @@
                             </p>
                         </a>
                     </li>
-        
+
                     <li class="nav-item">
                         <a href="{{ route ('eps.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -48,7 +63,7 @@
                             </p>
                         </a>
                     </li>
-        
+
                     <li class="nav-item">
                         <a href="{{ route ('fuerza.index')}}" class="nav-link">
                             <i class="fas fa-shield-alt nav-icon"></i>
@@ -57,16 +72,7 @@
                             </p>
                         </a>
                     </li>
-        
-                    <li class="nav-item">
-                        <a href="{{ route ('expedicion.index')}}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>
-                                {{'Expedición'}}
-                            </p>
-                        </a>
-                    </li>
-                    
+
                     <li class="nav-item">
                         <a href="{{ route ('tipodocumentoidentificacion.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -76,6 +82,15 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route ('municipio.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>
+                                {{'Expedición'}}
+                            </p>
+                        </a>
+                    </li>
+                    
                     <li class="nav-item">
                         <a href="{{route ('personajuridica.index')}}" class="nav-link">
                             <i class="fas fa-industry nav-icon"></i>
@@ -106,7 +121,7 @@
                             </p>
                         </a>
                     </li>
-        
+
                     <li class="nav-item">
                         <a href="{{ route ('tipocontrato.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -117,40 +132,6 @@
                     </li>
                 </ul>
             </li>
-
-            
-
-            <li class="nav-item has-treeview nav-compact">
-                <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                        Archivos
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route ('documento.index')}}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>
-                                {{'Documento'}}
-                            </p>
-                        </a>
-                    </li>
-        
-                    <li class="nav-item">
-                        <a href="{{ route ('tipodocumento.index')}}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>
-                                {{'Tipo de documento'}}
-                            </p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            
 
             <li class="nav-header">PROCESOS</li>
 
@@ -203,7 +184,7 @@
 
             <li class="nav-item">
                 <a href="{{ route ('clienteproceso.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-project-diagram nav-icon"></i>
                     <p>
                         {{'Persona natural y proceso'}}
                     </p>
@@ -218,21 +199,34 @@
                     </p>
                 </a>
             </li>
-            
+
+            <li class="nav-item">
+                <a href="{{ route ('tipodocumento.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Tipo de documento'}}
+                    </p>
+                </a>
+            </li>
+
+
+            @can('use-app-admin')
             <li class="nav-header">MANTENIMIENTO</li>
+
 
             <li class="nav-item">
                 <a href="{{route ('copiadb.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="fas fa-database nav-icon"></i>
                     <p>
                         {{'Copia de la base de datos'}}
                     </p>
                 </a>
             </li>
-            
+            @endcan
+
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
 
-    <!-- /.sidebar -->
 </aside>
+@endcan

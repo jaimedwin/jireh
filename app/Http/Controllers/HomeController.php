@@ -28,8 +28,15 @@ class HomeController extends Controller
         $cpu = $this->getServerCpuUsage();
         $dfg = $this->getServeDiskFree();
         $rec = $this->getNumberRecordatoryWeek();
-        $Recordatorios = $this->getRecordatoryMonth();
-        return view('admin', compact('mem', 'cpu', 'dfg', 'rec', 'Recordatorios'));
+        $now = $now = date('d-m-Y');
+        $to = new \Carbon\Carbon($now);
+        $to->addDays(3);
+        
+        $Recordatorios = $this->getRecordatoryMonth($now, $to);
+        $urgencia_fecha = new \Carbon\Carbon($now);
+        $urgencia_fecha->addDays(15);
+        
+        return view('admin', compact('mem', 'cpu', 'dfg', 'rec', 'Recordatorios', 'urgencia_fecha', 'now'));
     }
 
     private function getServerCpuUsage(){        
@@ -55,7 +62,7 @@ class HomeController extends Controller
     private function getNumberRecordatoryWeek(){
         $now = $now = date('Y-m-d');
         $to = new \Carbon\Carbon($now);
-        $to->addDays(7);
+        $to->addDays(30);
         $recordatorios = Recordatorioproceso::where('fecha', '>=', $now)
                            ->where('fecha', '<=', $to)
                            ->get();
@@ -63,14 +70,18 @@ class HomeController extends Controller
         return $rec;
     }
 
-    private function getRecordatoryMonth(){
+    private function getRecordatoryMonth($now, $to){
         $now = $now = date('Y-m-d');
         $to = new \Carbon\Carbon($now);
         $to->addDays(30);
-        $Recordatorios = Recordatorioproceso::where('fecha', '>=', $now)
-                           ->where('fecha', '<=', $to)
-                           ->orderBy('fecha', 'ASC')
-                           ->get();
+        $Recordatorios = Recordatorioproceso::select('recordatorio.fecha AS fecha',
+                            'recordatorio.observacion AS observacion',
+                            'proceso.numero AS proceso')
+                            ->where('fecha', '>=', $now)
+                            ->where('fecha', '<=', $to)
+                            ->orderBy('fecha', 'ASC')
+                            ->join('proceso', 'proceso.id', '=', 'recordatorio.proceso_id')
+                            ->get();
         return $Recordatorios;
     }
 }

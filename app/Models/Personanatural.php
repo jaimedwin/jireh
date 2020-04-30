@@ -12,7 +12,7 @@ class Personanatural extends Model
     protected $fillable = ['contrato', 'codigo', 'nombres', 
     'apellidopaterno', 'apellidomaterno',
     'tipodocumentoidentificacion_id',
-    'numerodocumento', 'expedicion_id',
+    'numerodocumento', 'municipio_id',
     'fechaexpedicion', 'fechanacimiento','direccion', 
     'eps_id', 'fondodepension_id', 'grado_id',
     'users_id', 'created_at', 'updated_at'];

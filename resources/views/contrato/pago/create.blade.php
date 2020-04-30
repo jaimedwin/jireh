@@ -6,40 +6,13 @@
 
 	<div class="card-header">
 		<h3 class="card-title"><a href="{{route('contrato.pago.index', $contrato_id)}}">{{'Pago'}}</a></h3>
-		<div class="card-tools">
-			<form action="{{route('contrato.pago.index', $contrato_id)}}" method="get">
-				@csrf
-				<div class="input-group input-group-sm" style="width: 150px;">
-					<input type="text" name="buscar" class="form-control float-right" placeholder="Buscar">
-					<div class="input-group-append">
-						<button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-					</div>
-
-				</div>
-			</form>
-		</div>
 	</div>
 
-	<form action="{{ route('contrato.pago.store', $contrato_id)}}" method="post">
+	<form action="{{ route('contrato.pago.store', $contrato_id)}}" method="post" autocomplete="off">
 		@csrf
 		<div class="card-body">
 
-			@if ($message = Session::get('success'))
-			<div class="row">
-				<div class="col-12">
-					<div class="alert alert-success alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
-						<ul>
-							<li>{{$message}}</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			@endif
-
+			@include('admin.success')
 			@include('admin.errors')
 
 			<div class="row mb-4">
@@ -69,7 +42,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- /.card-body -->
+
 		<div class="card-footer clearfix">
 			<a href="{{route('contrato.pago.index', $contrato_id)}}" class="btn btn-secondary" role="button"
 				aria-label="Buscar">{{'Cancelar'}}</a>

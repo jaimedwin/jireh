@@ -13,7 +13,7 @@ class CiudadprocesoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('ciudadproceso')->delete();
+        DB::table('ciudadproceso')->truncate();
 
         Ciudadproceso::insert([
             ['nombre' => 'BARRANQUILLA', 'users_id' => 1],

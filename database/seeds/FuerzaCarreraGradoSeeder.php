@@ -15,9 +15,9 @@ class FuerzaCarreraGradoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('grado')->delete();
-        DB::table('carrera')->delete();
-        DB::table('fuerza')->delete();
+        DB::table('grado')->truncate();
+        DB::table('carrera')->truncate();
+        DB::table('fuerza')->truncate();
 
         $fuerzas = [  
             ['id' => 1, 'abreviatura' => 'PNC',   'descripcion' => 'Policía Nacional de Colombia', 'users_id' => 1],

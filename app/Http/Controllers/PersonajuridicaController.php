@@ -34,7 +34,7 @@ class PersonajuridicaController extends Controller
             'personanatural.nombres', 'personanatural.apellidopaterno', 'personanatural.apellidomaterno'];
             $Personasjuridicas['Personasjuridicas'] = $personasjuridicas->whereOrSearch($palabrasbuscar, $columnas);
             return view('personajuridica.index', $Personasjuridicas)
-            ->with('success','Busqueda realizada');
+            ->with('success',['Busqueda realizada']);
         }else{
             $Personasjuridicas['Personasjuridicas'] = $personasjuridicas->paginate(10);
             return view('personajuridica.index', $Personasjuridicas);
@@ -75,10 +75,10 @@ class PersonajuridicaController extends Controller
      */
     public function show(Personajuridica $personajuridica)
     {
-        $auditoria = User::findOrFail($personajuridica)->first();
+        $auditoria = User::findOrFail($personajuridica->users_id);
         $personanatural = Personanatural::select('id', 'numerodocumento')
         ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
-        ->find($personajuridica->personanatural_id);
+        ->findOrFail($personajuridica->personanatural_id);
         return view('personajuridica.show', compact('personajuridica', 'auditoria', 'personanatural'));
     }
 
@@ -116,9 +116,12 @@ class PersonajuridicaController extends Controller
      * @param  \App\Personajuridica  $personajuridica
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Personajuridica $personajuridica)
+    public function destroy($id)
     {
-        $personajuridica->delete();
-        return redirect()->route('personajuridica.index')->with('success',['Registro borrado completamente']);
+        $personajuridica = Personajuridica::findOrFail($id);
+        if ($personajuridica->delete())
+            return redirect()->route('personajuridica.index')->with('success',['Registro borrado completamente']);
+        
+        return redirect()->route('personajuridica.index')->withErrors(['No se puede borrar la persona juridica']);
     }
 }

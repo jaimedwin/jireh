@@ -17,6 +17,7 @@ class AddForeignKeysToContratoTable extends Migration {
 		{
 			$table->foreign('personanatural_id', 'contrato_FK')->references('id')->on('personanatural')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('tipocontrato_id', 'contrato_FK_1')->references('id')->on('tipocontrato')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('proceso_id', 'contrato_FK_2')->references('id')->on('proceso')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 
@@ -32,6 +33,7 @@ class AddForeignKeysToContratoTable extends Migration {
 		{
 			$table->dropForeign('contrato_FK');
 			$table->dropForeign('contrato_FK_1');
+			$table->dropForeign('contrato_FK_2');
 		});
 	}
 

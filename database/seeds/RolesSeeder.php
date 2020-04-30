@@ -12,7 +12,7 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->delete();
+        DB::table('roles')->truncate();
 
         Role::create([
             'name' => 'admin',
@@ -20,6 +20,14 @@ class RolesSeeder extends Seeder
 
         Role::create([
             'name' => 'user',
+        ]);
+
+        Role::create([
+            'name' => 'download_csv',
+        ]);
+
+        Role::create([
+            'name' => 'delete',
         ]);
     }
 }

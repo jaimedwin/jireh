@@ -11,6 +11,8 @@ use App\Models\Estado;
 use App\Models\Actuacionproceso;
 use App\Models\Recordatorioproceso;
 use App\Models\Clienteproceso;
+use App\Models\Contrato;
+use App\Models\Documentoproceso;
 use App\User;
 use App\Http\Requests\ProcesoFormRequest;
 use Illuminate\Support\Facades\Log;
@@ -50,7 +52,7 @@ class ProcesoController extends Controller
             $columnas = ['codigo', 'numero', 'ciudadproceso.nombre', 
             'corporacion.nombre', 'ponente.nombrecompleto', 'estado.descripcion'];
             $Procesos['Procesos'] = $procesos->whereOrSearch($palabrasbuscar, $columnas);
-            return view('proceso.index', $Procesos)->with('success','Busqueda realizada');
+            return view('proceso.index', $Procesos)->with('success',['Busqueda realizada']);
         }else{
             $Procesos['Procesos'] = $procesos->paginate(10);
             
@@ -82,7 +84,7 @@ class ProcesoController extends Controller
     {
         $d = $request->except('_token');
         Proceso::create($d);
-        return redirect()->route('proceso.index')->with('success','Proceso almacenado completamente');
+        return redirect()->route('proceso.index')->with('success',['Proceso almacenado completamente']);
     }
 
     /**
@@ -91,23 +93,44 @@ class ProcesoController extends Controller
      * @param  \App\Proceso  $proceso
      * @return \Illuminate\Http\Response
      */
-    public function show(Proceso $proceso)
+    public function show($id)
     {
-        $auditoria = User::findOrFail($proceso)->first();
-
-        
         $proceso = Proceso::select(
-            'proceso.*',
-            'ciudadproceso.nombre AS ciudadproceso', 
-            'corporacion.nombre AS corporacion', 
-            'ponente.nombrecompleto AS ponente', 
-            'estado.descripcion AS estado')
-        ->join('ciudadproceso', 'proceso.ciudadproceso_id', '=', 'ciudadproceso.id')
-        ->join('corporacion','proceso.corporacion_id', '=', 'corporacion.id')
-        ->join('ponente', 'proceso.ponente_id', '=', 'ponente.id')
-        ->join('estado', 'proceso.estado_id', '=', 'estado.id')
-        ->where('proceso.id', '=', $proceso->id)->first();
-        return view('proceso.show', compact('proceso', 'auditoria'));
+                            'proceso.*',
+                            'ciudadproceso.nombre AS ciudadproceso', 
+                            'corporacion.nombre AS corporacion', 
+                            'ponente.nombrecompleto AS ponente', 
+                            'estado.descripcion AS estado')
+                        ->join('ciudadproceso', 'proceso.ciudadproceso_id', '=', 'ciudadproceso.id')
+                        ->join('corporacion','proceso.corporacion_id', '=', 'corporacion.id')
+                        ->join('ponente', 'proceso.ponente_id', '=', 'ponente.id')
+                        ->join('estado', 'proceso.estado_id', '=', 'estado.id')
+                        ->findOrFail($id);
+
+        $Clientesproceso = Clienteproceso::select('clienteproceso.id', 'clienteproceso.personanatural_id',
+                        'personanatural.id', 'personanatural.nombres',
+                        'personanatural.nombres', 'personanatural.apellidopaterno',
+                        'personanatural.apellidomaterno', 'tipodemanda.abreviatura AS tipodemanda')
+                        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                        ->join('tipodemanda', 'tipodemanda_id', '=', 'tipodemanda.id')
+                        ->join('personanatural', 'clienteproceso.personanatural_id', '=','personanatural.id')
+                        ->where('clienteproceso.personanatural_id', '=', $id)
+                        ->get();
+
+        $Documentosproceso = Documentoproceso::select('documentoproceso.*',
+                        'tipodocumento.abreviatura AS tipodocumento')
+                        ->join('tipodocumento', 'tipodocumento_id', '=', 'tipodocumento.id')
+                        ->where('documentoproceso.proceso_id', '=', $id)
+                        ->get();
+        
+        $Recordatoriosproceso = Recordatorioproceso::where('proceso_id', '=', $id)->get();
+
+        $Actuacionesproceso = Actuacionproceso::orderBy( 'fechaactuacion', 'DESC')->where('proceso_id', '=', $id)->get();
+
+        $auditoria = User::findOrFail($proceso->users_id);
+
+        return view('proceso.show', compact('proceso', 'auditoria', 'Documentosproceso', 'Recordatoriosproceso', 
+                        'Actuacionesproceso', 'Clientesproceso'));
     }
 
     /**
@@ -135,7 +158,7 @@ class ProcesoController extends Controller
     public function update(ProcesoFormRequest $request, Proceso $proceso)
     {
         $proceso->update($request->all());
-        return redirect()->route('proceso.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('proceso.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -144,28 +167,33 @@ class ProcesoController extends Controller
      * @param  \App\Proceso  $proceso
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proceso $proceso)
+    public function destroy($id)
     {
-        $valida1 = Actuacionproceso::where('proceso_id', '=', $proceso->id)->get();
-        $valida2 = Recordatorioproceso::where('proceso_id', '=', $proceso->id)->get();
-        $valida3 = Clienteproceso::where('proceso_id', '=', $proceso->id)->get();
-        if ($valida1->isEmpty() && $valida2->isEmpty() && $valida3->isEmpty()) {
-            $proceso->delete();
-            return redirect()->route('proceso.index')->with('success','Registro borrado completamente');
-        }else {
-            $errors = array('No se puede borrar el proceso');
-            if (!$valida1->isEmpty()){
-                array_push($errors, 'El proceso tiene actuacione(s) asociada(s)');
-            }
-            if (!$valida2->isEmpty()){
-                array_push($errors,'El proceso tiene recordatorio(s) asociado(s)');
-            }
-            if (!$valida3->isEmpty()){
-                array_push($errors,'El proceso está asociado con persona(s) naturales(s)');
-            }
-
-            return redirect()->route('proceso.index')->withErrors($errors);
+        $valida1 = Actuacionproceso::where('proceso_id', '=', $id)->get();
+        $valida2 = Recordatorioproceso::where('proceso_id', '=', $id)->get();
+        $valida3 = Clienteproceso::where('proceso_id', '=', $id)->get();
+        $valida4 = Contrato::where('proceso_id', '=', $id)->get();
+        if ($valida1->isEmpty() && $valida2->isEmpty() && $valida3->isEmpty() && $valida4->isEmpty()) {
+            $proceso = Proceso::findOrFail($id);
+            if( $proceso->delete())
+                return redirect()->route('proceso.index')->with('success',['Registro borrado completamente']);
         }
+        
+        $errors = array('No se puede borrar el proceso');
+        if (!$valida1->isEmpty()){
+            array_push($errors, 'El proceso tiene actuacione(s) asociada(s)');
+        }
+        if (!$valida2->isEmpty()){
+            array_push($errors,'El proceso tiene recordatorio(s) asociado(s)');
+        }
+        if (!$valida3->isEmpty()){
+            array_push($errors,'El proceso está asociado con persona(s) naturales(s)');
+        }
+        if (!$valida4->isEmpty()){
+            array_push($errors,'El proceso está asociado con contrato(s)');
+        }
+        return redirect()->route('proceso.index')->withErrors($errors);
+        
     }
 
     public function sendEmail($id){
@@ -189,7 +217,7 @@ class ProcesoController extends Controller
             $contador += 1;
         }
 
-        return redirect()->route('proceso.index')->with('success','Correos enviados');
+        return redirect()->route('proceso.index')->with('success',['Correos enviados']);
     }
 
     public function getCsv(){

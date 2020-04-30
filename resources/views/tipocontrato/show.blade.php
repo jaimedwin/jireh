@@ -9,8 +9,8 @@
     <div class="card-body">
         <div class="row mb-4">
             <div class="col-12">
-                <table class="table table-bordered">
-                    <thead class="">
+                <table class="table table-bordered table-sm">
+                    <thead>
                         <tr>
                             <th style="width: 10px" class="table-secondary">{{'#'}}</th>
                             <th class="table-secondary">{{'Campo'}}</th>

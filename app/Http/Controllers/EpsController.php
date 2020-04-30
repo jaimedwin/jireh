@@ -28,7 +28,7 @@ class EpsController extends Controller
                     ->orwhere('abreviatura', 'LIKE', '%'. $buscar. '%')
                     ->orwhere('descripcion', 'LIKE', '%'. $buscar. '%')
                     ->paginate(100);
-            return view('eps.index', $epss)->with('success','Busqueda realizada');
+            return view('eps.index', $epss)->with('success',['Busqueda realizada']);
         }else{
             $epss['epss'] = Eps::paginate(10);
             return view('eps.index', $epss);
@@ -55,7 +55,7 @@ class EpsController extends Controller
     {
         $d = $request->except('_token');
         Eps::create($d);
-        return redirect()->route('eps.index')->with('success','Eps almacenada completamente');
+        return redirect()->route('eps.index')->with('success',['Eps almacenada completamente']);
     }
 
     /**
@@ -66,7 +66,7 @@ class EpsController extends Controller
      */
     public function show(Eps $ep)
     {
-        $auditoria = User::findOrFail($ep)->first();
+        $auditoria = User::findOrFail($ep->users_id);
         return view('eps.show', compact('ep', 'auditoria'));
     }
 
@@ -91,7 +91,7 @@ class EpsController extends Controller
     public function update(EpsFormRequest $request, Eps $ep)
     {
         $ep->update($request->all());
-        return redirect()->route('eps.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('eps.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -100,16 +100,17 @@ class EpsController extends Controller
      * @param  \App\Eps  $eps
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Eps $ep)
+    public function destroy($id)
     {
-        $valida = Personanatural::where('eps_id', '=', $ep->id)->get();
+        $valida = Personanatural::where('eps_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $ep->delete();
-            return redirect()->route('eps.index')->with('success','Registro borrado completamente');
-        }else{
-            return redirect()->route('eps.index')
-             ->withErrors(['No se puede borrar la eps', 
-             'La eps tiene persona(s) naturales(s) asociada(s)']);
+            $eps = Eps::findOrFail($id);
+            if($eps->delete())
+                return redirect()->route('eps.index')->with('success',['Registro borrado completamente']);
         }
+        return redirect()->route('eps.index')
+            ->withErrors(['No se puede borrar la eps', 
+            'La eps tiene persona(s) naturales(s) asociada(s)']);
+        
     }
 }

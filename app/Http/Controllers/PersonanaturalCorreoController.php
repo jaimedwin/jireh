@@ -30,7 +30,7 @@ class PersonanaturalCorreoController extends Controller
             $columnas = ['prefijo', 'numero'];
             $Correos = $correos
             ->whereOrSearch($palabrasbuscar, $columnas);
-            return view('personanatural.correo.index', compact('Correos', 'personanatural_id'))->with('success','Busqueda realizada');
+            return view('personanatural.correo.index', compact('Correos', 'personanatural_id'))->with('success',['Busqueda realizada']);
         }else{
             $Correos = $correos->paginate(10);
             return view('personanatural.correo.index', compact('Correos', 'personanatural_id'));
@@ -63,14 +63,14 @@ class PersonanaturalCorreoController extends Controller
             if ($correo->isEmpty()){
                 $correo = Correo::create($request->except('_token'));
                 return redirect()->route('personanatural.correo.index', $personanatural_id)
-                    ->with('success','Correo almacenado completamente');
+                    ->with('success',['Correo almacenado completamente']);
             }else{
                 return redirect()->back()->withErrors(['No se registro el correo', 'Ya existe un correo principal']);
             }
         }else{
             $correo = Correo::create($request->except('_token'));
             return redirect()->route('personanatural.correo.index', $personanatural_id)
-                    ->with('success','Correo almacenado completamente');
+                    ->with('success',['Correo almacenado completamente']);
         }
     }
 
@@ -82,8 +82,8 @@ class PersonanaturalCorreoController extends Controller
      */
     public function show($personanatural_id, $id)
     {
-        $correo = Correo::find($id);
-        $auditoria = User::findOrFail($correo->users_id)->first();
+        $correo = Correo::findOrFail($id);
+        $auditoria = User::findOrFail($correo->users_id);
         return view('personanatural.correo.show', compact('personanatural_id', 'auditoria', 'correo'));
     }
 
@@ -95,7 +95,7 @@ class PersonanaturalCorreoController extends Controller
      */
     public function edit($personanatural_id, $id)
     {
-        $correo = Correo::find($id);
+        $correo = Correo::findOrFail($id);
         return view('personanatural.correo.edit', compact('correo', 'personanatural_id', 'id'));
     }
 
@@ -108,10 +108,10 @@ class PersonanaturalCorreoController extends Controller
      */
     public function update($personanatural_id, $id, CorreoFormRequest $request)
     {
-        $correo = Correo::find($id);
+        $correo = Correo::findOrFail($id);
         $correo->update($request->except('_token'));
         return redirect()->route('personanatural.correo.index', $personanatural_id)
-                    ->with('success','Correo actualizado completamente');
+                    ->with('success',['Correo actualizado completamente']);
     }
 
     /**
@@ -122,8 +122,9 @@ class PersonanaturalCorreoController extends Controller
      */
     public function destroy($personanatural_id, $id)
     {
-        $correo =  Correo::find($id);
-        $correo->delete();
-        return redirect()->route('personanatural.correo.index', $personanatural_id)->with('success','Registro borrado completamente');
+        $correo =  Correo::findOrFail($id);
+        if($correo->delete())
+            return redirect()->route('personanatural.correo.index', $personanatural_id)->with('success',['Registro borrado completamente']);
+        return redirect()->route('personanatural.correo.index', $personanatural_id)->withErrors(['No se pudo borrar el registro']);
     }
 }

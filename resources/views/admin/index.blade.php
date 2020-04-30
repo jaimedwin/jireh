@@ -39,7 +39,7 @@
 							<h1>@yield('entidad')</h1>
 						</div>
 					</div>
-				</div><!-- /.container-fluid -->
+				</div>
 			</section>
 
 			<!-- Main content -->
@@ -67,8 +67,6 @@
 
 	<!-- jQuery -->
 	<script src="{{ url('/') }}/adminlte/plugins/jquery/jquery.min.js"></script>
-	<!--  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
-
 	<!-- Bootstrap 4 bundle -->
 	<script src="{{ url('/') }}/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- Latest compiled and JavaScript -->

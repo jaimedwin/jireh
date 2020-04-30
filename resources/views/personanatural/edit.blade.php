@@ -8,23 +8,9 @@
 
 
     <div class="card-body">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                <span aria-hidden="true">&times;</span> 
-            </button>
-            <h5><i class="fas fa-exclamation-triangle"></i>
-                    <strong>{{'Error!'}}</strong>
-            </h5>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+        @include('admin.errors')
 
-        <form action="{{route('personanatural.update', $personanatural->id)}}" method="post">
+        <form action="{{route('personanatural.update', $personanatural->id)}}" method="post" autocomplete="off">
             @csrf
             @method('PUT')
             <div class="row mb-4">
@@ -86,15 +72,17 @@
                             <div class="form-group">
                                 <label for="personanatural.expedicion">{{'Lugar de expedición *'}}</label>
                                 <select class="form-control selectpicker" id="personanatural.expedicion" data-live-search="true"
-                                    name="expedicion_id">
+                                    name="municipio_id">
                                     @foreach ($Expediciones as $expe)
                                         @if ($expe->id == $personanatural->expedicion_id)
-                                            <option data-tokens="{{$expe->lugar}}" value="{{$expe->id}}" selected>
-                                                {{$expe->lugar}}
+                                            <option data-tokens="{{$expe->municipio}} {{$expe->departamento}}" value="{{$expe->id}}" 
+                                                data-subtext="{{$expe->departamento}}" selected>
+                                                {{$expe->municipio}}
                                             </option>
                                         @else
-                                            <option data-tokens="{{$expe->lugar}}" value="{{$expe->id}}">
-                                                {{$expe->lugar}}
+                                            <option data-tokens="{{$expe->municipio}} {{$expe->departamento}}" value="{{$expe->id}}" 
+                                                data-subtext="{{$expe->departamento}}">
+                                                {{$expe->municipio}}
                                             </option>
                                         @endif
                                     @endforeach
@@ -127,7 +115,7 @@
                             <select class="form-control selectpicker" id="personanatural.fondodepension" data-live-search="true"
                                 name="fondodepension_id">
                                 @foreach ($Fondodepensiones as $fdp)
-                                        @if ($fdp->id == $personanatural->fondodepension_id)
+                                    @if ($fdp->id == $personanatural->fondodepension_id)
                                         <option data-tokens="{{$fdp->abreviatura}}" value="{{$fdp->id}}" data-subtext="{{$fdp->descripcion}}"
                                             selected>
                                             {{$fdp->abreviatura}}
@@ -137,10 +125,10 @@
                                             {{$fdp->abreviatura}}
                                         </option>
                                     @endif
-
                                 @endforeach
                             </select>
                         </div>
+                        
                         <div class="form-group col-lg">
                             <label for="personanatural.eps">{{'Eps *'}}</label>
                             <select class="form-control selectpicker" id="personanatural.eps" data-live-search="true"
@@ -160,6 +148,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        
                         <div class="form-group col-lg">
                             <label for="personanatural.grado">{{'Grado *'}}</label>
                             <select class="form-control selectpicker" id="personanatural.grado" data-live-search="true"

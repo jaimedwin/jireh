@@ -13,13 +13,13 @@ class FondodepensionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('fondodepension')->delete();
+        DB::table('fondodepension')->truncate();
 
         Fondodepension::insert([
-            ['abreviatura' => 'Casur', 'descripcion' => 'Caja de Sueldos de Retiro de la Policía Nacional', 'users_id' => 1],
-            ['abreviatura' => 'Cremil', 'descripcion' => 'Caja de Retiro de las Fuerzas Militares', 'users_id' => 1],
-            ['abreviatura' => 'Tegen', 'descripcion' => 'Tesorería General', 'users_id' => 1],
-            ['abreviatura' => 'Minde', 'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'CASUR', 'descripcion' => 'Caja de Sueldos de Retiro de la Policía Nacional', 'users_id' => 1],
+            ['abreviatura' => 'CREMIL', 'descripcion' => 'Caja de Retiro de las Fuerzas Militares', 'users_id' => 1],
+            ['abreviatura' => 'TEGEN', 'descripcion' => 'Tesorería General Policía Nacional', 'users_id' => 1],
+            ['abreviatura' => 'MINDE', 'descripcion' => 'Tesorería ministerio de defensa', 'users_id' => 1],
             ['abreviatura' => 'NA', 'descripcion' => 'No aplica', 'users_id' => 1],
         ]);
     }

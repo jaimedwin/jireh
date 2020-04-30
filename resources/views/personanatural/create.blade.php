@@ -13,7 +13,7 @@
 
 		@include('admin.errors')
 
-		<form action="{{ route('personanatural.store')}}" method="post">
+		<form action="{{ route('personanatural.store')}}" method="post" autocomplete="off">
 			@csrf
 			<div class="row">
 				<div class="form-group col-lg">
@@ -62,13 +62,14 @@
 				</div>
 				<div class="col-lg">
 					<div class="form-group">
-						<label for="personanatural.expedicion">{{'Lugar de expedición *'}}</label>
-						<select class="form-control selectpicker" id="personanatural.expedicion" data-live-search="true"
-							name="expedicion_id">
+						<label for="personanatural.municipio">{{'Lugar de expedición *'}}</label>
+						<select class="form-control selectpicker" id="personanatural.municipio" data-live-search="true"
+							name="municipio_id">
 							<option selected>Seleccione ...</option>
 							@foreach ($Expediciones as $expe)
-							<option data-tokens="{{$expe->lugar}}" value="{{$expe->id}}">
-								{{$expe->lugar}}
+							<option data-tokens="{{$expe->municipio}} {{$expe->departamento}}" value="{{$expe->id}}"
+								data-subtext="{{$expe->departamento}}">
+								{{$expe->municipio}}
 							</option>
 							@endforeach
 						</select>
@@ -77,16 +78,16 @@
 				<div class="col-lg">
 					<div class="form-group">
 						<label for="personanatural.fechaexpedicion">{{'Fecha de expedicion'}}</label>
-						<input class="form-control" type="date" id="personanatural.fechaexpedicion" name="fechaexpedicion"
-						max="{{ \Carbon\Carbon::now()->toDateString() }}">
+						<input class="form-control" type="date" id="personanatural.fechaexpedicion"
+							name="fechaexpedicion" max="{{ \Carbon\Carbon::now()->toDateString() }}">
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-lg-4">
 					<label for="personanatural.fechanacimiento">{{'Fecha de nacimiento'}}</label>
-					<input class="form-control" type="date" id="personanatural.fechanacimiento" name="fechanacimiento" 
-					max="{{ \Carbon\Carbon::now()->toDateString() }}">
+					<input class="form-control" type="date" id="personanatural.fechanacimiento" name="fechanacimiento"
+						max="{{ \Carbon\Carbon::now()->toDateString() }}">
 				</div>
 				<div class="form-group col-lg-8">
 					<label for="personanatural.direccion">{{'Dirección *'}}</label>
@@ -100,7 +101,8 @@
 						name="fondodepension_id">
 						<option selected>Seleccione ...</option>
 						@foreach ($Fondodepensiones as $fdp)
-						<option data-tokens="{{$fdp->abreviatura}}" value="{{$fdp->id}}" data-subtext="{{$fdp->descripcion}}">
+						<option data-tokens="{{$fdp->abreviatura}}" value="{{$fdp->id}}"
+							data-subtext="{{$fdp->descripcion}}">
 							{{$fdp->abreviatura}}
 						</option>
 						@endforeach
@@ -124,99 +126,20 @@
 						name="grado_id">
 						<option selected>Seleccione ...</option>
 						@foreach ($Grados as $g)
-						<option data-tokens="{{$g->fuerza}} {{$g->abreviatura}} {{$g->descripcion}}" value="{{$g->id}}" data-subtext="{{$g->descripcion}}">
+						<option data-tokens="{{$g->fuerza}} {{$g->abreviatura}} {{$g->descripcion}}" value="{{$g->id}}"
+							data-subtext="{{$g->descripcion}}">
 							{{$g->fuerza}} - {{$g->abreviatura}}
 						</option>
 						@endforeach
 					</select>
 				</div>
+				
 				<div class="form-group">
 					<label class="sr-only" for="users_id">users_id</label>
 					<input id="users_id" class="form-control" type="hidden" name="users_id" value="{{ Auth::id()}}">
 				</div>
 			</div>
 
-			<!--
-			<div class="row">
-				<div class="form-group col-lg">
-					<label for="telefonos">{{'Telefono(s) *'}}</label>
-					<table id="tableTelefono" class="table">
-						<thead>
-							<tr>
-								<th scope="col">Principal</th>
-								<th scope="col">Prefijo</th>
-								<th scope="col">Número</th>
-								<th scope="col">Acción</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">
-									<div class="form-group clearfix">
-										<div class="icheck-primary d-inline">
-											<input type="radio" name="telefono_principal"
-												id="telefono_radio1" value="tr1" checked="">
-											<label for="telefono_radio1"></label>
-										</div>
-									</div>
-								</th>
-								<td>
-									<input type="text" class="form-control" name="telefono_prefijo[]" />
-								</td>
-								<td>
-									<input type="text" class="form-control" name="telefono_numero[]" />
-									<input type="hidden" class="form-control" name="telefono_select[]" value="tr1"></td>
-								</td>
-								<td>
-									<a id="deleteTel" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-								</td>
-							</tr>
-						</tbody>
-
-					</table>
-					<p>
-						<a id="insertTel" class="btn btn-primary btn-block">{{'Insertar teléfono'}}</a>
-					</p>
-				</div>
-
-				<div class="form-group col-lg">
-					<label for="correos">{{'Correo(s) *'}}</label>
-					<table id="tableCorreo" class="table">
-						<thead>
-							<tr>
-								<th scope="col">Principal</th>
-								<th scope="col">Dirección</th>
-								<th scope="col">Acción</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">
-									<div class="form-group clearfix">
-										<div class="icheck-primary d-inline">
-											<input type="radio" name="correo_principal" id="correo_radio1" value="cr1" checked="">
-											<label for="correo_radio1"></label>
-										</div>
-									</div>
-								</th>
-								<td>
-									<input type="text" class="form-control" name="correo_electronico[]" />
-									<input type="hidden" class="form-control" name="correo_select[]" value="cr1">
-								</td>
-								<td>
-									<a id="deleteCorreo" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-								</td>
-							</tr>
-						</tbody>
-
-					</table>
-					<p>
-						<a id="insertCorreo" class="btn btn-primary btn-block">{{'Insertar correo'}}</a>
-					</p>
-				</div>
-			</div>
-			-->
-			
 			<div class="row">
 				<div class="col-lg">
 					<a href="{{route('personanatural.index')}}" class="btn btn-secondary" role="button"
@@ -229,7 +152,6 @@
 				</div>
 			</div>
 		</form>
-
 	</div>
 	<div class="card-footer clearfix">
 

@@ -29,7 +29,7 @@ class TipodocumentoController extends Controller
                     ->orwhere('descripcion', 'LIKE', '%'. $buscar. '%')
                     ->orwhere('comentario', 'LIKE', '%'. $buscar. '%')
                     ->paginate(100);
-            return view('tipodocumento.index', $tipodocumentos)->with('success','Busqueda realizada');
+            return view('tipodocumento.index', $tipodocumentos)->with('success',['Busqueda realizada']);
         }else{
             $tipodocumentos['tipodocumentos'] = Tipodocumento::paginate(10);
             return view('tipodocumento.index', $tipodocumentos);
@@ -56,7 +56,7 @@ class TipodocumentoController extends Controller
     {
         $d = $request->except('_token');
         Tipodocumento::create($d);
-        return redirect()->route('tipodocumento.index')->with('success','Tipo de documentos almacenado completamente');
+        return redirect()->route('tipodocumento.index')->with('success',['Tipo de documentos almacenado completamente']);
     }
 
     /**
@@ -67,7 +67,7 @@ class TipodocumentoController extends Controller
      */
     public function show(Tipodocumento $tipodocumento)
     {
-        $auditoria = User::findOrFail($tipodocumento)->first();
+        $auditoria = User::findOrFail($tipodocumento->users_id);
         return view('tipodocumento.show', compact('tipodocumento', 'auditoria'));
     }
 
@@ -92,7 +92,7 @@ class TipodocumentoController extends Controller
     public function update(TipodocumentoFormRequest $request, Tipodocumento $tipodocumento)
     {
         $tipodocumento->update($request->all());
-        return redirect()->route('tipodocumento.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('tipodocumento.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -101,16 +101,17 @@ class TipodocumentoController extends Controller
      * @param  \App\Tipodocumento  $tipodocumento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipodocumento $tipodocumento)
+    public function destroy($id)
     {
-        $valida = Documento::where('tipodocumento_id', '=', $tipodocumento->id)->get();
+        $valida = Documento::where('tipodocumento_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $tipodocumento->delete();
-            return redirect()->route('tipodocumento.index')->with('success','Registro borrado completamente');
-        }else{
-            return redirect()->route('tipodocumento.index')
-             ->withErrors(['No se puede borrar el tipo de documento', 
-             'El tipo de documento tiene documento(s) asociado(s)']);
+            $tipodocumento = Tipodocumento::findOrFail($id);
+            if($tipodocumento->delete())
+                return redirect()->route('tipodocumento.index')->with('success',['Registro borrado completamente']);
         }
+        
+        return redirect()->route('tipodocumento.index')
+            ->withErrors(['No se puede borrar el tipo de documento', 
+            'El tipo de documento tiene documento(s) asociado(s)']);
     }
 }

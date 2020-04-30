@@ -26,7 +26,7 @@ class TelefonoFormRequest extends FormRequest
         return [
             'prefijo'               => 'required|string|max:10',
             'numero'                => 'required|string|max:15',
-            'principal'             => 'required|boolean', 
+            'principal'             => 'required|boolean',
             'personanatural_id'     => 'required|numeric',
             'users_id'              => 'required|numeric',
             'created_at'            => 'nullable|date',

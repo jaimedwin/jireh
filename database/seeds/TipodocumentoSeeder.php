@@ -13,7 +13,7 @@ class TipodocumentoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tipodocumento')->delete();
+        DB::table('tipodocumento')->truncate();
 
         Tipodocumento::insert([
             [ 'abreviatura' => 'FCC',           'descripcion' => 'Fotocopia de la cedula', 'users_id' => 1],

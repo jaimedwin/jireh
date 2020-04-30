@@ -25,41 +25,76 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 
-Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app'], function () {
-    Route::resource('estado','EstadoController');
-    Route::resource('fondodepension', 'FondodepensionController');
-    Route::resource('tipodocumento', 'TipodocumentoController');
-    Route::resource('eps', 'EpsController');
-    Route::resource('fuerza', 'FuerzaController');
-    Route::resource('fuerza.carrera', 'FuerzaCarreraController');
-    Route::resource('fuerza.carrera.grado', 'FuerzaCarreraGradoController');
-    Route::resource('expedicion', 'ExpedicionController');
-    Route::resource('tipocontrato', 'TipocontratoController');
-    Route::resource('tipodocumentoidentificacion', 'TipodocumentoidentificacionController');
-    Route::resource('tipodemanda', 'TipodemandaController');
-    Route::resource('corporacion', 'CorporacionController');
-    Route::resource('ponente', 'PonenteController');
-    Route::resource('ciudadproceso', 'CiudadprocesoController');
-    Route::resource('proceso', 'ProcesoController');
-    Route::resource('proceso.actuacion', 'ProcesoActuacionController');
-    Route::resource('proceso.recordatorio', 'ProcesoRecordatorioController');
-    Route::resource('contrato', 'ContratoController');
-    Route::resource('contrato.pago', 'ContratoPagoController');
-    Route::resource('personanatural', 'PersonanaturalController');
-    Route::resource('personanatural.telefono', 'PersonanaturalTelefonoController');
-    Route::resource('personanatural.correo', 'PersonanaturalCorreoController');
-    Route::resource('documento', 'DocumentoController');
-    Route::resource('personajuridica', 'PersonajuridicaController');
-    Route::resource('clienteproceso', 'ClienteprocesoController');
+Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app-user'], function () {
+
+    Route::group(['middleware' => 'can:use-app-download_csv'], function () {
+        Route::get('personatural/get_csv','PersonanaturalController@getCsv')->name('personanatural.csv');
+        Route::get('proceso/get_csv','ProcesoController@getCsv')->name('proceso.csv');
+        Route::get('proceso/{id}/actuacion/get_csv','ProcesoActuacionController@getCsv')->name('proceso.actuacion.csv');
+        Route::get('clienteproceso/get_csv','ClienteprocesoController@getCsv')->name('clienteproceso.csv');
+    });
+
+    Route::group(['middleware' => 'can:use-app-delete'], function () {
+        Route::delete('estado/{id}','EstadoController@destroy')->name('estado.destroy');
+        Route::delete('fondodepension/{id}', 'FondodepensionController@destroy')->name('fondodepension.destroy');
+        Route::delete('tipodocumento/{id}', 'TipodocumentoController@destroy')->name('tipodocumento.destroy');
+        Route::delete('eps/{id}', 'EpsController@destroy')->name('eps.destroy');
+        Route::delete('fuerza/{id}', 'FuerzaController@destroy')->name('fuerza.destroy');
+        Route::delete('fuerza/{fuerza}/carrera/{carrera}', 'FuerzaCarreraController@destroy')->name('fuerza.carrera.destroy');
+        Route::delete('fuerza/{fuerza}/carrera/{carrera}/grado/{grado}', 'FuerzaCarreraGradoController@destroy')->name('fuerza.carrera.grado.destroy');
+        Route::delete('municipio/{id}', 'MunicipioController@destroy')->name('municipio.destroy');
+        Route::delete('tipocontrato/{id}', 'TipocontratoController@destroy')->name('tipocontrato.destroy');
+        Route::delete('tipodocumentoidentificacion/{id}', 'TipodocumentoidentificacionController@destroy')->name('tipodocumentoidentificacion.destroy');
+        Route::delete('tipodemanda/{id}', 'TipodemandaController@destroy')->name('tipodemanda.destroy');
+        Route::delete('corporacion/{id}', 'CorporacionController@destroy')->name('corporacion.destroy');
+        Route::delete('ponente/{id}', 'PonenteController@destroy')->name('ponente.destroy');
+        Route::delete('ciudadproceso/{id}', 'CiudadprocesoController@destroy')->name('ciudadproceso.destroy');
+        Route::delete('proceso/{id}', 'ProcesoController@destroy')->name('proceso.destroy');
+        Route::delete('proceso/{proceso}/actuacion/{actuacion}', 'ProcesoActuacionController@destroy')->name('proceso.actuacion.destroy');
+        Route::delete('proceso/{proceso}/documento/{documento}', 'ProcesoDocumentoController@destroy')->name('proceso.documento.destroy');
+        Route::delete('proceso/{proceso}/recordatorio/{recordatorio}', 'ProcesoRecordatorioController@destroy')->name('proceso.recordatorio.destroy');
+        Route::delete('contrato/{id}', 'ContratoController@destroy')->name('contrato.destroy');
+        Route::delete('contrato/{contrato}/pago/{pago}', 'ContratoPagoController@destroy')->name('contrato.pago.destroy');
+        Route::delete('personanatural/{id}', 'PersonanaturalController@destroy')->name('personanatural.destroy');
+        Route::delete('personanatural/{personanatural}/telefono/{telefono}', 'PersonanaturalTelefonoController@destroy')->name('personanatural.telefono.destroy');
+        Route::delete('personanatural/{personanatural}/correo/{correo}', 'PersonanaturalCorreoController@destroy')->name('personanatural.correo.destroy');
+        Route::delete('documento/{id}', 'DocumentoController@destroy')->name('documento.destroy');
+        Route::delete('personajuridica/{id}', 'PersonajuridicaController@destroy')->name('personajuridica.destroy');
+        Route::delete('clienteproceso/{id}', 'ClienteprocesoController@destroy')->name('clienteproceso.destroy');
+    });
+
+    Route::resource('estado','EstadoController')->except('destroy');
+    Route::resource('fondodepension', 'FondodepensionController')->except('destroy');
+    Route::resource('tipodocumento', 'TipodocumentoController')->except('destroy');
+    Route::resource('eps', 'EpsController')->except('destroy');
+    Route::resource('fuerza', 'FuerzaController')->except('destroy');
+    Route::resource('fuerza.carrera', 'FuerzaCarreraController')->except('destroy');
+    Route::resource('fuerza.carrera.grado', 'FuerzaCarreraGradoController')->except('destroy');
+    Route::resource('municipio', 'MunicipioController')->except('destroy');
+    Route::resource('tipocontrato', 'TipocontratoController')->except('destroy');
+    Route::resource('tipodocumentoidentificacion', 'TipodocumentoidentificacionController')->except('destroy');
+    Route::resource('tipodemanda', 'TipodemandaController')->except('destroy');
+    Route::resource('corporacion', 'CorporacionController')->except('destroy');
+    Route::resource('ponente', 'PonenteController')->except('destroy');
+    Route::resource('ciudadproceso', 'CiudadprocesoController')->except('destroy');
+    Route::resource('proceso', 'ProcesoController')->except('destroy');
+    Route::resource('proceso.actuacion', 'ProcesoActuacionController')->except('destroy');
+    Route::resource('proceso.documento', 'ProcesoDocumentoController')->except('destroy');
+    Route::resource('proceso.recordatorio', 'ProcesoRecordatorioController')->except('destroy');
+    Route::resource('contrato', 'ContratoController')->except('destroy');
+    Route::resource('contrato.pago', 'ContratoPagoController')->except('destroy');
+    Route::resource('personanatural', 'PersonanaturalController')->except('destroy');
+    Route::resource('personanatural.telefono', 'PersonanaturalTelefonoController')->except('destroy');
+    Route::resource('personanatural.correo', 'PersonanaturalCorreoController')->except('destroy');
+    Route::resource('documento', 'DocumentoController')->except('destroy');
+    Route::resource('personajuridica', 'PersonajuridicaController')->except('destroy');
+    Route::resource('clienteproceso', 'ClienteprocesoController')->except('destroy');
+
     Route::get('descargas_actuaciones/{proceso}/{name}','ProcesoActuacionController@downloadFile')->name('descargas_actuaciones');
-    Route::get('descargas_otrosdocumentos/{personanatural}/{name}','ContratoController@downloadFile')->name('descargas_otrosdocumentos');
-    Route::get('copiadb','CopiabdController@index')->name('copiadb.index');
-    Route::get('copiadb/create','CopiabdController@create')->name('copiadb.create');
-    Route::get('descargas_copiasbasesdedatos/{name}','CopiabdController@downloadFile')->name('descargas_copiasbasesdedatos');
-    Route::get('borrar_copiasbasesdedatos/{name}','CopiabdController@deleteFile')->name('borrar_copiasbasesdedatos');
-    Route::get('get_csv/personatural','PersonanaturalController@getCsv')->name('personanatural.csv');
-    Route::get('get_csv/proceso','ProcesoController@getCsv')->name('proceso.csv');
-    Route::get('get_csv/proceso/{id}/actuacion','ProcesoActuacionController@getCsv')->name('proceso.actuacion.csv');
+    Route::get('descargas_proceso_documentos/{proceso}/{name}','ProcesoDocumentoController@downloadFile')->name('descargas_proceso_documentos');
+    Route::get('descargas_otrosdocumentos/{personanatural}/{name}','DocumentoController@downloadFile')->name('descargas_otrosdocumentos');
+    Route::get('descargas_otrosdocumentos_contrato/{personanatural}/{name}','ContratoController@downloadFile')->name('descargas_otrosdocumentos_contrato');
+    
     Route::get('validate_email', 'UserController@validateEmail')->name('validate_email');  
     Route::post('reset_password/{token}', 'UserController@resetPassword')->name('reset_password');
     Route::get('change_password/{email}/{token}', 'UserController@changePassword')->name('change_password');  
@@ -68,10 +103,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app'], function () {
     Route::get('proceso/{id}/send_email','ProcesoController@sendEmail')->name('proceso.sendemail');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => 'can:manager-users'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app-admin'], function () {
     Route::resource('user', 'UserController')->except(['show', 'create', 'store', 'destroy']); 
     Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
     Route::post('register', 'Auth\RegisterController@register');
+    Route::get('copiadb','CopiabdController@index')->name('copiadb.index');
+    Route::get('copiadb/create','CopiabdController@create')->name('copiadb.create');
+    Route::get('descargas_copiasbasesdedatos/{name}','CopiabdController@downloadFile')->name('descargas_copiasbasesdedatos');
+    Route::get('borrar_copiasbasesdedatos/{name}','CopiabdController@deleteFile')->name('borrar_copiasbasesdedatos');
 });
 
 

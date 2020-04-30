@@ -8,23 +8,9 @@
 
 
     <div class="card-body">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                <span aria-hidden="true">&times;</span> 
-            </button>
-            <h5><i class="fas fa-exclamation-triangle"></i>
-                    <strong>{{'Error!'}}</strong>
-            </h5>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+        @include('admin.errors')
 
-        <form action="{{route('fuerza.update', $fuerza->id)}}" method="post">
+        <form action="{{route('fuerza.update', $fuerza->id)}}" method="post" autocomplete="off">
             @csrf
             @method('PUT')
             <div class="row mb-4">

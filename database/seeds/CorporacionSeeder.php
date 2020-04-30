@@ -13,12 +13,14 @@ class CorporacionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('corporacion')->delete();
+        DB::table('corporacion')->truncate();
 
         Corporacion::insert([
+            [ 'nombre' => 'CORTE CONSTITUCIONAL', 'correonotificacion' => '', 'users_id' => 1],
             [ 'nombre' => 'CONSEJO DE ESTADO', 'correonotificacion' => '', 'users_id' => 1],
-            [ 'nombre' => 'JUZGADO', 'correonotificacion' => '', 'users_id' => 1],
+            [ 'nombre' => 'CORTE SUPREMA', 'correonotificacion' => '', 'users_id' => 1],
             [ 'nombre' => 'TRIBUNAL', 'correonotificacion' => '', 'users_id' => 1],
+            [ 'nombre' => 'JUZGADO', 'correonotificacion' => '', 'users_id' => 1],
         ]);
     }
 }

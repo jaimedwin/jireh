@@ -27,7 +27,7 @@ class CiudadprocesoController extends Controller
             $ciudadprocesos['Ciudadprocesos'] = Ciudadproceso::orderBy('id', 'DESC')
                     ->orwhere('nombre', 'LIKE', '%'. $buscar. '%')
                     ->paginate(100);
-            return view('ciudadproceso.index', $ciudadprocesos)->with('success','Busqueda realizada');
+            return view('ciudadproceso.index', $ciudadprocesos)->with('success',['Busqueda realizada']);
         }else{
             $ciudadprocesos['Ciudadprocesos'] = Ciudadproceso::paginate(10);
             return view('ciudadproceso.index', $ciudadprocesos);
@@ -54,7 +54,7 @@ class CiudadprocesoController extends Controller
     {
         $d = $request->except('_token');
         Ciudadproceso::create($d);
-        return redirect()->route('ciudadproceso.index')->with('success','Ciudad del proceso almacenado completamente');
+        return redirect()->route('ciudadproceso.index')->with('success',['Ciudad del proceso almacenado completamente']);
     }
 
     /**
@@ -65,7 +65,7 @@ class CiudadprocesoController extends Controller
      */
     public function show(Ciudadproceso $ciudadproceso)
     {
-        $auditoria = User::findOrFail($ciudadproceso)->first();
+        $auditoria = User::findOrFail($ciudadproceso->users_id);
         return view('ciudadproceso.show', compact('ciudadproceso', 'auditoria'));
     }
 
@@ -90,7 +90,7 @@ class CiudadprocesoController extends Controller
     public function update(CiudadprocesoFormRequest $request, Ciudadproceso $ciudadproceso)
     {
         $ciudadproceso->update($request->all());
-        return redirect()->route('ciudadproceso.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('ciudadproceso.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -99,15 +99,16 @@ class CiudadprocesoController extends Controller
      * @param  \App\Ciudadproceso  $ciudadproceso
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ciudadproceso $ciudadproceso)
+    public function destroy($id)
     {
-        $valida = Proceso::where('ciudadproceso_id', '=', $ciudadproceso->id)->get();
+        $valida = Proceso::where('ciudadproceso_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $ciudadproceso->delete();
-            return redirect()->route('ciudadproceso.index')->with('success','Registro borrado completamente');
-        }else{
-            return redirect()->route('ciudadproceso.index')
-            ->withErrors(['No se puede borrar la ciudad', 'La ciudad tiene proceso(s) asociado(s)']);
+            $ciudadproceso = Ciudadproceso::findOrFail($id);
+            if($ciudadproceso->delete())
+                return redirect()->route('ciudadproceso.index')->with('success',['Registro borrado completamente']);
         }
+        return redirect()->route('ciudadproceso.index')
+            ->withErrors(['No se puede borrar la ciudad', 'La ciudad tiene proceso(s) asociado(s)']);
+        
     }
 }

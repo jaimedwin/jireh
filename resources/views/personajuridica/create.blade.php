@@ -8,46 +8,12 @@
         <h3 class="card-title"><a href="{{route('personajuridica.index')}}">{{'Persona juridica'}}</a></h3>
     </div>
 
+    <form action="{{ route('personajuridica.store')}}" method="post" autocomplete="off">
+        <div class="card-body">
 
-    <div class="card-body">
+            @include('admin.success')
+		    @include('admin.errors')
 
-        @if ($message = Session::get('success'))
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
-                    <ul>
-                        <li>{{$message}}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        @endif
-
-        @if ($errors->any())
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5><i class="fas fa-exclamation-triangle"></i>
-                        <strong>{{'Error!'}}</strong>
-                    </h5>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-        @endif
-
-        <form action="{{ route('personajuridica.store')}}" method="post">
             <div class="row mb-4">
                 <div class="col-12">
 
@@ -85,21 +51,17 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <a href="{{route('personajuridica.index')}}" class="btn btn-secondary" role="button" aria-label="Buscar">
-                        {{'Cancelar'}}
-                    </a>
-                    <button type="submit" class="btn btn-success float-right">
-                        {{'Agregar'}}
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-    
-    <!-- /.card-body -->
-    <div class="card-footer clearfix">
-    </div>
+        </div>
+
+        <div class="card-footer clearfix">
+            <a href="{{route('personajuridica.index')}}" class="btn btn-secondary" role="button" aria-label="Buscar">
+                {{'Cancelar'}}
+            </a>
+            <button type="submit" class="btn btn-success float-right">
+                {{'Agregar'}}
+            </button>
+        </div>
+
+    </form>
 </div>
 @endsection

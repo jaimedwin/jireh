@@ -9,8 +9,8 @@
     <div class="card-body">
         <div class="row mb-4">
             <div class="col-12">
-                <table class="table table-bordered">
-                    <thead class="">
+                <table class="table table-bordered table-sm">
+                    <thead>
                         <tr>
                             <th style="width: 10px" class="table-secondary">{{'#'}}</th>
                             <th class="table-secondary">{{'Campo'}}</th>
@@ -40,19 +40,20 @@
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'5.'}}</td>
-                            <td class="table-secondary">{{'Fecha finaliza termino'}}</td>
+                            <td class="table-secondary">{{'Fecha inicia termino'}}</td>
                             <td>{{$actuacionproceso->fechainiciatermino}}</td>
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'6.'}}</td>
-                            <td class="table-secondary">{{'Fecha registro'}}</td>
+                            <td class="table-secondary">{{'Fecha finaliza termino'}}</td>
                             <td>{{$actuacionproceso->fechafinalizatermino}}</td>
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'7.'}}</td>
-                            <td class="table-secondary">{{'Fecha inicia termino'}}</td>
+                            <td class="table-secondary">{{'Fecha registro'}}</td>
                             <td>{{$actuacionproceso->fecharegistro}}</td>
                         </tr>
+                        
                         <tr>
                             <td class="table-secondary">{{'8.'}}</td>
                             <td class="table-secondary">{{'Documento'}}</td>

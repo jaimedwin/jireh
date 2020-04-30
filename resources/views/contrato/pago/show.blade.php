@@ -9,8 +9,8 @@
     <div class="card-body">
         <div class="row mb-4">
             <div class="col-12">
-                <table class="table table-bordered">
-                    <thead class="">
+                <table class="table table-bordered table-sm">
+                    <thead>
                         <tr>
                             <th style="width: 10px" class="table-secondary">{{'#'}}</th>
                             <th class="table-secondary">{{'Campo'}}</th>
@@ -26,7 +26,7 @@
                         <tr>
                             <td class="table-secondary">{{'2.'}}</td>
                             <td class="table-secondary">{{'Abono'}}</td>
-                            <td>{{$pago->abono}}</td>
+                            <td class="row_data">{{$pago->abono}}</td>
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'3.'}}</td>

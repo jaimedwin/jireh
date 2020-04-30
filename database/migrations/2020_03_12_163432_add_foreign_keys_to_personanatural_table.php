@@ -16,7 +16,7 @@ class AddForeignKeysToPersonanaturalTable extends Migration {
 		Schema::table('personanatural', function(Blueprint $table)
 		{
 			$table->foreign('tipodocumentoidentificacion_id', 'personanatural_FK')->references('id')->on('tipodocumentoidentificacion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('expedicion_id', 'personanatural_FK_1')->references('id')->on('expedicion')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('municipio_id', 'personanatural_FK_1')->references('id')->on('municipio')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('grado_id', 'personanatural_FK_2')->references('id')->on('grado')->onUpdate('SET NULL')->onDelete('SET NULL');
 			$table->foreign('eps_id', 'personanatural_FK_3')->references('id')->on('eps')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('fondodepension_id', 'personanatural_FK_4')->references('id')->on('fondodepension')->onUpdate('RESTRICT')->onDelete('RESTRICT');
@@ -38,6 +38,7 @@ class AddForeignKeysToPersonanaturalTable extends Migration {
 			$table->dropForeign('personanatural_FK_2');
 			$table->dropForeign('personanatural_FK_3');
 			$table->dropForeign('personanatural_FK_4');
+			$table->dropForeign('personanatural_FK_5');
 		});
 	}
 

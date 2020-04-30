@@ -9,6 +9,8 @@ use App\User;
 use App\Http\Requests\DocumentoFormRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+//use Illuminate\Contracts\Filesystem\FileNotFoundException;
+//use Illuminate\Http\File;
 
 class DocumentoController extends Controller
 {
@@ -31,17 +33,19 @@ class DocumentoController extends Controller
         $documentos = Documento::orderBy('id', 'ASC')
                         ->select('documento.*', 
                         'tipodocumento.descripcion AS tipodocumento_descripcion',
-                        'tipodocumento.abreviatura AS tipodocumento_abreviatura')
+                        'tipodocumento.abreviatura AS tipodocumento_abreviatura', 
+                        'personanatural.numerodocumento AS numerodocumento')
                         ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('tipodocumento','tipodocumento_id','=','tipodocumento.id')
                         ->join('personanatural','personanatural_id','=','personanatural.id');
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){
             $columnas = ['tipodocumento.abreviatura', 
-            'personanatural.nombres', 'personanatural.apellidopaterno', 'personanatural.apellidomaterno'];
+            'personanatural.nombres', 'personanatural.apellidopaterno', 
+            'personanatural.apellidomaterno', 'personanatural.numerodocumento'];
             $Documentos['Documentos'] = $documentos->whereOrSearch($palabrasbuscar, $columnas);
             return view('documento.index', $Documentos)
-            ->with('success','Busqueda realizada');
+            ->with('success',['Busqueda realizada']);
         }else{
             $Documentos['Documentos'] = $documentos->paginate(10);
             return view('documento.index', $Documentos);
@@ -76,8 +80,8 @@ class DocumentoController extends Controller
         $path = $file->storeAs(self::PATH. $request->personanatural_id, $fileName);
         if (Storage::exists($path)){
             return redirect()->route('documento.index')
-                ->with('success',['data1' => 'Información del documento almacenado completamente', 
-                'data2' => 'Documento(archivo) almacenado completamente']);
+                ->with('success',['Información del documento almacenado completamente', 
+                'Documento(archivo) almacenado completamente']);
         }else{
             return redirect()->route('documento.index')
                 ->with('success',['Error no se escribio archivo en disco']);
@@ -92,9 +96,9 @@ class DocumentoController extends Controller
      */
     public function show(Documento $documento)
     {
-        $auditoria = User::findOrFail($documento)->first();
-        $tipodocumento = Tipodocumento::select('abreviatura')->find($documento->tipodocumento_id);
-        $personanatural = Personanatural::selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')->find($documento->personanatural_id);
+        $auditoria = User::findOrFail($documento->users_id);
+        $tipodocumento = Tipodocumento::select('abreviatura')->findOrFail($documento->tipodocumento_id);
+        $personanatural = Personanatural::selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')->findOrFail($documento->personanatural_id);
         return view('documento.show', compact('tipodocumento', 'documento', 'personanatural', 'auditoria'));
     }
 
@@ -133,12 +137,12 @@ class DocumentoController extends Controller
         $path = $file->storeAs(self::PATH. $request->personanatural_id, $fileName);
         $result = $this->deleteFile($personanatural_anterior, $nombrearchivo_anterior);
         if (Storage::exists($path)){
-            return redirect()->route('contrato.index')
-            ->with('success',['data1' => 'Registro del documento actualizado', 
-            'data2' => 'Archivo previo borrado completamente: '. $nombrearchivo_anterior,
-            'data3' => 'Se carga nuevo archivo: '. $fileName]);
+            return redirect()->route('documento.index')
+            ->with('success',['Registro del documento actualizado', 
+            'Archivo previo borrado completamente: '. $nombrearchivo_anterior,
+            'Se carga nuevo archivo: '. $fileName]);
         }else{
-            return redirect()->route('contrato.edit')
+            return redirect()->route('documento.index')
             ->withErrors(['Error no se escribio archivo en disco']);
         }
     }
@@ -149,26 +153,42 @@ class DocumentoController extends Controller
      * @param  \App\Documento  $documento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Documento $documento)
+    public function destroy($id)
     {
-        //$actuacionproceso =  Actuacionproceso::find($id);
-
-        $documento->delete();
-        $result = $this->deleteFile($documento->personanatural_id, $documento->nombrearchivo);
-        return redirect()->route('documento.index')->with('success',
-            [
-                'data1' => 'Registro borrado completamente',
-                'data2' => 'Archivo borrado completamente' . $result
-            ]);
+        $documento = Documento::findOrFail($id);   
+        $result1 = $documento->delete();
+        $result2 = $this->deleteFile($documento->personanatural_id, $documento->nombrearchivo);
+        if($result1 && $result2)
+            return redirect()->route('documento.index')->with('success',
+                [ 'Registro borrado completamente', 'Archivo en la ruta '. $documento->nombrearchivo . ' borrado completamente '
+                ]);
+        $errors = array('No se puede borrar completamente el registro');
+        if (!$result1->isEmpty()){
+            array_push($errors, 'Error al borrar el registro de la base de datos');
+        }
+        if (!$result2->isEmpty()){
+            array_push($errors, 'Error al borrar el archivo en la ruta'. $documento->nombrearchivo);
+        }
+        return redirect()->route('documento.index')->withErrors($errors);
     }
 
     public function downloadFile($id, $name)
     {
-        return Storage::download(self::PATH. $id.'/'.$name);
+        $file = Storage::exists(self::PATH. $id.'/'. $name);
+        if ($file){
+            return Storage::download(self::PATH. $id.'/'.$name);
+        }
+        
+        return redirect()->route('documento.index')->withErrors(['No se encuentra el archivo: '. $name]);
     }
 
     public function deleteFile($id, $name)
     {
-        return Storage::delete(self::PATH. '/'. $id.'/'.$name);
+        $file = Storage::exists(self::PATH. $id.'/'. $name);
+        if ($file){
+            return Storage::delete(self::PATH. $id.'/'.$name);
+        }
+            
+        return redirect()->route('documento.index')->withErrors(['No se encuentra el archivo: '. $name]);
     }
 }

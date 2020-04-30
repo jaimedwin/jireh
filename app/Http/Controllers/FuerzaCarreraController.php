@@ -33,7 +33,7 @@ class FuerzaCarreraController extends Controller
             $columnas = ['abreviatura','descripcion'];
             $Carreras = $carreras->whereOrSearch($palabrasbuscar, $columnas);
                     
-            return view('fuerza.carrera.index', compact('fuerza_id' , 'Carreras'))->with('success','Busqueda realizada');
+            return view('fuerza.carrera.index', compact('fuerza_id' , 'Carreras'))->with('success',['Busqueda realizada']);
         }else{
             $Carreras = $carreras->paginate(10);
             return view('fuerza.carrera.index', compact('fuerza_id' , 'Carreras'));
@@ -62,7 +62,7 @@ class FuerzaCarreraController extends Controller
         
         $carrera = Carrera::create($d);
         return redirect()->route('fuerza.carrera.index', $fuerza_id)
-                ->with('success','Fuerza almacenada completamente');
+                ->with('success',['Fuerza almacenada completamente']);
     }
 
     /**
@@ -73,8 +73,8 @@ class FuerzaCarreraController extends Controller
      */
     public function show($fuerza_id, $id)
     {
-        $carrera = Carrera::find($id);
-        $auditoria = User::findOrFail($carrera->users_id)->first();
+        $carrera = Carrera::findOrFail($id);
+        $auditoria = User::findOrFail($carrera->users_id);
         return view('fuerza.carrera.show', compact('fuerza_id', 'auditoria', 'carrera'));
     }
 
@@ -86,7 +86,7 @@ class FuerzaCarreraController extends Controller
      */
     public function edit($fuerza_id, $id)
     {
-        $carrera = Carrera::find($id);
+        $carrera = Carrera::findOrFail($id);
         return view('fuerza.carrera.edit', compact('carrera', 'fuerza_id', 'id'));
     }
 
@@ -99,10 +99,10 @@ class FuerzaCarreraController extends Controller
      */
     public function update($fuerza_id, $id, CarreraFormRequest $request)
     {
-        $carrera = Carrera::find($id);
+        $carrera = Carrera::findOrFail($id);
         $carrera->update($request->except('_token'));
         return redirect()->route('fuerza.carrera.index', $fuerza_id)
-                    ->with('success','Recordatorio del proceso actualizado completamente');
+                    ->with('success',['Recordatorio del proceso actualizado completamente']);
     }
 
     /**
@@ -115,13 +115,15 @@ class FuerzaCarreraController extends Controller
     {
         $valida = Grado::where('carrera_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $carrera =  Carrera::find($id);
-            $carrera->delete();
-            return redirect()->route('fuerza.carrera.index', $fuerza_id)->with('success','Registro borrado completamente');
+            $carrera =  Carrera::findOrFail($id);
+            if($carrera->delete())
+                return redirect()->route('fuerza.carrera.index', $fuerza_id)->with('success',['Registro borrado completamente']);
         }else{
             return redirect()->route('fuerza.carrera.index', $fuerza_id)
              ->withErrors(['No se puede borrar la carrera', 
              'La carrera tiene grado(s) asociado(s)']);
         }
+        return redirect()->route('fuerza.carrera.index', $fuerza_id)
+             ->withErrors(['No se puede borrar la carrera']);
     }
 }

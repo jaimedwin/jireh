@@ -13,7 +13,7 @@ class EstadoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('estado')->delete();
+        DB::table('estado')->truncate();
 
         Estado::insert([
             [ 'descripcion' => 'ADMITIDA', 'users_id' => 1],

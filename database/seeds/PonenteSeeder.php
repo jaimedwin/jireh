@@ -13,7 +13,7 @@ class PonenteSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('ponente')->delete();
+        DB::table('ponente')->truncate();
 
         Ponente::insert([
             [ 'nombrecompleto' => 'ALBERTO ESPINOSA BOLAÑOS', 'users_id' => 1],

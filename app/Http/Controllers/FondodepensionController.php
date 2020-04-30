@@ -28,7 +28,7 @@ class FondodepensionController extends Controller
                     ->orwhere('abreviatura', 'LIKE', '%'. $buscar. '%')
                     ->orwhere('descripcion', 'LIKE', '%'. $buscar. '%')
                     ->paginate(100);
-            return view('fondodepension.index', $fondodepensiones)->with('success','Busqueda realizada');
+            return view('fondodepension.index', $fondodepensiones)->with('success',['Busqueda realizada']);
         }else{
             $fondodepensiones['Fondodepensiones'] = Fondodepension::paginate(10);
             return view('fondodepension.index', $fondodepensiones);
@@ -55,7 +55,7 @@ class FondodepensionController extends Controller
     {
         $d = $request->except('_token');
         Fondodepension::create($d);
-        return redirect()->route('fondodepension.index')->with('success','Fondo de pensión almacenado completamente');
+        return redirect()->route('fondodepension.index')->with('success',['Fondo de pensión almacenado completamente']);
     }
 
     /**
@@ -66,7 +66,7 @@ class FondodepensionController extends Controller
      */
     public function show(Fondodepension $fondodepension)
     {
-        $auditoria = User::findOrFail($fondodepension)->first();
+        $auditoria = User::findOrFail($fondodepension->users_id);
         return view('fondodepension.show', compact('fondodepension', 'auditoria'));
     }
 
@@ -91,7 +91,7 @@ class FondodepensionController extends Controller
     public function update(FondodepensionFormRequest $request, Fondodepension $fondodepension)
     {
         $fondodepension->update($request->all());
-        return redirect()->route('fondodepension.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('fondodepension.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -100,16 +100,16 @@ class FondodepensionController extends Controller
      * @param  \App\Fondodepension  $fondodepension
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fondodepension $fondodepension)
+    public function destroy($id)
     {
-        $valida = Personanatural::where('fondodepension_id', '=', $fondodepension->id)->get();
+        $valida = Personanatural::where('fondodepension_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $fondodepension->delete();
-            return redirect()->route('fondodepension.index')->with('success','Registro borrado completamente');
-        }else{
-            return redirect()->route('fondodepension.index')
-             ->withErrors(['No se puede borrar el fonde de pension', 
-             'El fondo de pesión tiene persona(s) naturales(s) asociada(s)']);
-          }
+            $fondodepension = Fondodepension::findOrFail($id);
+            if($fondodepension->delete())
+                return redirect()->route('fondodepension.index')->with('success',['Registro borrado completamente']);
+        }
+        return redirect()->route('fondodepension.index')
+            ->withErrors(['No se puede borrar el fonde de pension', 
+            'El fondo de pesión tiene persona(s) naturales(s) asociada(s)']);
     }
 }

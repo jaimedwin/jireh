@@ -27,7 +27,7 @@ class TipocontratoController extends Controller
             $tipocontratos['Tipocontratos'] = Tipocontrato::orderBy('id', 'DESC')
                     ->orwhere('descripcion', 'LIKE', '%'. $buscar. '%')
                     ->paginate(100);
-            return view('tipocontrato.index', $tipocontratos)->with('success','Busqueda realizada');
+            return view('tipocontrato.index', $tipocontratos)->with('success',['Busqueda realizada']);
         }else{
             $tipocontratos['Tipocontratos'] = Tipocontrato::paginate(10);
             return view('tipocontrato.index', $tipocontratos);
@@ -54,7 +54,7 @@ class TipocontratoController extends Controller
     {
         $d = $request->except('_token');
         Tipocontrato::create($d);
-        return redirect()->route('tipocontrato.index')->with('success','Tipo de contrato almacenado completamente');
+        return redirect()->route('tipocontrato.index')->with('success',['Tipo de contrato almacenado completamente']);
     }
 
     /**
@@ -65,7 +65,7 @@ class TipocontratoController extends Controller
      */
     public function show(Tipocontrato $tipocontrato)
     {
-        $auditoria = User::findOrFail($tipocontrato)->first();
+        $auditoria = User::findOrFail($tipocontrato->users_id);
         return view('tipocontrato.show', compact('tipocontrato', 'auditoria'));
     }
 
@@ -90,7 +90,7 @@ class TipocontratoController extends Controller
     public function update(TipocontratoFormRequest $request, Tipocontrato $tipocontrato)
     {
         $tipocontrato->update($request->all());
-        return redirect()->route('tipocontrato.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('tipocontrato.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -99,16 +99,16 @@ class TipocontratoController extends Controller
      * @param  \App\Tipocontrato  $tipocontrato
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipocontrato $tipocontrato)
+    public function destroy($id)
     {
-        $valida = Contrato::where('tipocontrato_id', '=', $tipocontrato->id)->get();
+        $valida = Contrato::where('tipocontrato_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $tipocontrato->delete();
-            return redirect()->route('tipocontrato.index')->with('success','Registro borrado completamente');
-        }else{
-            return redirect()->route('tipocontrato.index')
-             ->withErrors(['No se puede borrar el tipo de contrato', 
-             'El tipo de contrato tiene contrato(s) asociado(s)']);
-          }
+            $tipocontrato = Tipocontrato::findOrFail($id);
+            if($tipocontrato->delete())
+                return redirect()->route('tipocontrato.index')->with('success',['Registro borrado completamente']);
+        }
+        return redirect()->route('tipocontrato.index')
+            ->withErrors(['No se puede borrar el tipo de contrato', 
+            'El tipo de contrato tiene contrato(s) asociado(s)']);
     }
 }

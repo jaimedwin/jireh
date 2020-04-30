@@ -8,46 +8,12 @@
         <h3 class="card-title"><a href="{{route('contrato.index')}}">{{'Contrato'}}</a></h3>
     </div>
 
-
     <div class="card-body">
 
-        @if ($message = Session::get('success'))
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
-                    <ul>
-                        <li>{{$message}}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        @endif
+        @include('admin.success')
+        @include('admin.errors')
 
-        @if ($errors->any())
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5><i class="fas fa-exclamation-triangle"></i>
-                        <strong>{{'Error!'}}</strong>
-                    </h5>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-        @endif
-
-        <form action="{{ route('contrato.store')}}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('contrato.store')}}" method="post" enctype="multipart/form-data" autocomplete="off">
             <div class="row mb-4">
                 <div class="col-12">
 
@@ -84,7 +50,21 @@
                             <option
                                 data-tokens="{{$personanatural->nombres}} {{$personanatural->apellidopaterno}} {{$personanatural->apellidomaterno}}"
                                 value="{{$personanatural->id}}">
-                                {{$personanatural->nombres}} {{$personanatural->apellidopaterno}} {{$personanatural->apellidomaterno}}
+                                {{$personanatural->nombres}} {{$personanatural->apellidopaterno}}
+                                {{$personanatural->apellidomaterno}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proceso_id">{{'Proceso *'}}</label>
+                        <select class="form-control selectpicker" data-live-search="true" id="proceso_id"
+                            name="proceso_id">
+                            <option selected>Seleccione ...</option>
+                            @foreach ($Procesos as $proceso)
+                            <option data-tokens="{{$proceso->numero}}" value="{{$proceso->id}}">
+                                {{$proceso->numero}}
                             </option>
                             @endforeach
                         </select>
@@ -114,8 +94,7 @@
             </div>
         </form>
     </div>
-    
-    <!-- /.card-body -->
+
     <div class="card-footer clearfix">
     </div>
 </div>

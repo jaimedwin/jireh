@@ -20,30 +20,15 @@
 		</div>
 	</div>
 
-	<form action="{{ route('fuerza.store')}}" method="post">
+	<form action="{{ route('fuerza.store')}}" method="post" autocomplete="off">
 		@csrf
 
 		<div class="card-body">
 
-			@if ($message = Session::get('success'))
-			<div class="row">
-				<div class="col-12">
-					<div class="alert alert-success alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
-						<ul>
-							<li>{{$message}}</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			@endif
-
+			@include('admin.success')
 			@include('admin.errors')
 
-			<div class="row mb-4"">
+			<div class="row mb-4">
 				<div class=" col-12">
 					<div class="row mb-4">
 						<div class="col-12">
@@ -65,7 +50,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- /.card-body -->
+
 		<div class="card-footer clearfix">
 			<a href="{{route('fuerza.index')}}" class="btn btn-secondary" role="button" aria-label="Cancelar">
 				{{'Cancelar'}}

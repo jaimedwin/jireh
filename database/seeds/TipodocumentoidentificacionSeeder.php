@@ -13,7 +13,7 @@ class TipodocumentoidentificacionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tipodocumentoidentificacion')->delete();
+        DB::table('tipodocumentoidentificacion')->truncate();
 
         Tipodocumentoidentificacion::insert([
             [ 'abreviatura' => 'RC', 'descripcion' => 'Registro Civil', 'users_id' => 1],

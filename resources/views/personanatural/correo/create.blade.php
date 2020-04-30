@@ -22,30 +22,15 @@
 	</div>
 
 
-	<form action="{{ route('personanatural.correo.store', $personanatural_id)}}" method="post">
+	<form action="{{ route('personanatural.correo.store', $personanatural_id)}}" method="post" autocomplete="off" >
 		@csrf
 
 		<div class="card-body">
 
-			@if ($message = Session::get('success'))
-				<div class="row">
-					<div class="col-12">
-						<div class="alert alert-success alert-dismissible" role="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
-							<ul>
-								<li>{{$message}}</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			@endif
-
+			@include('admin.success')
 			@include('admin.errors')
 
-			<div class="row mb-4"">
+			<div class="row mb-4">
 				<div class=" col-12">
 					<div class="row mb-4">
 						<div class="col-12">
@@ -58,11 +43,11 @@
 								<label for="proceso.actuacion.nombrearchivo">{{'¿Correo principal? *'}}</label>
 								<div class="btn-group btn-group-toggle" data-toggle="buttons">
 									<label class="btn btn-primary">
-										<input type="radio" name="principal" id="option1" autocomplete="off" value="1">
+										<input type="radio" name="principal" id="option1" value="1">
 										{{'Sí'}}
 									</label>
 									<label class="btn btn-primary">
-										<input type="radio" name="principal" id="option0" autocomplete="off" value="0">
+										<input type="radio" name="principal" id="option0" value="0">
 										{{'No'}}
 									</label>
 								</div>
@@ -74,19 +59,18 @@
 							</div>
 							<div class="form-group">
 								<label class="sr-only" for="personanatural_id">personanatural_id</label>
-								<input id="personanatural_id" class="form-control" type="hidden" name="personanatural_id"
-									value="{{$personanatural_id}}">
+								<input id="personanatural_id" class="form-control" type="hidden"
+									name="personanatural_id" value="{{$personanatural_id}}">
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- /.card-body -->
-		
+
 		<div class="card-footer clearfix">
-			<a href="{{route('personanatural.correo.index', $personanatural_id)}}" class="btn btn-secondary" role="button"
-				aria-label="Buscar">{{'Cancelar'}}</a>
+			<a href="{{route('personanatural.correo.index', $personanatural_id)}}" class="btn btn-secondary"
+				role="button" aria-label="Buscar">{{'Cancelar'}}</a>
 			<button type="submit" class="btn btn-success float-right">{{'Agregar'}}</button>
 		</div>
 	</form>

@@ -51,8 +51,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //dd($request->user);
-        if (Gate::denies('manager-users')){
+        if (Gate::denies('use-app-admin')){
             return redirect()->route('admin')->withErrors('Usuario no autorizado');
         }
         $user->roles()->sync($request->roles);
@@ -69,7 +68,7 @@ class UserController extends Controller
 
     public function resetPassword(Request $request){
 
-        $user = User::select('email')->find(Auth::id());
+        $user = User::select('email')->findOrFail(Auth::id());
 
         
         if($request->email == $user->email){
@@ -92,8 +91,6 @@ class UserController extends Controller
         }
         
         return redirect()->route('admin')->withErrors(['Usuario no autorizado']);
-        // $token = User::select('password')->find(Auth::id());
-        // $token->password
         
     }
 

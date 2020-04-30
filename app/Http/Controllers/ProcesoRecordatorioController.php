@@ -32,7 +32,7 @@ class ProcesoRecordatorioController extends Controller
             ->where('proceso_id', $proceso_id)
             ->paginate(10);
             return view('proceso.recordatorio.index', compact('Recordatorioprocesos','proceso_id'))
-            ->with('success','Busqueda realizada');
+            ->with('success',['Busqueda realizada']);
         }else{
             $Recordatorioprocesos = Recordatorioproceso::select( 'id',
             'observacion', 'fecha','users_id', 'created_at', 'updated_at')
@@ -62,7 +62,7 @@ class ProcesoRecordatorioController extends Controller
         $d = $request->except('_token');
         $recordatorioproceso = Recordatorioproceso::create($d);
         return redirect()->route('proceso.recordatorio.index', $proceso_id)
-                ->with('success',['data1' => 'Recordatorio del proceso almacenado completamente']);
+                ->with('success',['Recordatorio del proceso almacenado completamente']);
     }
 
     /**
@@ -73,8 +73,8 @@ class ProcesoRecordatorioController extends Controller
      */
     public function show($proceso_id, $id, Recordatorioproceso $recordatorioproceso)
     {
-        $recordatorioproceso = Recordatorioproceso::find($id);
-        $auditoria = User::findOrFail($recordatorioproceso->users_id)->first();
+        $recordatorioproceso = Recordatorioproceso::findOrFail($id);
+        $auditoria = User::findOrFail($recordatorioproceso->users_id);
         return view('proceso.recordatorio.show', compact('proceso_id', 'auditoria', 'recordatorioproceso'));
     }
 
@@ -86,7 +86,7 @@ class ProcesoRecordatorioController extends Controller
      */
     public function edit($proceso_id, $id, Recordatorioproceso $recordatorioproceso)
     {
-        $recordatorioproceso = Recordatorioproceso::find($id);
+        $recordatorioproceso = Recordatorioproceso::findOrFail($id);
         return view('proceso.recordatorio.edit', compact('recordatorioproceso', 'proceso_id', 'id'));
     }
 
@@ -99,10 +99,10 @@ class ProcesoRecordatorioController extends Controller
      */
     public function update($proceso_id, $id, RecordatorioprocesoFormRequest $request, Recordatorioproceso $recordatorioproceso)
     {
-        $recordatorioproceso = Recordatorioproceso::find($id);
+        $recordatorioproceso = Recordatorioproceso::findOrFail($id);
         $recordatorioproceso->update($request->except('_token'));
         return redirect()->route('proceso.recordatorio.index', $proceso_id)
-                    ->with('success',['data1' => 'Recordatorio del proceso actualizado completamente']);
+                    ->with('success',['Recordatorio del proceso actualizado completamente']);
     }
 
     /**
@@ -111,10 +111,11 @@ class ProcesoRecordatorioController extends Controller
      * @param  \App\Recordatorioproceso  $recordatorioproceso
      * @return \Illuminate\Http\Response
      */
-    public function destroy($proceso_id, $id, Recordatorioproceso $recordatorioproceso)
+    public function destroy($proceso_id, $id)
     {
-        $recordatorioproceso =  Recordatorioproceso::find($id);
-        $recordatorioproceso->delete();
-        return redirect()->route('proceso.recordatorio.index', $proceso_id)->with('success',['data1' =>  'Registro borrado completamente']);
+        $recordatorioproceso =  Recordatorioproceso::findOrFail($id);
+        if($recordatorioproceso->delete())
+            return redirect()->route('proceso.recordatorio.index', $proceso_id)->with('success',['Registro borrado completamente']);
+        return redirect()->route('proceso.recordatorio.index', $proceso_id)->withErrors(['Error al borrar el recordatorio del proceso']);
     }
 }

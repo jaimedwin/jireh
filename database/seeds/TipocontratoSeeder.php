@@ -13,7 +13,7 @@ class TipocontratoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tipocontrato')->delete();
+        DB::table('tipocontrato')->truncate();
 
         Tipocontrato::insert([
             [ 'descripcion' => 'Mixto', 'users_id' => 1],

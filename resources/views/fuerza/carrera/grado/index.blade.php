@@ -9,7 +9,7 @@
 				href="{{route('fuerza.carrera.grado.index', [$fuerza_id, $carrera_id])}}">{{'Grado'}}</a>
 		</h3>
 		<div class="card-tools">
-			<form action="{{route('fuerza.carrera.grado.index', [$fuerza_id, $carrera_id])}}" method="get">
+			<form action="{{route('fuerza.carrera.grado.index', [$fuerza_id, $carrera_id])}}" method="get" autocomplete="off">
 				@csrf
 				<div class="input-group input-group-sm" style="width: 150px;">
 					<input type="text" name="buscar" class="form-control float-right" placeholder="Buscar">
@@ -23,22 +23,8 @@
 
 
 	<div class="card-body">
-		@if ($message = Session::get('success'))
-			<div class="row">
-				<div class="col-12">
-					<div class="alert alert-success alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
-						<ul>
-							<li>{{$message}}</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		@endif
-
+		
+		@include('admin.success')
 		@include('admin.errors')
 
 		<div class="row  mb-4">
@@ -54,7 +40,7 @@
 		<div class="row">
 			<div class="col-12 table-responsive">
 				<table class="table table-bordered table-striped">
-					<thead class="">
+					<thead>
 						<tr>
 							<th style="width: 10px">{{'#'}}</th>
 							<th>{{'Abreviatura'}}</th>
@@ -75,19 +61,16 @@
 									@csrf
 									<div class="btn-group" role="group" aria-label="Acciones">
 										<a href="{{route('fuerza.carrera.grado.show', 
-						['fuerza' => $fuerza_id, 'carrera' => $carrera_id, 'grado' => $grado->id])}}" class="btn btn-info"
-											role="button" aria-label="Mostrar">
+						['fuerza' => $fuerza_id, 'carrera' => $carrera_id, 'grado' => $grado->id])}}" class="btn btn-info" role="button"
+											aria-label="Mostrar">
 											<i class="far fa-eye" aria-hidden="true"></i>
 										</a>
 										<a href="{{route('fuerza.carrera.grado.edit', 
-						['fuerza' => $fuerza_id, 'carrera' => $carrera_id, 'grado' => $grado->id])}}"
-											class="btn btn-warning" aria-label="Editar">
+						['fuerza' => $fuerza_id, 'carrera' => $carrera_id, 'grado' => $grado->id])}}" class="btn btn-warning"
+											aria-label="Editar">
 											<i class="fas fa-pen" aria-hidden="true"></i>
 										</a>
-										<button type="submit" class="btn btn-danger" aria-label="Borrar"
-											onclick="return confirm('¿Realmente desea eliminar?')">
-											<i class="fa fa-trash" aria-hidden="true"></i>
-										</button>
+										@include('admin.btn_delete')
 									</div>
 								</form>
 							</td>
@@ -98,9 +81,10 @@
 			</div>
 		</div>
 	</div>
-	<!-- /.card-body -->
+
 	<div class="card-footer clearfix">
-		<a href="{{route('fuerza.carrera.index', $fuerza_id)}}" class="btn btn-secondary" role="button" aria-label="Buscar">
+		<a href="{{route('fuerza.carrera.index', $fuerza_id)}}" class="btn btn-secondary" role="button"
+			aria-label="Buscar">
 			{{'Atras'}}
 		</a>
 		<div class="float-right">{{$Grados->links()}}</div>

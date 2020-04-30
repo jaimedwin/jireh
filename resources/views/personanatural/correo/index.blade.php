@@ -8,7 +8,7 @@
 		<h3 class="card-title"><a href="{{route('personanatural.correo.index', $personanatural_id)}}">{{'Correo'}}</a>
 		</h3>
 		<div class="card-tools">
-			<form action="{{route('personanatural.correo.index', $personanatural_id)}}" method="get">
+			<form action="{{route('personanatural.correo.index', $personanatural_id)}}" method="get" autocomplete="off">
 				@csrf
 				<div class="input-group input-group-sm" style="width: 150px;">
 					<input type="text" name="buscar" class="form-control float-right" placeholder="Buscar">
@@ -23,23 +23,8 @@
 
 
 	<div class="card-body">
-
-		@if ($message = Session::get('success'))
-		<div class="row">
-			<div class="col-12">
-				<div class="alert alert-success alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
-					<ul>
-						<li>{{$message}}</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		@endif
-
+		
+		@include('admin.success')
 		@include('admin.errors')
 
 		<div class="row  mb-4">
@@ -55,7 +40,7 @@
 		<div class="row">
 			<div class="col-12 table-responsive">
 				<table class="table table-bordered table-striped">
-					<thead class="">
+					<thead>
 						<tr>
 							<th style="width: 10px">{{'#'}}</th>
 							<th>{{'Email'}}</th>
@@ -89,10 +74,7 @@
 											aria-label="Editar">
 											<i class="fas fa-pen" aria-hidden="true"></i>
 										</a>
-										<button type="submit" class="btn btn-danger" aria-label="Borrar"
-											onclick="return confirm('¿Realmente desea eliminar?')">
-											<i class="fa fa-trash" aria-hidden="true"></i>
-										</button>
+										@include('admin.btn_delete')
 									</div>
 								</form>
 							</td>
@@ -103,7 +85,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- /.card-body -->
+	
 	<div class="card-footer clearfix">
 		<a href="{{route('personanatural.index')}}" class="btn btn-secondary" role="button" aria-label="Buscar">
 			{{'Atras'}}

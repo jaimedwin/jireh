@@ -13,12 +13,12 @@ class TipodemandaSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tipodemanda')->delete();
+        DB::table('tipodemanda')->truncate();
 
         Tipodemanda::insert([
             [ 'abreviatura' => 'NS1',           'descripcion' => 'Nivelación salarial 1', 'users_id' => 1],
             [ 'abreviatura' => 'NS2',           'descripcion' => 'Nivelación salarial 2', 'users_id' => 1],
-            [ 'abreviatura' => 'AS',            'descripcion' => 'Ajuste salarial', 'users_id' => 1],
+            [ 'abreviatura' => 'AS',            'descripcion' => 'Actualización salarial', 'users_id' => 1],
         ]);
     }
 }

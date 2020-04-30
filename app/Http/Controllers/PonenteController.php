@@ -27,7 +27,7 @@ class PonenteController extends Controller
             $ponentes['Ponentes'] = Ponente::orderBy('id', 'DESC')
                     ->orwhere('nombrecompleto', 'LIKE', '%'. $buscar. '%')
                     ->paginate(100);
-            return view('ponente.index', $ponentes)->with('success','Busqueda realizada');
+            return view('ponente.index', $ponentes)->with('success',['Busqueda realizada']);
         }else{
             $ponentes['Ponentes'] = Ponente::paginate(10);
             return view('ponente.index', $ponentes);
@@ -54,7 +54,7 @@ class PonenteController extends Controller
     {
         $d = $request->except('_token');
         Ponente::create($d);
-        return redirect()->route('ponente.index')->with('success','Ponente almacenado completamente');
+        return redirect()->route('ponente.index')->with('success',['Ponente almacenado completamente']);
     }
 
     /**
@@ -65,7 +65,7 @@ class PonenteController extends Controller
      */
     public function show(Ponente $ponente)
     {
-        $auditoria = User::findOrFail($ponente)->first();
+        $auditoria = User::findOrFail($ponente->users_id);
         return view('ponente.show', compact('ponente', 'auditoria'));
     }
 
@@ -90,7 +90,7 @@ class PonenteController extends Controller
     public function update(PonenteFormRequest $request, Ponente $ponente)
     {
         $ponente->update($request->all());
-        return redirect()->route('ponente.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('ponente.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -99,15 +99,16 @@ class PonenteController extends Controller
      * @param  \App\Ponente  $ponente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ponente $ponente)
+    public function destroy($id)
     {
-        $valida = Proceso::where('ponente_id', '=', $ponente->id)->get();
+        $valida = Proceso::where('ponente_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $ponente->delete();
-            return redirect()->route('ponente.index')->with('success','Registro borrado completamente');
-        }else{
-            return redirect()->route('ponente.index')
-            ->withErrors(['No se puede borrar él ponente', 'Él ponente tiene proceso(s) asociado(s)']);
+            $ponente = Ponente::findOrFail($id);
+            if($ponente->delete())
+                return redirect()->route('ponente.index')->with('success',['Registro borrado completamente']);
         }
+        return redirect()->route('ponente.index')
+            ->withErrors(['No se puede borrar él ponente', 'Él ponente tiene proceso(s) asociado(s)']);
+        
     }
 }

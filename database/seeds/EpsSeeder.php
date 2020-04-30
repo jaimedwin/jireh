@@ -13,22 +13,24 @@ class EpsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('eps')->delete();
+        DB::table('eps')->truncate();
 
         Eps::insert([
-            ['abreviatura' => 'EPS Sura',                       'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'Aliansalud',                     'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'Sanitas',                        'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'Compensar EPS',                  'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'Salud Total',                    'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'Nueva EPS',                      'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'Coomeva EPS',                    'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'Famisanar',                      'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'Comfenalco Valle',               'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'SaludVida',                      'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'Cruz Blanca',                    'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'Cafesalud',                      'descripcion' => '', 'users_id' => 1],
-            ['abreviatura' => 'NA',                             'descripcion' => 'No aplica', 'users_id' => 1],
+            ['abreviatura' => 'DISAN',              'descripcion' => 'Dirección de Sanidad de la Policía Nacional ', 'users_id' => 1],
+            ['abreviatura' => 'DIGSA',              'descripcion' => 'Dirección sanidad militar', 'users_id' => 1],
+            ['abreviatura' => 'EPS SURA',           'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'ALIANSALUD EPS',     'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'EPS SANITAS',        'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'COMPENSAR EPS',      'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'SALUD TOTAL',        'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'NUEVA EPS',          'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'COOMEVA EPS',        'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'FAMISANAR',          'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'COMFENALCO VALLE',    'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'SALUDVIDA',          'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'CRUZ BLANCA',        'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'CAFASALUD',          'descripcion' => '', 'users_id' => 1],
+            ['abreviatura' => 'NA',                 'descripcion' => 'No aplica', 'users_id' => 1],
         ]);
     }
 }

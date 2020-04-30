@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Builders\SearchBuilder;
 
-class Expedicion extends Model
+class Departamento extends Model
 {
-    protected $table = 'expedicion';
+    protected $table = 'departamento';
 
-    protected $fillable = ['lugar', 'users_id', 
+    protected $fillable = ['nombre', 'users_id', 
     'created_at', 'updated_at'];
 
     public function newEloquentBuilder($builder) 
     { 
       return new SearchBuilder($builder); 
     }
-
 }

@@ -20,30 +20,15 @@
 		</div>
 	</div>
 
-	<form action="{{ route('fuerza.carrera.store', $fuerza_id)}}" method="post">
+	<form action="{{ route('fuerza.carrera.store', $fuerza_id)}}" method="post" autocomplete="off">
 		@csrf
 		<div class="card-body">
 
-			@if ($message = Session::get('success'))
-				<div class="row">
-					<div class="col-12">
-						<div class="alert alert-success alert-dismissible" role="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
-							<ul>
-								<li>{{$message}}</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			@endif
-
+			@include('admin.success')
 			@include('admin.errors')
 
 			<div class="row">
-      			<div class=" col-12">
+				<div class=" col-12">
 					<div class="form-group">
 						<label for="fuerza.carrera.abreviatura">{{'Abreviatura *'}}</label>
 						<input type="text" class="form-control" id="fuerza.carrera.abreviatura" name="abreviatura">
@@ -58,12 +43,13 @@
 					</div>
 					<div class="form-group">
 						<label class="sr-only" for="fuerza_id">fuerza_id</label>
-						<input id="fuerza_id" class="form-control" type="hidden" name="fuerza_id" value="{{$fuerza_id}}">
+						<input id="fuerza_id" class="form-control" type="hidden" name="fuerza_id"
+							value="{{$fuerza_id}}">
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- /.card-body -->
+
 		<div class="card-footer clearfix">
 			<a href="{{route('fuerza.carrera.index', $fuerza_id)}}" class="btn btn-secondary" role="button"
 				aria-label="Camcelar">{{'Cancelar'}}</a>

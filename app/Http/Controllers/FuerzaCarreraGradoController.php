@@ -37,7 +37,7 @@ class FuerzaCarreraGradoController extends Controller
             $columnas = ['grado.abreviatura','grado.descripcion'];
             $Grados = $grados->whereOrSearch($palabrasbuscar, $columnas);
             return view('fuerza.carrera.grado.index', compact('fuerza_id' , 'carrera_id', 'Grados'))
-            ->with('success','Busqueda realizada');
+            ->with('success',['Busqueda realizada']);
         }else{
             $Grados = $grados->paginate(10);
             return view('fuerza.carrera.grado.index', compact('fuerza_id' , 'carrera_id', 'Grados'));
@@ -65,7 +65,7 @@ class FuerzaCarreraGradoController extends Controller
         $d = $request->except('_token');
         $grado = Grado::create($d);
         return redirect()->route('fuerza.carrera.grado.index', [$fuerza_id, $carrera_id])
-                ->with('success','Recordatorio del proceso almacenado completamente');
+                ->with('success',['Recordatorio del proceso almacenado completamente']);
     }
 
     /**
@@ -76,8 +76,8 @@ class FuerzaCarreraGradoController extends Controller
      */
     public function show($fuerza_id, $carrera_id, $id)
     {
-        $grado = Grado::find($id);
-        $auditoria = User::findOrFail($grado->users_id)->first();
+        $grado = Grado::findOrFail($id);
+        $auditoria = User::findOrFail($grado->users_id);
         return view('fuerza.carrera.grado.show', compact('fuerza_id','carrera_id', 'auditoria', 'grado'));
     }
 
@@ -89,7 +89,7 @@ class FuerzaCarreraGradoController extends Controller
      */
     public function edit($fuerza_id, $carrera_id, $id)
     {
-        $grado = Grado::find($id);
+        $grado = Grado::findOrFail($id);
         return view('fuerza.carrera.grado.edit', compact('grado', 'fuerza_id', 'carrera_id', 'id'));
     }
 
@@ -102,10 +102,10 @@ class FuerzaCarreraGradoController extends Controller
      */
     public function update($fuerza_id, $carrera_id, $id, GradoFormRequest $request)
     {
-        $grado = Grado::find($id);
+        $grado = Grado::findOrFail($id);
         $grado->update($request->except('_token'));
         return redirect()->route('fuerza.carrera.grado.index', [$carrera_id, $carrera_id])
-                    ->with('success','Recordatorio del proceso actualizado completamente');
+                    ->with('success',['Recordatorio del proceso actualizado completamente']);
     }
 
     /**
@@ -118,14 +118,16 @@ class FuerzaCarreraGradoController extends Controller
     {
         $valida = Personanatural::where('grado_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $grado =  Grado::find($id);
-            $grado->delete();
-            return redirect()->route('fuerza.carrera.grado.index', [$fuerza_id, $carrera_id])
-            ->with('success','Registro borrado completamente');
+            $grado =  Grado::findOrFail($id);
+            if($grado->delete())
+                return redirect()->route('fuerza.carrera.grado.index', [$fuerza_id, $carrera_id])
+                ->with('success',['Registro borrado completamente']);
         }else{
             return redirect()->route('fuerza.carrera.grado.index', [$fuerza_id, $carrera_id])
              ->withErrors(['No se puede borrar el grado', 
              'El grado tiene persona(s) naturales(s) asociada(s)']);
-          }
+        }
+        return redirect()->route('fuerza.carrera.grado.index', [$fuerza_id, $carrera_id])
+             ->withErrors(['No se puede borrar el grado']);
     }
 }

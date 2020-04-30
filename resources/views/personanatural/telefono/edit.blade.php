@@ -8,23 +8,9 @@
 
 
     <div class="card-body">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                <span aria-hidden="true">&times;</span> 
-            </button>
-            <h5><i class="fas fa-exclamation-triangle"></i>
-                    <strong>{{'Error!'}}</strong>
-            </h5>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+        @include('admin.errors')
 
-        <form action="{{route('personanatural.telefono.update', ['personanatural' => $personanatural_id, 'telefono' => $telefono->id])}}" method="post">
+        <form action="{{route('personanatural.telefono.update', ['personanatural' => $personanatural_id, 'telefono' => $telefono->id])}}" method="post" autocomplete="off" >
             @csrf
             @method('PUT')
             <div class="row mb-4">
@@ -45,22 +31,22 @@
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             @if ($telefono->principal == 0)
                                 <label class="btn btn-primary">
-                                    <input type="radio" name="principal" id="option1" autocomplete="off" value="1">
+                                    <input type="radio" name="principal" id="option1" value="1">
                                     {{'Sí'}}
                                 </label>
                                 <label class="btn btn-primary active">
-                                    <input type="radio" name="principal" id="option0" autocomplete="off" value="0"
+                                    <input type="radio" name="principal" id="option0" value="0"
                                     checked>
                                     {{'No'}}
                                 </label>
                             @else
                                 <label class="btn btn-primary active">
-                                    <input type="radio" name="principal" id="option1" autocomplete="off" value="1"
+                                    <input type="radio" name="principal" id="option1" value="1"
                                         checked>
                                     {{'Sí'}}
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input type="radio" name="principal" id="option0" autocomplete="off" value="0">
+                                    <input type="radio" name="principal" id="option0" value="0">
                                     {{'No'}}
                                 </label>
                             @endif

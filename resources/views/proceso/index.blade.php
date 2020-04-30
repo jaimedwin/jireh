@@ -20,7 +20,7 @@
 			</form>
 		</div>
 	</div>
-	<!-- /.card-header -->
+
 	<div class="card-body">
 		<div class="row  mb-4">
 			<div class="col-12">
@@ -28,37 +28,22 @@
 					<i class="fas fa-plus-square"></i>
 					{{'Crear nuevo proceso'}}
 				</a>
-				<div class="float-right">
-                    <a href="{{route('proceso.csv')}}" class="btn btn-success" role="button" aria-label="Csv">
-                        <i class="fas fa-download"></i>
-                        {{'Descargar CSV'}}
-                    </a>
-                </div>
+				@include('admin.descarga_csv',
+					[
+					'route_name' => 'proceso.csv',
+					'parameter' => [''],
+					'title_btn' => 'Descargar CSV'
+					])
 			</div>
 		</div>
 
-		@if ($message = Session::get('success'))
-		<div class="row">
-			<div class="col-12">
-				<div class="alert alert-success alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h5><i class="icon fa fa-check"></i> {{'Alerta!'}}</h5>
-					<ul>
-						<li>{{$message}}</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		@endif
-
+		@include('admin.success')
 		@include('admin.errors')
 
 		<div class="row">
 			<div class="col-12 table-responsive">
 				<table class="table table-bordered table-striped">
-					<thead class="">
+					<thead>
 						<tr>
 							<th style="width: 10px">{{'#'}}</th>
 							<th>{{'Código'}}</th>
@@ -67,8 +52,9 @@
 							<th>{{'Corporación'}}</th>
 							<th>{{'Ponente'}}</th>
 							<th>{{'Estado'}}</th>
-							<th style="width: 140px" class="text-center">{{'Notificación'}}<br>{{'correo'}}</th>
-							<th style="width: 140px" class="text-center">{{'Actuación y'}}<br>{{'Recordatorio'}}</th>	
+							<th style="width: 70px" class="text-center">{{'Notificación'}}<br>{{'correo'}}</th>
+							<th style="width: 140px" class="text-center">{{'Actuación y'}}<br>{{'Recordatorio'}}</th>
+							<th style="width: 70px" class="text-center">{{'Documentos'}}</th>
 							<th style="width: 160px" class="text-center">{{'Acciones'}}</th>
 						</tr>
 					</thead>
@@ -84,11 +70,13 @@
 							<td>{{$proceso->ponente}}</td>
 							<td>{{$proceso->estado}}</td>
 							<td class="text-center">
-								<a href="{{route('proceso.sendemail', $proceso->id)}}" class="btn btn-outline-secondary" 
-									role="button" aria-label="sendemail" onclick="return confirm('¿Desea enviar el correo?')">
+								<a href="{{route('proceso.sendemail', $proceso->id)}}" class="btn btn-outline-secondary"
+									role="button" aria-label="sendemail"
+									onclick="return confirm('¿Desea enviar el correo?')">
 									<i class="fas fa-envelope-open-text"></i>
 								</a>
 							</td>
+
 							<td class="text-center">
 								<div class="btn-group">
 									<a href="{{route ('proceso.actuacion.index',$proceso->id)}}"
@@ -99,13 +87,19 @@
 											class="badge badge-info">{{$proceso->total_actuacion}}</span>
 									</a>
 									<a href="{{route ('proceso.recordatorio.index',$proceso->id)}}"
-										class="btn btn-outline-success" role="button">
+										class="btn btn-outline-warning" role="button">
 										<i class="fas fa-bell"></i>
 										<span data-toggle="tooltip"
 											title="{{'Total de recordatorios: '. $proceso->total_recordatorio}}"
 											class="badge badge-info">{{$proceso->total_recordatorio}}</span>
 									</a>
 								</div>
+							</td>
+							<td class="text-center">
+								<a href="{{route('proceso.documento.index', $proceso->id)}}"
+									class="btn btn-outline-success" role="button" aria-label="documento">
+									<i class="fas fa-file-alt"></i>
+								</a>
 							</td>
 							<td class="text-center">
 								<form action="{{route('proceso.destroy', $proceso->id)}}" method="post">
@@ -120,10 +114,7 @@
 											aria-label="Editar">
 											<i class="fas fa-pen" aria-hidden="true"></i>
 										</a>
-										<button type="submit" class="btn btn-danger" aria-label="Borrar"
-											onclick="return confirm('¿Realmente desea eliminar?')">
-											<i class="fa fa-trash" aria-hidden="true"></i>
-										</button>
+										@include('admin.btn_delete')
 									</div>
 								</form>
 							</td>
@@ -134,7 +125,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- /.card-body -->
+
 	<div class="card-footer clearfix">
 		<div class="float-right">{{$Procesos->links()}}</div>
 	</div>

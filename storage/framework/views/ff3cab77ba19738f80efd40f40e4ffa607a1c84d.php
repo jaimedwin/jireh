@@ -1,6 +1,9 @@
+<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('use-app-user')): ?>
 <?php $__env->startSection('entidad', 'Principal'); ?>
 
 <?php $__env->startSection('content'); ?>
+
+
 <section class="content">
 	<div class="container-fluid">
 		
@@ -49,7 +52,7 @@
 				<div class="info-box mb-3">
 					<span class="info-box-icon bg-warning elevation-1"><i class="fas fa-bell"></i></span>
 					<div class="info-box-content">
-						<span class="info-box-text">Recordatorios por semana</span>
+						<span class="info-box-text">Número de recordatorios</span>
 						<span class="info-box-number"><?php echo e($rec); ?></span>
 					</div>
 					<!-- /.info-box-content -->
@@ -72,19 +75,39 @@
 				<div class="row">
 					<div class="col-12 table-responsive">
 						<table class="table table-bordered table-striped">
-							<thead class="">
+							<thead>
 								<tr>
 									<th style="width: 10px"><?php echo e('#'); ?></th>
 									<th style="width: 200px"><?php echo e('Fecha'); ?></th>
 									<th><?php echo e('Observación'); ?></th>
+									<th style="width: 300px"><?php echo e('Proceso'); ?></th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php $__currentLoopData = $Recordatorios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 								<tr>
 									<td><?php echo e($loop->iteration); ?></td>
-									<td><?php echo e($rec->fecha); ?></td>
+									<td><?php echo e(date('d-m-Y',strtotime($rec->fecha))); ?> 
+										<?php if((strtotime($urgencia_fecha) - strtotime($rec->fecha)) >= 0): ?>
+
+											<?php if((strtotime($rec->fecha)- strtotime($now)) == 0): ?>
+												<span class="badge bg-danger"><?php echo e('Hoy'); ?></span>
+											<?php else: ?>
+												<?php if((date('d',(strtotime($rec->fecha)- strtotime($now))) <= 3)): ?>
+													<span class="badge bg-danger"><?php echo e('Días faltantes: '); ?>
+
+													<?php echo e(date('d',(strtotime($rec->fecha)- strtotime($now)))); ?></span>
+												<?php else: ?>
+												<span class="badge bg-warning"><?php echo e('Días faltantes: '); ?>
+
+													<?php echo e(date('d',(strtotime($rec->fecha)- strtotime($now)))); ?></span>
+												<?php endif; ?>
+												
+											<?php endif; ?>
+										<?php endif; ?>
+									</td>
 									<td><?php echo e($rec->observacion); ?></td>
+									<td><?php echo e($rec->proceso); ?></td>
 								</tr>
 								<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 							</tbody>
@@ -97,7 +120,6 @@
 
 </section>
 
-
-
 <?php $__env->stopSection(); ?>
+<?php endif; ?>
 <?php echo $__env->make('admin.index', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/laravel/jireh/resources/views/admin.blade.php ENDPATH**/ ?>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExpedicionTable extends Migration {
+class CreateMunicipioTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,10 +13,11 @@ class CreateExpedicionTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('expedicion', function(Blueprint $table)
+		Schema::create('municipio', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->string('lugar', 50);
+			$table->string('nombre', 70);
+			$table->unsignedBigInteger('departamento_id')->index('municipio_FK');;
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

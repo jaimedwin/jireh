@@ -28,6 +28,7 @@ class ContratoFormRequest extends FormRequest
             'numero'                => 'required|string|max:10', 
             'valor'                 => 'required|numeric', 
             'personanatural_id'     => 'required|numeric',
+            'proceso_id'               => 'required|numeric',
             'tipocontrato_id'       => 'required|numeric',
             'users_id'              => 'required|numeric',
             'created_at'            => 'nullable|date',

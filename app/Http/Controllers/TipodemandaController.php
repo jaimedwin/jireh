@@ -29,7 +29,7 @@ class TipodemandaController extends Controller
                     ->orwhere('descripcion', 'LIKE', '%'. $buscar. '%')
                     ->orwhere('comentario', 'LIKE', '%'. $buscar. '%')
                     ->paginate(100);
-            return view('tipodemanda.index', $tipodemandas)->with('success','Busqueda realizada');
+            return view('tipodemanda.index', $tipodemandas)->with('success',['Busqueda realizada']);
         }else{
             $tipodemandas['Tipodemandas'] = Tipodemanda::paginate(10);
             return view('tipodemanda.index', $tipodemandas);
@@ -56,7 +56,7 @@ class TipodemandaController extends Controller
     {
         $d = $request->except('_token');
         Tipodemanda::create($d);
-        return redirect()->route('tipodemanda.index')->with('success','Tipo de demanda almacenado completamente');
+        return redirect()->route('tipodemanda.index')->with('success',['Tipo de demanda almacenado completamente']);
     }
 
     /**
@@ -67,7 +67,7 @@ class TipodemandaController extends Controller
      */
     public function show(Tipodemanda $tipodemanda)
     {
-        $auditoria = User::findOrFail($tipodemanda)->first();
+        $auditoria = User::findOrFail($tipodemanda->users_id);
         return view('tipodemanda.show', compact('tipodemanda', 'auditoria'));
     }
 
@@ -92,7 +92,7 @@ class TipodemandaController extends Controller
     public function update(TipodemandaFormRequest $request, Tipodemanda $tipodemanda)
     {
         $tipodemanda->update($request->all());
-        return redirect()->route('tipodemanda.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('tipodemanda.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -101,15 +101,16 @@ class TipodemandaController extends Controller
      * @param  \App\Tipodemanda  $tipodemanda
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipodemanda $tipodemanda)
+    public function destroy($id)
     {
-        $valida = Clienteproceso::where('tipodemanda_id', '=', $tipodemanda->id)->get();
+        $valida = Clienteproceso::where('tipodemanda_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $tipodemanda->delete();
-            return redirect()->route('tipodemanda.index')->with('success','Registro borrado completamente');
-        }else{
-            return redirect()->route('tipodemanda.index')
-            ->withErrors(['No se puede borrar el tipo de demanda', 'El tipo de demanda tiene cliente(s) y proceso(s) asociado(s)']);
+            $tipodemanda = Tipodemanda::findOrFail($id);
+            if($tipodemanda->delete())
+                return redirect()->route('tipodemanda.index')->with('success',['Registro borrado completamente']);
         }
+        return redirect()->route('tipodemanda.index')
+            ->withErrors(['No se puede borrar el tipo de demanda', 'El tipo de demanda tiene cliente(s) y proceso(s) asociado(s)']);
+        
     }
 }

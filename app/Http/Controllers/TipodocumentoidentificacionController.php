@@ -28,7 +28,7 @@ class TipodocumentoidentificacionController extends Controller
                     ->orwhere('abreviatura', 'LIKE', '%'. $buscar. '%')
                     ->orwhere('descripcion', 'LIKE', '%'. $buscar. '%')
                     ->paginate(100);
-            return view('tipodocumentoidentificacion.index', $tiposdocumentosidentificacion)->with('success','Busqueda realizada');
+            return view('tipodocumentoidentificacion.index', $tiposdocumentosidentificacion)->with('success',['Busqueda realizada']);
         }else{
             $tiposdocumentosidentificacion['Tiposdocumentosidentificacion'] = Tipodocumentoidentificacion::paginate(10);
             return view('tipodocumentoidentificacion.index', $tiposdocumentosidentificacion);
@@ -55,7 +55,7 @@ class TipodocumentoidentificacionController extends Controller
     {
         $d = $request->except('_token');
         Tipodocumentoidentificacion::create($d);
-        return redirect()->route('tipodocumentoidentificacion.index')->with('success','Tipo de documento de identificacion almacenado completamente');
+        return redirect()->route('tipodocumentoidentificacion.index')->with('success',['Tipo de documento de identificacion almacenado completamente']);
     }
 
     /**
@@ -66,7 +66,7 @@ class TipodocumentoidentificacionController extends Controller
      */
     public function show(Tipodocumentoidentificacion $tipodocumentoidentificacion)
     {
-        $auditoria = User::findOrFail($tipodocumentoidentificacion)->first();
+        $auditoria = User::findOrFail($tipodocumentoidentificacion->users_id);
         return view('tipodocumentoidentificacion.show', compact('tipodocumentoidentificacion', 'auditoria'));
     }
 
@@ -91,7 +91,7 @@ class TipodocumentoidentificacionController extends Controller
     public function update(TipodocumentoidentificacionFormRequest $request, Tipodocumentoidentificacion $tipodocumentoidentificacion)
     {
         $tipodocumentoidentificacion->update($request->all());
-        return redirect()->route('tipodocumentoidentificacion.index')->with('success','Registro actualizado completamente');
+        return redirect()->route('tipodocumentoidentificacion.index')->with('success',['Registro actualizado completamente']);
     }
 
     /**
@@ -100,16 +100,16 @@ class TipodocumentoidentificacionController extends Controller
      * @param  \App\Tipodocumentoidentificacion  $tipodocumentoidentificacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipodocumentoidentificacion $tipodocumentoidentificacion)
+    public function destroy($id)
     {
-        $valida = Personanatural::where('tipodocumentoidentificacion_id', '=', $tipodocumentoidentificacion->id)->get();
+        $valida = Personanatural::where('tipodocumentoidentificacion_id', '=', $id)->get();
         if ($valida->isEmpty()) {
-            $tipodocumentoidentificacion->delete();
-            return redirect()->route('tipodocumentoidentificacion.index')->with('success','Registro borrado completamente');
-        }else{
-            return redirect()->route('tipodocumentoidentificacion.index')
-             ->withErrors(['No se puede borrar el tipo de documento de indentificación', 
-             'El tipo de documento de indentificación tiene persona(s) naturales(s) asociada(s)']);
+            $tipodocumentoidentificacion = Tipodocumentoidentificacion::findOrFail($id);
+            if($tipodocumentoidentificacion->delete())
+                return redirect()->route('tipodocumentoidentificacion.index')->with('success',['Registro borrado completamente']);
         }
+        return redirect()->route('tipodocumentoidentificacion.index')
+            ->withErrors(['No se puede borrar el tipo de documento de indentificación', 
+            'El tipo de documento de indentificación tiene persona(s) naturales(s) asociada(s)']);
     }
 }
