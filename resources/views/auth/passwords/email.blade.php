@@ -1,11 +1,11 @@
-@extends('admin.index')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Verificación de email') }}</div>
+                <div class="card-header">{{ __('Recupera tu cuenta') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('reset_password', ['token' => $token]) }}">
+                    @include('admin.errors')
+
+                    <form method="POST" action="{{ route('send_reset_email', ['token' => $token]) }}">
                         @csrf
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Dirección de email') }}</label>

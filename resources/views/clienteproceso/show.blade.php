@@ -163,7 +163,17 @@
                             <td class="table-secondary">{{'Documento(s)'}}</td>
                             <td>
                                 @foreach ($Documentos as $documento)
-                                    {{$documento->tipodocumento_id}} - {{$documento->tipodocumento}} <br>
+                                    {{$documento->tipodocumento_id}} - {{$documento->tipodocumento}} 
+                                    @if ($documento->nombrearchivo)
+                                        <a href="{{route('descargas_otrosdocumentos', 
+                                        [
+                                            'personanatural' => $Clienteproceso->personanatural_id, 
+                                            'name' => $documento->nombrearchivo
+                                        ])}}" class="btn btn-outline-success btn-sm">
+                                        <i class="fa fa-download"></i>
+                                        </a>
+                                    @endif
+                                    <br>
                                 @endforeach
                             </td>
                         </tr>
@@ -192,6 +202,7 @@
                             <th class="table-secondary">{{'Valor del contrato'}}</th>
                             <th class="table-secondary">{{'Abono'}}</th>
                             <th class="table-secondary">{{'Saldo'}}</th>
+                            <th style="width: 80px" class="table-secondary text-center">{{'Documento'}}</th>
                         </tr>
                     </thead>
                     <tbody>   
@@ -203,6 +214,17 @@
                             <td class="row_data">{{$contrato->valor}}</td>
                             <td class="row_data">{{$contrato->abono}}</td>
                             <td class="row_data">{{$contrato->valor - $contrato->abono}} </td>
+                            <td>
+                                @if ($contrato->nombrearchivo)
+								<a href="{{route('descargas_otrosdocumentos_contrato', 
+                                    [
+                                        'personanatural' => $contrato->personanatural_id, 
+                                        'name' => $contrato->nombrearchivo
+                                    ])}}" class="btn btn-outline-success">
+                                                        <i class="fa fa-download"></i>
+								</a>
+								@endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -281,7 +303,16 @@
                             <td class="table-secondary">{{'Documento(s)'}}</td>
                             <td>
                                 @foreach ($Documentosproceso as $documentoproceso)
-                                    {{$documentoproceso->tipodocumento_id}} - {{$documentoproceso->tipodocumento}} <br>
+                                    {{$documentoproceso->tipodocumento_id}} - {{$documentoproceso->tipodocumento}} 
+                                    @if ($documentoproceso->nombrearchivo)
+                                        <a href="{{route('descargas_proceso_documentos', 
+                                        [
+                                            'proceso' => $Clienteproceso->proceso_id, 
+                                            'name' => $documentoproceso->nombrearchivo
+                                        ])}}" class="btn btn-outline-success btn-sm">
+                                        <i class="fa fa-download"></i>
+                                        </a>
+                                    @endif<br>
                                 @endforeach
                             </td>
                         </tr>

@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <form method="POST" action="<?php echo e(route('login')); ?>">
                         <?php echo csrf_field(); ?>
-
+                        <?php echo $__env->make('admin.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Dirección de email')); ?></label>
 
@@ -74,16 +74,27 @@ unset($__errorArgs, $__bag); ?>
                                         <?php echo e(__('Recuérdame')); ?>
 
                                     </label>
+
+                                    
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group row mb-2">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     <?php echo e(__('Login')); ?>
 
                                 </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <a href="<?php echo e(route('validate_email')); ?>">
+                                    <i class="fas fa-user-lock mr-2"></i> <?php echo e('¿Olvidaste tu contraseña?'); ?>
+
+                                </a>
                             </div>
                         </div>
                     </form>

@@ -222,6 +222,26 @@
                     </p>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a href="{{route ('registroconsulta.index')}}" class="nav-link">
+                    <i class="fas fa-user-tag nav-icon"></i>
+                    <p>
+                        {{'Consulta de acceo de clientes'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route ('consultacorreo.index')}}" class="nav-link">
+                    <i class="fas fa-envelope-open-text nav-icon"></i>
+                    <p>
+                        {{'Consulta de envio de correos'}}
+                    </p>
+                </a>
+            </li>
+
+            
             @endcan
 
         </ul>

@@ -13,12 +13,14 @@ use App\Models\Recordatorioproceso;
 use App\Models\Clienteproceso;
 use App\Models\Contrato;
 use App\Models\Documentoproceso;
+use App\Models\Consultacorreo;
 use App\User;
 use App\Http\Requests\ProcesoFormRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Mail\ProcessNotification;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class ProcesoController extends Controller
 {
@@ -197,23 +199,48 @@ class ProcesoController extends Controller
     }
 
     public function sendEmail($id){
-        $correos = Proceso::select('proceso.id', 
+        $consultas = Proceso::select('proceso.id', 
             'proceso.codigo AS proceso_codigo', 
             'proceso.numero AS proceso_numero', 
             'personanatural.codigo AS personanatural_codigo', 
             'correo.electronico AS email')
+        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
         ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
         ->join('personanatural', 'clienteproceso.proceso_id', '=', 'personanatural.id')
         ->join('correo', 'personanatural.id', '=', 'correo.personanatural_id')
-        ->where('correo.principal', '=', 1)->get();
+        ->get();
         
-        if ($correos->isEmpty()){
-            return redirect()->route('proceso.index')->withErrors(['No se encontraton correos relacionados al proceso']);
+        if ($consultas->isEmpty()){
+            return redirect()->route('proceso.index')->withErrors(['No se encontraron correos relacionados al proceso']);
         }
 
         $contador = 0;
-        foreach ($correos as $correo){
-            Mail::to($receivers)->send(new ProcessNotification($call));
+        foreach ($consultas as $consulta){
+            $subject = 'Cambio en las actuaciones registradas';
+            $proceso_numero = $consulta->proceso_numero;
+            $url = url(route('consultacliente'));
+            $proceso_codigo = $consulta->proceso_codigo;
+            $personanatural_codigo = $consulta->personanatural_codigo;
+            $nombrecompleto = $consulta->nombrecompleto;
+            Mail::to($consulta->email)->send(
+                new ProcessNotification($proceso_numero, $url, 
+                                        $proceso_codigo, $personanatural_codigo, $subject)
+                );
+            
+            // Registra que se envìo un correo de notificación con el cambio en las actuaciones.
+            $mensaje =  'Url de consulta: ' . $url . '<br>' .
+                        'Código del proceso: ' . $proceso_codigo . '<br>' .
+                        'Número del proceso: ' . $proceso_numero . '<br>' .
+                        'Código del cliente: ' . $personanatural_codigo . '<br>' .
+                        'Nómbre del cliente: ' . $nombrecompleto . '<br>';
+
+            $consultacorreo = new Consultacorreo;
+            $consultacorreo->a = $consulta->email;
+            $consultacorreo->mensaje = $mensaje;
+            $consultacorreo->consultacorreotipo_id = 2;
+            $consultacorreo->created_at = Carbon::now();
+            $consultacorreo->save();
+
             $contador += 1;
         }
 

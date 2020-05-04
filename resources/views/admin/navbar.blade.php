@@ -27,10 +27,6 @@
 				<a href="{{route('edit_profile', Auth::id())}}" class="dropdown-item">
 					<i class="fas fa-user-edit mr-2"></i>{{'Editar información del usuario'}}
 				</a>
-				
-				<a href="{{ route('validate_email')}}" class="dropdown-item">
-					<i class="fas fa-user-lock mr-2"></i> {{'Cambiar contraseña'}}
-				</a>
 				@endcan
 				@can('use-app-admin')
 				<a class="dropdown-item" href="{{ route('user.index') }}">

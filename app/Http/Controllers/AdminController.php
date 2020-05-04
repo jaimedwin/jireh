@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Recordatorioproceso;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
     /**
      * Create a new controller instance.

@@ -44,6 +44,7 @@
 					<thead>
 						<tr>
 							<th style="width: 10px">{{'#'}}</th>
+							<th>{{'Identificación'}}</th>
 							<th>{{'Persona natural'}}</th>
 							<th>{{'Proceso'}}</th>
 							<th>{{'Tipo de demanda'}}</th>
@@ -55,6 +56,7 @@
 
 						<tr>
 							<td>{{$loop->iteration}}</td>
+							<td>{{$clienteproceso->numerodocumento}}</td>
 							<td>{{$clienteproceso->nombrecompleto}}</td>
 							<td>{{$clienteproceso->proceso}}</td>
 							<td>{{$clienteproceso->tipodemanda}}</td>

@@ -17,7 +17,7 @@ class CreateMunicipioTable extends Migration {
 		{
 			$table->bigIncrements('id');
 			$table->string('nombre', 70);
-			$table->unsignedBigInteger('departamento_id')->index('municipio_FK');;
+			$table->unsignedBigInteger('departamento_id')->index('municipio_FK');
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();
 		});

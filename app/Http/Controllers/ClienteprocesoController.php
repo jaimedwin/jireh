@@ -32,7 +32,9 @@ class ClienteprocesoController extends Controller
     {
         $palabrasbuscar = explode(" ",$request->post('buscar'));
         $clientesprocesos = Clienteproceso::orderBy('id', 'ASC')
-                        ->select('clienteproceso.*', 'proceso.numero AS proceso', 'tipodemanda.abreviatura AS tipodemanda')
+                        ->select('clienteproceso.*', 'proceso.numero AS proceso', 
+                        'tipodemanda.abreviatura AS tipodemanda', 
+                        'personanatural.numerodocumento AS numerodocumento')
                         ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('proceso','proceso_id','=','proceso.id')
                         ->join('personanatural','personanatural_id','=','personanatural.id')
@@ -123,13 +125,15 @@ class ClienteprocesoController extends Controller
         
         $Contratos = Contrato::select('pago.contrato_id', 'contrato.numero', 'contrato.valor', 
                         'contrato.tipocontrato_id', 'tipocontrato.descripcion AS tipocontrato',
+                        'contrato.personanatural_id', 'contrato.nombrearchivo',
                         DB::raw("COALESCE(SUM(pago.abono),0) as abono"))
                         ->join('tipocontrato', 'tipocontrato_id', '=', 'tipocontrato.id')
                         ->leftjoin('pago', 'contrato.id', '=','pago.contrato_id')
                         ->where('contrato.personanatural_id', '=', $clienteproceso->personanatural_id)
                         ->where('contrato.proceso_id', '=', $clienteproceso->proceso_id)
                         ->groupBy('pago.contrato_id', 'contrato.numero', 'contrato.valor', 
-                        'contrato.tipocontrato_id', 'tipocontrato.descripcion', 'pago.abono')
+                        'contrato.tipocontrato_id', 'tipocontrato.descripcion', 'pago.abono',
+                        'contrato.personanatural_id', 'contrato.nombrearchivo')
                         ->orderBy('pago.contrato_id', 'DESC')
                         ->get();
         

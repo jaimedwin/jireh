@@ -8,9 +8,10 @@ use App\Builders\SearchBuilder;
 class Registroconsulta extends Model
 {
     protected $table = 'registroconsulta';
+    public $timestamps = false;
 
     protected $fillable = ['personanatural_id','proceso_id', 
-    'users_id', 'created_at', 'updated_at'];
+    'created_at'];
 
     public function newEloquentBuilder($builder) 
     { 

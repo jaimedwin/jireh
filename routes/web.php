@@ -11,11 +11,24 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-Route::get('admin', 'HomeController@index')->name('admin');
+Route::get('/', 'InicioController@index')->name('inicio');
+Route::get('validate_email', 'InicioController@validateEmail')->name('validate_email');  
+Route::post('send_reset_email', 'InicioController@sendResetEmail')->name('send_reset_email');  
+Route::get('reset_password/{token}', 'InicioController@resetPassword')->name('reset_password');
+Route::get('change_password', 'InicioController@changePassword')->name('change_password');  
+
+Route::get('consultacliente/', 'ConsultaclienteController@index')->name('consultacliente');
+Route::post('consultacliente/validar', 'ConsultaclienteController@validarPost')->name('consultacliente.validarPost');
+Route::get('consultacliente/validar', 'ConsultaclienteController@validarGet')->name('consultacliente.validarGet');
+Route::get('consultacliente/logout', 'ConsultaclienteController@deleteCookies')->name('consultacliente.deleteCookies');
+
+Route::get('consultacliente/descargas/{proceso}/{name}','ConsultaclienteController@downloadFile')->name('consultacliente.descargas');
+
+Route::get('admin', 'AdminController@index')->name('admin');
 
 Route::group(['prefix' => 'admin'], function () {
     //Auth::routes();
@@ -94,10 +107,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app-user'], function
     Route::get('descargas_proceso_documentos/{proceso}/{name}','ProcesoDocumentoController@downloadFile')->name('descargas_proceso_documentos');
     Route::get('descargas_otrosdocumentos/{personanatural}/{name}','DocumentoController@downloadFile')->name('descargas_otrosdocumentos');
     Route::get('descargas_otrosdocumentos_contrato/{personanatural}/{name}','ContratoController@downloadFile')->name('descargas_otrosdocumentos_contrato');
-    
-    Route::get('validate_email', 'UserController@validateEmail')->name('validate_email');  
-    Route::post('reset_password/{token}', 'UserController@resetPassword')->name('reset_password');
-    Route::get('change_password/{email}/{token}', 'UserController@changePassword')->name('change_password');  
     Route::get('edit_profile/{id}', 'UserController@editProfile')->name('edit_profile');  
     Route::put('update_profile', 'UserController@updateProfile')->name('update_profile'); 
     Route::get('proceso/{id}/send_email','ProcesoController@sendEmail')->name('proceso.sendemail');
@@ -111,6 +120,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app-admin'], functio
     Route::get('copiadb/create','CopiabdController@create')->name('copiadb.create');
     Route::get('descargas_copiasbasesdedatos/{name}','CopiabdController@downloadFile')->name('descargas_copiasbasesdedatos');
     Route::get('borrar_copiasbasesdedatos/{name}','CopiabdController@deleteFile')->name('borrar_copiasbasesdedatos');
+    Route::get('registrosconsulta','RegistroconsultaController@index')->name('registroconsulta.index');
+    Route::get('consultacorreo','ConsultacorreoController@index')->name('consultacorreo.index');
 });
 
 

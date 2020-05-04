@@ -23,7 +23,7 @@ class PersonajuridicaController extends Controller
     public function index(Request $request)
     {
         $palabrasbuscar = explode(" ",$request->post('buscar'));
-        print(implode(" ",$palabrasbuscar));
+        
         $personasjuridicas = Personajuridica::orderBy('id', 'ASC')
                         ->select('personajuridica.*')
                         ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')

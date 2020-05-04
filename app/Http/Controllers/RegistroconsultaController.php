@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Registroconsulta;
-use App\User;
 use Illuminate\Http\Request;
+use App\Models\Registroconsulta;
 
 class RegistroconsultaController extends Controller
 {
@@ -12,80 +11,26 @@ class RegistroconsultaController extends Controller
     {
         $this->middleware('auth');
     }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Registroconsulta  $registroconsulta
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Registroconsulta $registroconsulta)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Registroconsulta  $registroconsulta
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Registroconsulta $registroconsulta)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Registroconsulta  $registroconsulta
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Registroconsulta $registroconsulta)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Registroconsulta  $registroconsulta
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Registroconsulta $registroconsulta)
-    {
-        //
+    public function index(Request $request){
+        $palabrasbuscar = explode(" ",$request->post('buscar'));
+        $registrosconsulta = Registroconsulta::orderBy('created_at', 'DESC')
+                        ->select('registroconsulta.*', 'personanatural.numerodocumento AS numerodocumento',
+                                    'proceso.numero AS proceso')
+                        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                        ->join('personanatural','personanatural_id','=','personanatural.id')
+                        ->join('proceso', 'proceso_id', '=', 'proceso.id');
+        $emptypalabrasbuscar = array_filter($palabrasbuscar);
+        if (!empty($emptypalabrasbuscar)){
+            $columnas = ['registroconsulta.created_at', 'personanatural.numerodocumento', 
+            'personanatural.nombres', 'personanatural.apellidopaterno', 
+            'personanatural.apellidomaterno', 'proceso.numero'];
+            $Registrosconsulta['Registrosconsulta'] = $registrosconsulta->whereOrSearch($palabrasbuscar, $columnas);
+            return view('registroconsulta.index', $Registrosconsulta)
+            ->with('success',['Busqueda realizada']);
+        }else{
+            $Registrosconsulta['Registrosconsulta'] = $registrosconsulta->paginate(10);
+            return view('registroconsulta.index', $Registrosconsulta);
+        }
     }
 }

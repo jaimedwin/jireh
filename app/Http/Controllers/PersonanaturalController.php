@@ -166,14 +166,17 @@ class PersonanaturalController extends Controller
         
         $Contratos = Contrato::select('pago.contrato_id', 'contrato.numero', 'contrato.valor', 
                                 'contrato.tipocontrato_id', 'tipocontrato.descripcion AS tipocontrato',
-                                'contrato.proceso_id', 'proceso.numero AS proceso',DB::raw("COALESCE(SUM(pago.abono),0) as abono"))
+                                'contrato.proceso_id', 'proceso.numero AS proceso',
+                                'contrato.personanatural_id', 'contrato.nombrearchivo',
+                                DB::raw("COALESCE(SUM(pago.abono),0) as abono"))
                                 ->join('tipocontrato', 'tipocontrato_id', '=', 'tipocontrato.id')
                                 ->join('proceso', 'contrato.proceso_id', '=', 'proceso.id')
                                 ->leftjoin('pago', 'contrato.id', '=','pago.contrato_id')
                                 ->where('contrato.personanatural_id', '=', $personanatural->id)
                                 ->groupBy('pago.contrato_id', 'contrato.numero', 'contrato.valor', 
                                 'contrato.tipocontrato_id', 'tipocontrato.descripcion', 'pago.abono',
-                                'contrato.proceso_id', 'proceso.numero')
+                                'contrato.proceso_id', 'proceso.numero', 
+                                'contrato.personanatural_id', 'contrato.nombrearchivo')
                                 ->orderBy('pago.contrato_id', 'DESC')
                                 ->get();
         
@@ -270,7 +273,9 @@ class PersonanaturalController extends Controller
                                 ->select('personanatural.*',  
                                 'fondodepension.abreviatura AS fondodepension',
                                 'tipodocumentoidentificacion.abreviatura AS tipodocumentoidentificacion',
-                                'expedicion.lugar AS expedicion',
+                                'municipio.nombre AS expedicion_id_municipio',
+                                'municipio.nombre AS expedicion_municipio',
+                                'departamento.nombre AS expedicion_departamento',
                                 'eps.abreviatura AS eps', 
                                 'grado.abreviatura AS grado',
                                 'carrera.descripcion AS carrera',
@@ -278,7 +283,8 @@ class PersonanaturalController extends Controller
                                 ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
                                 ->join('tipodocumentoidentificacion',
                                     'tipodocumentoidentificacion_id','=','tipodocumentoidentificacion.id')
-                                ->join('expedicion','expedicion_id','=','expedicion.id')
+                                ->join('municipio','municipio_id','=','municipio.id')
+                                ->join('departamento','departamento_id','=','departamento.id')
                                 ->join('eps','eps_id','=','eps.id')
                                 ->join('fondodepension','fondodepension_id','=','fondodepension.id')
                                 ->join('grado','grado_id','=','grado.id')
@@ -294,8 +300,9 @@ class PersonanaturalController extends Controller
             'tipodocumentoidentificacion_id',
             'tipodocumentoidentificacion',
             'numerodocumento',
-            'expedicion_id' => 'lugarexpedicion_id',
-            'expedicion' => 'lugarexpedicion',
+            'expedicion_id_municipio',
+            'expedicion_municipio',
+            'expedicion_departamento',
             'fechaexpedicion',
             'fechanacimiento',
             'direccion',

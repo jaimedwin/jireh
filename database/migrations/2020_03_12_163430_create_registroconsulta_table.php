@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateRegistroconsultaTable extends Migration {
 
@@ -18,8 +19,7 @@ class CreateRegistroconsultaTable extends Migration {
 			$table->bigIncrements('id');
 			$table->unsignedBigInteger('personanatural_id')->index('registroconsulta_FK');
 			$table->unsignedBigInteger('proceso_id')->index('registroconsulta_FK_1');
-			$table->unsignedBigInteger('users_id');
-			$table->timestamps();
+			$table->dateTime('created_at')->nullable();
 		});
 	}
 

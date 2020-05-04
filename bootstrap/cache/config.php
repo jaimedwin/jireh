@@ -2,8 +2,8 @@
   'app' => 
   array (
     'name' => 'JIREH',
-    'env' => 'local',
-    'debug' => true,
+    'env' => 'production',
+    'debug' => false,
     'url' => 'http://localhost',
     'asset_url' => NULL,
     'timezone' => 'America/Bogota',
@@ -429,16 +429,16 @@
   'mail' => 
   array (
     'driver' => 'smtp',
-    'host' => 'smtp.mailtrap.io',
-    'port' => '2525',
+    'host' => 'smtp.mi.com.co',
+    'port' => '465',
     'from' => 
     array (
-      'address' => NULL,
+      'address' => 'notificaciones@juridicasjireh.com.co',
       'name' => 'JIREH',
     ),
-    'encryption' => NULL,
-    'username' => NULL,
-    'password' => NULL,
+    'encryption' => 'SSL',
+    'username' => 'notificaciones@juridicasjireh.com.co',
+    'password' => '2GvN39vsu2VhkMU',
     'sendmail' => '/usr/sbin/sendmail -bs',
     'markdown' => 
     array (
@@ -521,7 +521,7 @@
   'session' => 
   array (
     'driver' => 'file',
-    'lifetime' => '120',
+    'lifetime' => '15',
     'expire_on_close' => false,
     'encrypt' => false,
     'files' => '/var/www/laravel/jireh/storage/framework/sessions',

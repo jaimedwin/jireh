@@ -27,7 +27,7 @@ class ProcesoDocumentoController extends Controller
     public function index($proceso_id, Request $request)
     {
         $palabrasbuscar = explode(" ",$request->post('buscar'));
-        print(implode(" ",$palabrasbuscar));
+        
         $documentosproceso = Documentoproceso::orderBy('id', 'ASC')
                         ->select('documentoproceso.*', 
                         'tipodocumento.abreviatura AS tipodocumento', 

@@ -16,9 +16,10 @@ class CorporacionSeeder extends Seeder
         DB::table('corporacion')->truncate();
 
         Corporacion::insert([
-            [ 'nombre' => 'CORTE CONSTITUCIONAL', 'correonotificacion' => '', 'users_id' => 1],
+            [ 'nombre' => 'CONSEJO SUPERIOR DE LA JUDICATURA', 'correonotificacion' => '', 'users_id' => 1],
             [ 'nombre' => 'CONSEJO DE ESTADO', 'correonotificacion' => '', 'users_id' => 1],
-            [ 'nombre' => 'CORTE SUPREMA', 'correonotificacion' => '', 'users_id' => 1],
+            [ 'nombre' => 'CORTE CONSTITUCIONAL', 'correonotificacion' => '', 'users_id' => 1],
+            [ 'nombre' => 'CORTE SUPREMA DE JUSTICIA', 'correonotificacion' => '', 'users_id' => 1],
             [ 'nombre' => 'TRIBUNAL', 'correonotificacion' => '', 'users_id' => 1],
             [ 'nombre' => 'JUZGADO', 'correonotificacion' => '', 'users_id' => 1],
         ]);

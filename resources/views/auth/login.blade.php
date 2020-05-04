@@ -1,5 +1,3 @@
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -12,7 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
+                        @include('admin.errors')
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Dirección de email') }}</label>
 
@@ -49,15 +47,25 @@
                                     <label class="form-check-label" for="remember">
                                         {{ __('Recuérdame') }}
                                     </label>
+
+                                    
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-2">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Login') }}
+                                </button>
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                                <a href="{{ route('validate_email')}}">
+                                    <i class="fas fa-user-lock mr-2"></i> {{'¿Olvidaste tu contraseña?'}}
+                                </a>
                             </div>
                         </div>
                     </form>
