@@ -30,7 +30,8 @@ class ProcesoDocumentoController extends Controller
         
         $documentosproceso = Documentoproceso::orderBy('id', 'ASC')
                         ->select('documentoproceso.*', 
-                        'tipodocumento.abreviatura AS tipodocumento', 
+                        'tipodocumento.abreviatura AS tipodocumento',
+                        'tipodocumento.descripcion AS tipodocumento_descripcion', 
                         'proceso.numero')
                         ->join('tipodocumento','tipodocumento_id','=','tipodocumento.id')
                         ->join('proceso','proceso_id','=','proceso.id')
@@ -92,7 +93,7 @@ class ProcesoDocumentoController extends Controller
     {
         $documentoproceso = Documentoproceso::findOrFail($id);
         $auditoria = User::findOrFail($documentoproceso->users_id);
-        $tipodocumento = Tipodocumento::select('abreviatura')->findOrFail($documentoproceso->tipodocumento_id);
+        $tipodocumento = Tipodocumento::select('abreviatura', 'descripcion')->findOrFail($documentoproceso->tipodocumento_id);
         return view('proceso.documento.show', compact('proceso_id', 'tipodocumento', 'documentoproceso', 'auditoria'));
     }
 

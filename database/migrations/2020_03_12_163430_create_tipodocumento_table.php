@@ -17,7 +17,7 @@ class CreateTipodocumentoTable extends Migration {
 		{
 			$table->bigIncrements('id');
 			$table->string('abreviatura', 10)->unique('abreviatura');
-			$table->string('descripcion', 30);
+			$table->string('descripcion', 150);
 			$table->string('comentario', 1000)->nullable();
 			$table->unsignedBigInteger('users_id');
 			$table->timestamps();

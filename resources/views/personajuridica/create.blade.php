@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group">
                         <label for="personanatural_id">{{'Persona natural *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="personanatural_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="personanatural_id"
                             name="personanatural_id">
                             <option selected>Seleccione ...</option>
                             @foreach ($Personasnaturales as $personanatural)

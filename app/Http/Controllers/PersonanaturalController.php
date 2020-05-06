@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Personanatural;
 use App\Models\Tipodocumentoidentificacion;
 use App\Models\Fondodepension;
-Use App\Models\Municipio;
+use App\Models\Municipio;
 use App\Models\Eps;
 use App\Models\Grado;
 use App\Models\Correo;
@@ -86,7 +86,7 @@ class PersonanaturalController extends Controller
             select('municipio.id', 'municipio.nombre AS municipio', 'departamento.nombre AS departamento')->orderBy('municipio.nombre', 'ASC')
             ->join('departamento','departamento_id','=','departamento.id')
             ->get();
-        $Eps = Eps::select('id', 'abreviatura')->orderBy('id', 'ASC')->get();
+        $Eps = Eps::select('id', 'abreviatura', 'descripcion')->orderBy('id', 'ASC')->get();
         $Grados = Grado::select('grado.id', 'grado.abreviatura', 'grado.descripcion', 'fuerza.abreviatura AS fuerza')
                         ->join('carrera','carrera.id','=','carrera_id')
                         ->join('fuerza', 'fuerza.id', '=', 'carrera.fuerza_id')
@@ -117,8 +117,6 @@ class PersonanaturalController extends Controller
      */
     public function show(Personanatural $personanatural)
     {
-
-        
         $id = $personanatural->id;
         $personanatural = Personanatural::select('personanatural.*',  
                                 'fondodepension.abreviatura AS fondodepension',
@@ -149,7 +147,8 @@ class PersonanaturalController extends Controller
                                 ->get();
 
         $Documentos = Documento::select('documento.*',
-                                'tipodocumento.abreviatura AS tipodocumento')
+                                'tipodocumento.abreviatura AS tipodocumento',
+                                'tipodocumento.descripcion AS tipodocumento_descripcion')
                                 ->join('tipodocumento', 'tipodocumento_id', '=', 'tipodocumento.id')
                                 ->where('documento.personanatural_id', '=', $personanatural->id)
                                 ->get();
@@ -206,11 +205,11 @@ class PersonanaturalController extends Controller
             select('id', 'abreviatura', 'descripcion')->orderBy('abreviatura', 'ASC')->get();
         $Fondodepensiones = Fondodepension::
             select('id', 'abreviatura', 'descripcion')->orderBy('id', 'ASC')->get();
-            $Expediciones = Municipio::
+        $Expediciones = Municipio::
             select('municipio.id', 'municipio.nombre AS municipio', 'departamento.nombre AS departamento')->orderBy('municipio.nombre', 'ASC')
             ->join('departamento','departamento_id','=','departamento.id')
             ->get();
-        $Eps = Eps::select('id', 'abreviatura')->orderBy('id', 'ASC')->get();
+        $Eps = Eps::select('id', 'abreviatura', 'descripcion')->orderBy('id', 'ASC')->get();
         $Grados = Grado::select('grado.id', 'grado.abreviatura', 'grado.descripcion', 'fuerza.abreviatura AS fuerza')
                         ->join('carrera','carrera.id','=','carrera_id')
                         ->join('fuerza', 'fuerza.id', '=', 'carrera.fuerza_id')

@@ -118,7 +118,8 @@ class ClienteprocesoController extends Controller
         $Correos = Correo::select('correo.*')->where('correo.personanatural_id', '=', $clienteproceso->personanatural_id)->get();
         $Telefonos = Telefono::select('telefono.*')->where('telefono.personanatural_id', '=', $clienteproceso->personanatural_id)->get();
         $Documentos = Documento::select('documento.*',
-                        'tipodocumento.abreviatura AS tipodocumento')
+                        'tipodocumento.abreviatura AS tipodocumento',
+                        'tipodocumento.descripcion AS tipodocumento_descripcion')
                         ->join('tipodocumento', 'tipodocumento_id', '=', 'tipodocumento.id')
                         ->where('documento.personanatural_id', '=', $clienteproceso->personanatural_id)
                         ->get();
@@ -155,11 +156,14 @@ class ClienteprocesoController extends Controller
                         ->join('ponente', 'proceso.ponente_id', '=', 'ponente.id')
                         ->join('estado', 'proceso.estado_id', '=', 'estado.id')
                         ->findOrFail($clienteproceso->proceso_id);
+
         $Documentosproceso = Documentoproceso::select('documentoproceso.*',
-                        'tipodocumento.abreviatura AS tipodocumento')
+                        'tipodocumento.abreviatura AS tipodocumento',
+                        'tipodocumento.descripcion AS tipodocumento_descripcion')
                         ->join('tipodocumento', 'tipodocumento_id', '=', 'tipodocumento.id')
                         ->where('documentoproceso.proceso_id', '=', $clienteproceso->proceso_id)
                         ->get();
+
         return view('clienteproceso.show', compact('Clienteproceso', 'auditoria', 
                 'Personanatural', 'Proceso', 'Correos', 'Correos', 'Telefonos', 'Documentos', 'Documentosproceso', 'Contratos', 'Pagos'));
     }

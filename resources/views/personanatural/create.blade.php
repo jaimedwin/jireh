@@ -41,7 +41,7 @@
 						<label
 							for="personanatural.tipodocumentoindentificacion">{{'Tipo de documento de indentificacion *'}}</label>
 						<select class="form-control selectpicker" id="personanatural.tipodocumentoindentificacion"
-							data-live-search="true" name="tipodocumentoidentificacion_id">
+							data-show-subtext="true" data-live-search="true" name="tipodocumentoidentificacion_id">
 							<option selected>Seleccione ...</option>
 
 							@foreach ($Tiposdocumentosidentificacion as $tdi)
@@ -63,7 +63,7 @@
 				<div class="col-lg">
 					<div class="form-group">
 						<label for="personanatural.municipio">{{'Lugar de expedición *'}}</label>
-						<select class="form-control selectpicker" id="personanatural.municipio" data-live-search="true"
+						<select class="form-control selectpicker" id="personanatural.municipio" data-show-subtext="true" data-live-search="true"
 							name="municipio_id">
 							<option selected>Seleccione ...</option>
 							@foreach ($Expediciones as $expe)
@@ -97,7 +97,7 @@
 			<div class="row">
 				<div class="form-group col-lg">
 					<label for="personanatural.fondodepension">{{'Fondo de pensiones *'}}</label>
-					<select class="form-control selectpicker" id="personanatural.fondodepension" data-live-search="true"
+					<select class="form-control selectpicker" id="personanatural.fondodepension" data-show-subtext="true" data-live-search="true"
 						name="fondodepension_id">
 						<option selected>Seleccione ...</option>
 						@foreach ($Fondodepensiones as $fdp)
@@ -110,11 +110,12 @@
 				</div>
 				<div class="form-group col-lg">
 					<label for="personanatural.eps">{{'Eps *'}}</label>
-					<select class="form-control selectpicker" id="personanatural.eps" data-live-search="true"
+					<select class="form-control selectpicker" id="personanatural.eps" data-show-subtext="true" data-live-search="true"
 						name="eps_id">
 						<option selected>Seleccione ...</option>
 						@foreach ($Eps as $ep)
-						<option data-tokens="{{$ep->abreviatura}}" value="{{$ep->id}}">
+						<option data-tokens="{{$ep->abreviatura}} {{$ep->descripcion}}" value="{{$ep->id}}"
+							data-subtext="{{$ep->descripcion}}">
 							{{$ep->abreviatura}}
 						</option>
 						@endforeach
@@ -122,7 +123,7 @@
 				</div>
 				<div class="form-group col-lg">
 					<label for="personanatural.grado">{{'Grado *'}}</label>
-					<select class="form-control selectpicker" id="personanatural.grado" data-live-search="true"
+					<select class="form-control selectpicker" id="personanatural.grado" data-show-subtext="true" data-live-search="true"
 						name="grado_id">
 						<option selected>Seleccione ...</option>
 						@foreach ($Grados as $g)

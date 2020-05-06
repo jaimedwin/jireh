@@ -41,6 +41,7 @@
 						<tr>
 							<th style="width: 10px">{{'#'}}</th>
 							<th>{{'Tipo de documento'}}</th>
+							<th>{{'Descripción del documento'}}</th>
 							<th style="width: 80px" class="text-center">{{'Documento'}}</th>
 							<th style="width: 160px" class="text-center">{{'Acciones'}}</th>
 						</tr>
@@ -51,6 +52,7 @@
 						<tr>
 							<td>{{$loop->iteration}}</td>
 							<td>{{$documentoproceso->tipodocumento}}</td>
+							<td>{{$documentoproceso->tipodocumento_descripcion}}</td>
 							<td class="text-center">
 								@if ($documentoproceso->nombrearchivo)
 								<a href="{{route('descargas_proceso_documentos', 

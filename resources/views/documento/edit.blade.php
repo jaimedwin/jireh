@@ -17,16 +17,18 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="tipodocumento_id">{{'Tipo de documento *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="tipodocumento_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="tipodocumento_id"
                             name="tipodocumento_id">
                             @foreach ($Tipodocumentos as $tipodocumento)
                                 @if ($tipodocumento->id == $documento->tipodocumento_id)
-                                    <option data-tokens="{{$tipodocumento->abreviatura}} {{$tipodocumento->descripcion}}" value="{{$tipodocumento->id}}" selected>
-                                        {{$tipodocumento->abreviatura}} - {{$tipodocumento->descripcion}}
+                                    <option data-tokens="{{$tipodocumento->abreviatura}} {{$tipodocumento->descripcion}}" 
+                                        value="{{$tipodocumento->id}}" data-subtext="{{$tipodocumento->descripcion}}" selected>
+                                        {{$tipodocumento->abreviatura}}
                                     </option>    
                                 @else
-                                    <option data-tokens="{{$tipodocumento->abreviatura}} {{$tipodocumento->descripcion}}" value="{{$tipodocumento->id}}">
-                                        {{$tipodocumento->abreviatura}} - {{$tipodocumento->descripcion}}
+                                    <option data-tokens="{{$tipodocumento->abreviatura}} {{$tipodocumento->descripcion}}" 
+                                        value="{{$tipodocumento->id}}" data-subtext="{{$tipodocumento->descripcion}}">
+                                        {{$tipodocumento->abreviatura}}
                                     </option>
                                 @endif
                             @endforeach
@@ -34,21 +36,21 @@
                     </div>
                     <div class="form-group">
                         <label for="personanatural_id">{{'Persona natural *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="personanatural_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="personanatural_id"
                             name="personanatural_id">
                             <option selected>Seleccione ...</option>
                             @foreach ($Personasnaturales as $personanatural)
                                 @if ($personanatural->id == $documento->personanatural_id)
                                 <option
                                     data-tokens="{{$personanatural->numerodocumento}} - {{$personanatural->nombrecompleto}}"
-                                    value="{{$personanatural->id}}" selected>
-                                    {{$personanatural->numerodocumento}} - {{$personanatural->nombrecompleto}}
+                                    value="{{$personanatural->id}}" data-subtext="{{$personanatural->nombrecompleto}}" selected>
+                                    {{$personanatural->numerodocumento}}
                                 </option>
                                 @else
                                 <option
                                     data-tokens="{{$personanatural->numerodocumento}} - {{$personanatural->nombrecompleto}}"
-                                    value="{{$personanatural->id}}">
-                                    {{$personanatural->numerodocumento}} - {{$personanatural->nombrecompleto}}
+                                    value="{{$personanatural->id}}" data-subtext="{{$personanatural->nombrecompleto}}">
+                                    {{$personanatural->numerodocumento}}
                                 </option>
                                 @endif
                             

@@ -29,7 +29,7 @@
 
                     <div class="form-group">
                         <label for="proceso.ciudadproceso">{{'Ciudad de proceso *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="proceso.ciudadproceso" name="ciudadproceso_id">
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="proceso.ciudadproceso" name="ciudadproceso_id">
                             @foreach ($ciudadprocesos as $ciudadproceso)
                             @if ($ciudadproceso->id == $proceso->ciudadproceso_id)
                             <option data-tokens="{{$ciudadproceso->nombre}}" value="{{$ciudadproceso->id}}" selected>
@@ -46,7 +46,7 @@
 
                     <div class="form-group">
                         <label for="proceso.coporacion">{{'Corporación *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="proceso.coporacion" name="corporacion_id">
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="proceso.coporacion" name="corporacion_id">
                             @foreach ($corporacions as $corporacion)
                             @if ($corporacion->id == $proceso->corporacion_id)
                             <option data-tokens="{{$corporacion->nombre}}" value="{{$corporacion->id}}" selected>
@@ -63,7 +63,7 @@
 
                     <div class="form-group">
                         <label for="proceso.ponente">{{'Ponente *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="proceso.ponente" name="ponente_id">
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="proceso.ponente" name="ponente_id">
                             @foreach ($ponentes as $ponente)
                                 @if ($ponente->id == $proceso->ponente_id)
                                     <option data-tokens="{{$ponente->nombrecompleto}}" value="{{$ponente->id}}" selected>
@@ -80,7 +80,7 @@
 
                     <div class="form-group">
                         <label for="proceso.estado">{{'Estado *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="proceso.estado" name="estado_id">
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="proceso.estado" name="estado_id">
                             @foreach ($estados as $estado)
                                 @if ($estado->id == $proceso->estado_id)
                                     <option data-tokens="{{$estado->descripcion}}" value="{{$estado->id}}" selected>

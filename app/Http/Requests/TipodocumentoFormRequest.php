@@ -25,7 +25,7 @@ class TipodocumentoFormRequest extends FormRequest
     {
         return [
             'abreviatura'   => 'required|unique:tipodocumento|string|max:10',
-            'descripcion'   => 'required|string|max:30',
+            'descripcion'   => 'required|string|max:150',
             'comentario'    => 'nullable|string|max:1000',
             'users_id'      => 'required|numeric',
             'created_at'    => 'nullable|date',

@@ -30,23 +30,29 @@
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'3.'}}</td>
+                            <td class="table-secondary">{{'Descripción del documento'}}</td>
+                            <td>{{$tipodocumento->descripcion}}</td>
+                        </tr>c
+                        <tr>
+                            <td class="table-secondary">{{'4.'}}</td>
                             <td class="table-secondary">{{'Documento'}}</td>
                             <td>{{$documentoproceso->nombrearchivo}}</td>
                         </tr>
+                        
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td class="table-secondary">{{'4.'}}</td>
+                            <td class="table-secondary">{{'5.'}}</td>
                             <td class="table-secondary">{{'Usuario'}}</td>
                             <td>{{$documentoproceso->users_id}} - {{$auditoria->email}}</td>
                         </tr>
                         <tr>
-                            <td class="table-secondary">{{'5.'}}</td>
+                            <td class="table-secondary">{{'6.'}}</td>
                             <td class="table-secondary">{{'Fecha de creación'}}</td>
                             <td>{{$documentoproceso->created_at}}</td>
                         </tr>
                         <tr>
-                            <td class="table-secondary">{{'6.'}}</td>
+                            <td class="table-secondary">{{'7.'}}</td>
                             <td class="table-secondary">{{'Fecha de actualización'}}</td>
                             <td>{{$documentoproceso->updated_at}}</td>
                         </tr>

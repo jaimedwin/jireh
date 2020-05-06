@@ -58,7 +58,7 @@
                             <td class="table-secondary">{{'Documento(s)'}}</td>
                             <td>
                                 @foreach ($Documentosproceso as $documentoproceso)
-                                    {{$documentoproceso->tipodocumento_id}} - {{$documentoproceso->tipodocumento}} 
+                                    {{$documentoproceso->tipodocumento_id}} - ({{$documentoproceso->tipodocumento}}) {{$documentoproceso->tipodocumento_descripcion}} 
                                     @if ($documentoproceso->nombrearchivo)
                                         <a href="{{route('descargas_proceso_documentos', 
                                         [

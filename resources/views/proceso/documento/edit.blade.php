@@ -16,16 +16,18 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="tipodocumento_id">{{'Tipo de documento *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="tipodocumento_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="tipodocumento_id"
                             name="tipodocumento_id">
                             @foreach ($Tipodocumentos as $tipodocumento)
                                 @if ($tipodocumento->id == $documentoproceso->tipodocumento_id)
-                                    <option data-tokens="{{$tipodocumento->abreviatura}} {{$tipodocumento->descripcion}}" value="{{$tipodocumento->id}}" selected>
-                                        {{$tipodocumento->abreviatura}} - {{$tipodocumento->descripcion}}
+                                    <option data-tokens="{{$tipodocumento->abreviatura}} {{$tipodocumento->descripcion}}" value="{{$tipodocumento->id}}" 
+                                        data-subtext="{{$tipodocumento->descripcion}}" selected>
+                                        {{$tipodocumento->abreviatura}}
                                     </option>    
                                 @else
-                                    <option data-tokens="{{$tipodocumento->abreviatura}} {{$tipodocumento->descripcion}}" value="{{$tipodocumento->id}}">
-                                        {{$tipodocumento->abreviatura}} - {{$tipodocumento->descripcion}}
+                                    <option data-tokens="{{$tipodocumento->abreviatura}} {{$tipodocumento->descripcion}}" value="{{$tipodocumento->id}}"
+                                        data-subtext="{{$tipodocumento->descripcion}}">
+                                        {{$tipodocumento->abreviatura}}
                                     </option>
                                 @endif
                             @endforeach

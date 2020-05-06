@@ -31,7 +31,7 @@
 
                     <div class="form-group">
                         <label for="tipocontrato_id">{{'Tipo de contrato *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="tipocontrato_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="tipocontrato_id"
                             name="tipocontrato_id">
                             <option selected>Seleccione ...</option>
                             @foreach ($Tipocontratos as $tipocontrato)
@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                         <label for="personanatural_id">{{'Persona natural *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="personanatural_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="personanatural_id"
                             name="personanatural_id">
                             <option selected>Seleccione ...</option>
                             @foreach ($Personasnaturales as $personanatural)
@@ -59,7 +59,7 @@
 
                     <div class="form-group">
                         <label for="proceso_id">{{'Proceso *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="proceso_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="proceso_id"
                             name="proceso_id">
                             <option selected>Seleccione ...</option>
                             @foreach ($Procesos as $proceso)

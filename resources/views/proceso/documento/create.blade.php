@@ -20,12 +20,13 @@
                     @csrf
                     <div class="form-group">
                         <label for="tipodocumento_id">{{'Tipo de documento *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="tipodocumento_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="tipodocumento_id"
                             name="tipodocumento_id">
                             <option selected>Seleccione ...</option>
                             @foreach ($Tipodocumentos as $tipodocumento)
-                            <option data-tokens="{{$tipodocumento->descripcion}} {{$tipodocumento->abreviatura}} " value="{{$tipodocumento->id}}">
-                                {{$tipodocumento->abreviatura}} - {{$tipodocumento->descripcion}}
+                            <option data-tokens="{{$tipodocumento->descripcion}} {{$tipodocumento->abreviatura}} " value="{{$tipodocumento->id}}"
+                                data-subtext="{{$tipodocumento->descripcion}}">
+                                {{$tipodocumento->abreviatura}}
                             </option>
                             @endforeach
                         </select>

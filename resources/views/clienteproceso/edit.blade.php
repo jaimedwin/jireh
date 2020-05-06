@@ -17,7 +17,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="personanatural_id">{{'Persona natural *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="personanatural_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="personanatural_id"
                             name="personanatural_id">
                             @foreach ($Personasnaturales as $personanatural)
                                 @if ($personanatural->id == $clienteproceso->personanatural_id)
@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group">
                         <label for="proceso_id">{{'Proceso *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="proceso_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="proceso_id"
                             name="proceso_id">
                             @foreach ($Procesos as $proceso)
                                 @if ($proceso->id == $clienteproceso->proceso_id)
@@ -61,7 +61,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tipodemanda_id">{{'Tipo de demanda *'}}</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="tipodemanda_id"
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="tipodemanda_id"
                             name="tipodemanda_id">
                             @foreach ($Tiposdemandas as $tipodemanda)
                                 @if ($tipodemanda->id == $clienteproceso->tipodemanda_id)

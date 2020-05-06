@@ -120,7 +120,8 @@ class ProcesoController extends Controller
                         ->get();
 
         $Documentosproceso = Documentoproceso::select('documentoproceso.*',
-                        'tipodocumento.abreviatura AS tipodocumento')
+                        'tipodocumento.abreviatura AS tipodocumento',
+                        'tipodocumento.descripcion AS tipodocumento_descripcion')
                         ->join('tipodocumento', 'tipodocumento_id', '=', 'tipodocumento.id')
                         ->where('documentoproceso.proceso_id', '=', $id)
                         ->get();
