@@ -24,13 +24,13 @@ class ActuacionprocesoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'fechaactuacion'        => 'required|date',
+            'fechaactuacion'        => 'required|date_format:Y-m-d',
             'actuacion'             => 'required|string|max:250', 
             'anotacion'             => 'nullable|string|max:1000',
             'nombrearchivo'         => 'nullable|mimes:pdf|max:50000', 
-            'fechainiciatermino'    => 'nullable|date', 
-            'fechafinalizatermino'  => 'nullable|date', 
-            'fecharegistro'         => 'required|date', 
+            'fechainiciatermino'    => 'nullable|date_format:Y-m-d', 
+            'fechafinalizatermino'  => 'nullable|date_format:Y-m-d', 
+            'fecharegistro'         => 'required|date_format:Y-m-d', 
             'proceso_id'            => 'required|numeric', 
             'users_id'              => 'required|numeric',
             'created_at'            => 'nullable|date',

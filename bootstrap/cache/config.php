@@ -12,6 +12,8 @@
     'faker_locale' => 'en_US',
     'key' => 'base64:wmQxLKLHdxFGTLjtcjErM5d+KUMUwlKhmNH77ORCimA=',
     'cipher' => 'AES-256-CBC',
+    'site_key' => '6LfnBPUUAAAAAFgQxLMhKmVMzPu0t1mTZCZGhWuM',
+    'secret_key' => '6LfnBPUUAAAAACQTt2RgQruzzw0KYElmrySJ8Vu0',
     'providers' => 
     array (
       0 => 'Illuminate\\Auth\\AuthServiceProvider',

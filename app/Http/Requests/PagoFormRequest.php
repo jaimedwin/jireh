@@ -24,7 +24,7 @@ class PagoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'fecha'         => 'required|date',
+            'fecha'         => 'required|date_format:Y-m-d',
             'abono'         => 'required|numeric', 
             'nrecibo'       => 'nullable|unique:pago|string|max:20', 
             'contrato_id'   => 'required|numeric',

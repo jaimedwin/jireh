@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Mail\SendResetPassword;
 use App\Models\Consultacorreo;
@@ -28,6 +29,31 @@ class InicioController extends Controller
     }
 
     public function sendResetEmail(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:320', 
+            'token_recaptcha' => 'required',
+            'token' => 'required|max:60|min:60',
+            'action' => 'required',
+            ]);
+        
+        if ($validator->fails()) {
+            return redirect()->route('validate_email')
+                            ->withErrors($validator);
+        }
+
+        $token_recaptcha = $request->token_recaptcha;
+        $action = $request->action;
+             
+        $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'; 
+        $recaptcha_secret = config('app.secret_key'); 
+        $recaptcha_response = $token_recaptcha; 
+        $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response); 
+        $recaptcha = json_decode($recaptcha); 
+        
+        if(!($recaptcha->success && $recaptcha->score > 0.5 && $recaptcha->action == $action)){
+            return redirect()->route('consultacliente')->withErrors(['Se ha registrado una actividad sospechosa']);
+        }
 
         $email = $request->email;
         $token = $request->token;

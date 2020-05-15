@@ -1,12 +1,18 @@
 @extends('admin.index')
 
 @can('use-app-user')
-@section('entidad', 'Principal')
 
 @section('content')
 
 
 <section class="content">
+	<div class="row">
+		<div class="col-12 mb-3">
+			<center>
+				<img class="logo" src="{{ url('/') }}/Logo.svg" alt="JIREH" style="width: auto; max-width: 50%; height: auto;">
+			</center>
+		</div>
+	</div>
 	<div class="container-fluid">
 		
 		@include('admin.errors')

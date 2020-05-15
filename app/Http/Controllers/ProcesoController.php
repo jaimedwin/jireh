@@ -38,7 +38,8 @@ class ProcesoController extends Controller
     {   
         $palabrasbuscar = explode(" ",$request->post('buscar')); 
 
-        $procesos = Proceso::select(
+        $procesos = Proceso::orderBy('proceso.id', 'DESC')
+        ->select(
             'proceso.id','proceso.numero', 'proceso.codigo',
             'ciudadproceso.nombre AS ciudadproceso', 
             'corporacion.nombre AS corporacion', 
@@ -204,6 +205,7 @@ class ProcesoController extends Controller
             'proceso.codigo AS proceso_codigo', 
             'proceso.numero AS proceso_numero', 
             'personanatural.codigo AS personanatural_codigo', 
+            'personanatural.fechaexpedicion AS personanatural_fechaexpedicion',
             'correo.electronico AS email')
         ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
         ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
@@ -223,9 +225,11 @@ class ProcesoController extends Controller
             $proceso_codigo = $consulta->proceso_codigo;
             $personanatural_codigo = $consulta->personanatural_codigo;
             $nombrecompleto = $consulta->nombrecompleto;
+            $personanatural_fechaexpedicion = $consulta->personanatural_fechaexpedicion;
             Mail::to($consulta->email)->send(
                 new ProcessNotification($proceso_numero, $url, 
-                                        $proceso_codigo, $personanatural_codigo, $subject)
+                                        $proceso_codigo, $personanatural_codigo, 
+                                        $personanatural_fechaexpedicion, $subject)
                 );
             
             // Registra que se envìo un correo de notificación con el cambio en las actuaciones.
@@ -233,6 +237,7 @@ class ProcesoController extends Controller
                         'Código del proceso: ' . $proceso_codigo . '<br>' .
                         'Número del proceso: ' . $proceso_numero . '<br>' .
                         'Código del cliente: ' . $personanatural_codigo . '<br>' .
+                        'Contraseña: ' . $personanatural_fechaexpedicion . '<br>' .
                         'Nómbre del cliente: ' . $nombrecompleto . '<br>';
 
             $consultacorreo = new Consultacorreo;

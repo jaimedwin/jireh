@@ -35,7 +35,7 @@ class PersonanaturalController extends Controller
     public function index(Request $request)
     {
         $palabrasbuscar = explode(" ",$request->post('buscar'));
-        $Personasnaturales = Personanatural::orderBy('personanatural.id', 'ASC')
+        $Personasnaturales = Personanatural::orderBy('personanatural.id', 'DESC')
                                 ->select('personanatural.*',  
                                 'fondodepension.abreviatura AS fondodepension',
                                 'tipodocumentoidentificacion.abreviatura AS tipodocumentoidentificacion',
@@ -124,6 +124,7 @@ class PersonanaturalController extends Controller
                                 'municipio.nombre AS expedicion_municipio',
                                 'departamento.nombre AS expedicion_departamento',
                                 'eps.abreviatura AS eps', 
+                                'eps.descripcion AS eps_descripcion', 
                                 'grado.abreviatura AS grado',
                                 'carrera.descripcion AS carrera',
                                 'fuerza.abreviatura AS fuerza')

@@ -21,9 +21,9 @@
         <li>
             <p>Ingrese la siguiente información en el formulario de consulta</p>
             <ul>
-                <li>Código del cliente: {{$proceso_codigo}}</li>
-                <li>Código del proceso: {{$personanatural_codigo}}</li>
-                <li>Fecha de expedición de su documento</li>
+                <li>Código del cliente: {{$personanatural_codigo}}</li>
+                <li>Código del proceso: {{$proceso_codigo}}</li>
+                <li>Contraseña: {{date('dmY', strtotime($personanatural_fechaexpedicion))}}</li>
             </ul>
         </li>
     </ol>

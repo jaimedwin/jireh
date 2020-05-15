@@ -15,18 +15,20 @@ class ProcessNotification extends Mailable
     private $url;
     private $codigo_proceso;
     private $codigo_cliente;
+    private $personanatural_fechaexpedicion;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($proceso_numero, $url, $proceso_codigo, $personanatural_codigo, $subject)
+    public function __construct($proceso_numero, $url, $proceso_codigo, $personanatural_codigo, $personanatural_fechaexpedicion, $subject)
     {
         $this->proceso_numero = $proceso_numero;
         $this->url = $url;
         $this->proceso_codigo = $proceso_codigo;
         $this->personanatural_codigo = $personanatural_codigo;
+        $this->personanatural_fechaexpedicion = $personanatural_fechaexpedicion;
         $this->subject($subject);
     }
 
@@ -41,6 +43,7 @@ class ProcessNotification extends Mailable
         $url = $this->url;
         $proceso_codigo = $this->proceso_codigo;
         $personanatural_codigo = $this->personanatural_codigo;
-        return $this->view('sendmail.actuaciones', compact('proceso_numero', 'url', 'proceso_codigo', 'personanatural_codigo'));
+        $personanatural_fechaexpedicion = $this->personanatural_fechaexpedicion;
+        return $this->view('sendmail.actuaciones', compact('proceso_numero', 'url', 'proceso_codigo', 'personanatural_codigo', 'personanatural_fechaexpedicion'));
     }
 }

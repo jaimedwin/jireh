@@ -64,24 +64,23 @@
                             <td>{{$personanatural->direccion}}</td>
                         </tr>
                         <tr>
-                            <td class="table-secondary">{{'10.'}}</td>
-                            <td class="table-secondary">{{'Fondo de pensión'}}</td>
-                            <td>{{$personanatural->fondodepension}}</td>
-                        </tr>
-                        <tr>
-                            
                             <td class="table-secondary">{{'11.'}}</td>
                             <td class="table-secondary">{{'Eps'}}</td>
-                            <td>{{$personanatural->eps}}</td>
+                            <td>{{$personanatural->eps_id}} - {{$personanatural->eps}}, {{$personanatural->eps_descripcion}} </td>
                         </tr>
+                        <tr>
+                            <td class="table-secondary">{{'10.'}}</td>
+                            <td class="table-secondary">{{'Fondo de pensión'}}</td>
+                            <td>{{$personanatural->fondodepension_id}} - {{$personanatural->fondodepension}}</td>
                         <tr>
                             <td class="table-secondary">{{'12.'}}</td>
                             <td class="table-secondary">{{'Fuerza - Grado'}}</td>
                             <td>
+                                {{$personanatural->grado_id}} - 
                                 @if ($personanatural->grado == 'NA')
-                                    {{$personanatural->grado}}
+                                    {{$personanatural->grado}}, {{$personanatural->carrera}}
                                 @else
-                                    {{$personanatural->fuerza}} - {{$personanatural->grado}} 
+                                    {{$personanatural->fuerza}}, {{$personanatural->carrera}}, {{$personanatural->grado}} 
                                 @endif
                             </td>
                         </tr>

@@ -23,20 +23,36 @@ class ConsultaclienteController extends Controller
 
     public function validarPost(Request $request){
         
+        
         $validator = Validator::make($request->all(), [
             'cliente_codigo' => 'required|string|max:15',
             'proceso_codigo' => 'required|string|max:15',
-            'cliente_fechaexpedicion' => 'required|nullable|date', 
+            'cliente_contraseña' => 'required|date_format:dmY|max:8|min:8', 
+            'token' => 'required',
+            'action' => 'required',
             ]);
-
+        
         if ($validator->fails()) {
             return redirect()->route('consultacliente')
-                        ->withErrors($validator);
+                            ->withErrors($validator);
         }
 
+        $token = $request->token;
+        $action = $request->action;
+             
+        $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'; 
+        $recaptcha_secret = config('app.secret_key'); 
+        $recaptcha_response = $token; 
+        $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response); 
+        $recaptcha = json_decode($recaptcha); 
+        
+        if(!($recaptcha->success && $recaptcha->score > 0.5 && $recaptcha->action == $action)){
+            return redirect()->route('consultacliente')->withErrors(['Se ha registrado una actividad sospechosa']);
+        }
+        
         $proceso_codigo = $request->proceso_codigo;
         $cliente_codigo = $request->cliente_codigo;
-        $cliente_fechaexpedicion = $request->cliente_fechaexpedicion;
+        $cliente_fechaexpedicion = $request->cliente_contraseña;
 
         return $this->validar($proceso_codigo, $cliente_codigo, $cliente_fechaexpedicion);
     }
@@ -44,12 +60,13 @@ class ConsultaclienteController extends Controller
     public function validarGet(){
         $cliente_codigo = $this->getCookie('jireh_cliente_codigo');
         $proceso_codigo = $this->getCookie('jireh_proceso_codigo');
-        $cliente_fechaexpedicion = $this->getCookie('jireh_cliente_fechaexpedicion');
-        
+        $date = $this->getCookie('jireh_cliente_fechaexpedicion');
+        $cliente_fechaexpedicion = date("dmY", strtotime($date));
         return $this->validar($proceso_codigo, $cliente_codigo, $cliente_fechaexpedicion);
     }
 
     private function validar($proceso_codigo, $cliente_codigo, $cliente_fechaexpedicion){
+        $cliente_fechaexpedicion = \Carbon\Carbon::createFromFormat('dmY',$cliente_fechaexpedicion)->format('Y/m/d');
         $consulta = Clienteproceso::select('clienteproceso.id', 'clienteproceso.proceso_id', 
                         'clienteproceso.personanatural_id', 'proceso.codigo AS proceso_codigo',
                         'personanatural.codigo AS personanatural_codigo')
@@ -59,6 +76,7 @@ class ConsultaclienteController extends Controller
                         ->where('personanatural.codigo', $cliente_codigo)
                         ->where('personanatural.fechaexpedicion', $cliente_fechaexpedicion)
                         ->first();
+
         if(!is_null($consulta)){
             $minutes = 15;
 

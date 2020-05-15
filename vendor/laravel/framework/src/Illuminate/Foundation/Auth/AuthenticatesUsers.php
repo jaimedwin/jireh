@@ -32,6 +32,20 @@ trait AuthenticatesUsers
     {
         $this->validateLogin($request);
 
+        // Adicionar validación recaptcha v3
+        $token = $request->token;
+        $action = $request->action;
+             
+        $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'; 
+        $recaptcha_secret = config('app.secret_key'); 
+        $recaptcha_response = $token; 
+        $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response); 
+        $recaptcha = json_decode($recaptcha); 
+
+        if(!($recaptcha->success && $recaptcha->score > 0.5 && $recaptcha->action == $action)){
+            return redirect()->route('login')->withErrors(['Se ha registrado una actividad sospechosa']);
+        }
+
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -64,9 +78,12 @@ trait AuthenticatesUsers
      */
     protected function validateLogin(Request $request)
     {
+        
         $request->validate([
             $this->username() => 'required|string',
             'password' => 'required|string',
+            'token' => 'required|string',
+            'action' => 'required|string',
         ]);
     }
 

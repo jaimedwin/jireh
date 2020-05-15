@@ -20,38 +20,38 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <!-- Fontawesome -->
-    <script src="https://use.fontawesome.com/45512b559e.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{url('/')}}/adminlte/plugins/fontawesome-free/css/all.min.css">
+
+    <!-- jQuery -->
+    <script src="{{ url('/') }}/adminlte/plugins/jquery/jquery.min.js"></script>
+
+    <style>
+        .grecaptcha-badge {
+            z-index: 99999;
+            display: block !important;
+        }
+
+        .logo {
+            width: auto;
+            max-width: 25%;
+            height: auto;
+        }
+    </style>
+
 </head>
 
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-info text-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li
-                        -->
-                    </ul>
-                </div>
+                <ul class="nav navbar-nav mx-auto justify-content-center text-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/') }}">
+                            <img class="logo" src="{{ url('/') }}/Logo.svg" alt="JIREH">
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
 
@@ -60,22 +60,24 @@
         </main>
 
         <!-- Footer -->
-        <div class="container" style="height: 120px;">
+        <div class="container" style="height: 120px; z-index: 1;">
             <div class="row">
                 <footer class="bg-dark fixed-bottom">
-    
+
                     <!-- Copyright -->
-                    
-                    <div class="text-center text-light py-3" >
-                        <strong>Copyright &copy; {{ now()->year }} <a href="{{ ('/')}}./consultacliente"> {{ config('app.name')}}</a>.</strong> 
+
+                    <div class="text-center text-light py-3">
+                        <strong>Copyright &copy; {{ now()->year }} <a href="{{ ('/')}}./consultacliente">
+                                {{ config('app.name')}}</a>.</strong>
                         All rights reserved.
                         <b>Version</b> 1.0.0
                     </div>
                     <!-- Copyright -->
-                        <p class="text-center text-light py-2">
-                       Al usar este sitio, reconoces haber leido y entendido la Política de Privacidad, y nuestros Términos de Servicio.
-                        </p>
-                    
+                    <p class="text-center text-light py-2">
+                        Al usar este sitio, reconoces haber leido y entendido la Política de Privacidad, y nuestros
+                        Términos de Servicio.
+                    </p>
+
                     <!--
                         Al usar este sitio, reconoces haber leido y entendido nuestra Política de Cookies, Política de Privacidad, y nuestros Términos de Servicio.
                     -->
@@ -83,8 +85,6 @@
                 <!-- Footer -->
             </div>
         </div>
-        
-        
     </div>
 </body>
 

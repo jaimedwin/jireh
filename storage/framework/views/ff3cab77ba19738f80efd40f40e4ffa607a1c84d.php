@@ -1,10 +1,16 @@
 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('use-app-user')): ?>
-<?php $__env->startSection('entidad', 'Principal'); ?>
 
 <?php $__env->startSection('content'); ?>
 
 
 <section class="content">
+	<div class="row">
+		<div class="col-12 mb-3">
+			<center>
+				<img class="logo" src="<?php echo e(url('/')); ?>/Logo.svg" alt="JIREH" style="width: auto; max-width: 50%; height: auto;">
+			</center>
+		</div>
+	</div>
 	<div class="container-fluid">
 		
 		<?php echo $__env->make('admin.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

@@ -31,7 +31,7 @@ class ClienteprocesoController extends Controller
     public function index(Request $request)
     {
         $palabrasbuscar = explode(" ",$request->post('buscar'));
-        $clientesprocesos = Clienteproceso::orderBy('id', 'ASC')
+        $clientesprocesos = Clienteproceso::orderBy('id', 'DESC')
                         ->select('clienteproceso.*', 'proceso.numero AS proceso', 
                         'tipodemanda.abreviatura AS tipodemanda', 
                         'personanatural.numerodocumento AS numerodocumento')
@@ -102,6 +102,7 @@ class ClienteprocesoController extends Controller
                         'municipio.nombre AS municipio',
                         'departamento.nombre AS departamento',
                         'eps.abreviatura AS eps', 
+                        'eps.descripcion AS eps_descripcion', 
                         'grado.abreviatura AS grado',
                         'carrera.descripcion AS carrera',
                         'fuerza.abreviatura AS fuerza', 

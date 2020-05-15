@@ -29,7 +29,7 @@ class DocumentoController extends Controller
     public function index(Request $request)
     {
         $palabrasbuscar = explode(" ",$request->post('buscar'));
-        $documentos = Documento::orderBy('id', 'ASC')
+        $documentos = Documento::orderBy('id', 'DESC')
                         ->select('documento.*', 
                         'tipodocumento.descripcion AS tipodocumento_descripcion',
                         'tipodocumento.abreviatura AS tipodocumento_abreviatura', 

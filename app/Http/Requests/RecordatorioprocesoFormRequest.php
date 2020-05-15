@@ -25,7 +25,7 @@ class RecordatorioprocesoFormRequest extends FormRequest
     {
         return [
             'observacion'   => 'required|string|max:1000',
-            'fecha'         => 'required|date', 
+            'fecha'         => 'required|date_format:Y-m-d', 
             'proceso_id'    => 'required|numeric', 
             'users_id'      => 'required|numeric',
             'created_at'    => 'nullable|date',

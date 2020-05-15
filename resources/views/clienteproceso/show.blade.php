@@ -119,19 +119,27 @@
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'10.'}}</td>
+                            <td class="table-secondary">{{'Eps'}}</td>
+                            <td>{{$Personanatural->eps_id}} - {{$Personanatural->eps}}, {{$Personanatural->eps_descripcion}} </td>
+                        </tr> 
+                        <tr>
+                            <td class="table-secondary">{{'11.'}}</td>
                             <td class="table-secondary">{{'Fondo de pensión'}}</td>
                             <td>{{$Personanatural->fondodepension_id}} - {{$Personanatural->fondodepension}} </td>
                         </tr>
                         <tr>
-                            <td class="table-secondary">{{'11.'}}</td>
-                            <td class="table-secondary">{{'Grado'}}</td>
-                            <td>{{$Personanatural->grado_id}} - {{$Personanatural->fuerza}}, {{$Personanatural->carrera}}, {{$Personanatural->grado}} </td>
-                        </tr>
-                        <tr>
                             <td class="table-secondary">{{'12.'}}</td>
-                            <td class="table-secondary">{{'Eps'}}</td>
-                            <td>{{$Personanatural->eps_id}} - {{$Personanatural->eps}} </td>
-                        </tr> 
+                            <td class="table-secondary">{{'Grado'}}</td>
+                            <td>
+                                {{$Personanatural->grado_id}} - 
+                                @if ($Personanatural->grado == 'NA')
+                                    {{$Personanatural->grado}}, {{$Personanatural->carrera}}
+                                @else
+                                    {{$Personanatural->fuerza}}, {{$Personanatural->carrera}}, {{$Personanatural->grado}} 
+                                @endif
+                            </td>
+                        </tr>
+                        
                         <tr>
                             <td class="table-secondary">{{'13.'}}</td>
                             <td class="table-secondary">{{'Correo(s)'}}</td>
