@@ -45,7 +45,8 @@
 							<th>{{'Tipo de contrato'}}</th>
 							<th>{{'Identificación'}}</th>
 							<th>{{'Persona natural'}}</th>
-							<th>{{'Proceso'}}</th>
+							<th>{{'Código del proceso'}}</th>
+							<th>{{'Número del proceso'}}</th>
 							<th style="width: 80px" class="text-center">{{'Documento'}}</th>
 							<th style="width: 80px" class="text-center">{{'Pagos'}}</th>
 							<th style="width: 160px" class="text-center">{{'Acciones'}}</th>
@@ -61,7 +62,8 @@
 							<td>{{$contrato->tipocontrato}}</td>
 							<td>{{$contrato->numerodocumento}}</td>
 							<td>{{$contrato->nombrecompleto}}</td>
-							<td>{{$contrato->numeroproceso}}</td>
+							<td>{{$contrato->proceso_codigo}}</td>
+							<td>{{$contrato->proceso_numero}}</td>
 							<td class="text-center">
 								@if ($contrato->nombrearchivo)
 								<a href="{{route('descargas_otrosdocumentos_contrato', 

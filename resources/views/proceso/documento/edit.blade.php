@@ -9,7 +9,10 @@
     <div class="card-body">
         @include('admin.errors')
 
-        <form action="{{route('proceso.documento.update', ['proceso' => $proceso_id, 'documento' => $documentoproceso->id])}}" method="post" enctype="multipart/form-data" autocomplete="off">
+        <form action="{{route('proceso.documento.update', 
+                ['proceso' => $proceso_id, 'documento' => $documentoproceso->id])}}" 
+            method="post" enctype="multipart/form-data" autocomplete="off"
+            onsubmit="return check_size(209715200)">
             @csrf
             @method('PUT')
             <div class="row mb-4">
@@ -36,7 +39,7 @@
 
                     <div class="form-group">
                         <label for="contrato.nombrearchivo">{{'El archivo cargado previamente será borrado. Seleccione documento *'}}</label><br>
-                        <input class="btn btn-primary" type="file" id="documento.nombrearchivo" name="nombrearchivo"
+                        <input class="btn btn-primary" type="file" id="upload" name="nombrearchivo"
                             aria-describedby="nombrearchivo"
                             accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                     </div>

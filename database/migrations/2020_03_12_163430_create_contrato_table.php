@@ -17,7 +17,7 @@ class CreateContratoTable extends Migration {
 		{
 			$table->bigIncrements('id');
 			$table->string('nombrearchivo', 250);
-			$table->string('numero', 10);
+			$table->string('numero', 15);
 			$table->unsignedBigInteger('valor');
 			$table->unsignedBigInteger('personanatural_id')->index('contrato_FK');
 			$table->unsignedBigInteger('tipocontrato_id')->index('contrato_FK_1');

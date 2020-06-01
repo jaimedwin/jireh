@@ -14,7 +14,9 @@
         @include('admin.success')
 		@include('admin.errors')
 
-        <form action="{{ route('documento.store')}}" method="post" enctype="multipart/form-data" autocomplete="off">
+        <form action="{{ route('documento.store')}}" 
+            method="post" enctype="multipart/form-data" autocomplete="off"
+            onsubmit="return check_size(209715200)">
             <div class="row mb-4">
                 <div class="col-12">
                     @csrf
@@ -48,7 +50,7 @@
 
                     <div class="form-group">
                         <label for="documento.nombrearchivo">{{'Seleccione documento *'}}</label>
-                        <input class="btn btn-primary" type="file" id="documento.nombrearchivo" name="nombrearchivo"
+                        <input class="btn btn-primary" type="file" id="upload" name="nombrearchivo"
                             aria-describedby="nombrearchivo"
                             accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                     </div>

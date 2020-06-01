@@ -41,11 +41,11 @@ class PersonanaturalController extends Controller
                                 'tipodocumentoidentificacion.abreviatura AS tipodocumentoidentificacion',
                                 'municipio.nombre AS expedicion_municipio',
                                 'departamento.nombre AS expedicion_departamento',
-                                'departamento.nombre AS departamento_nombre',
                                 'eps.abreviatura AS eps', 
                                 'grado.abreviatura AS grado',
                                 'carrera.descripcion AS carrera',
-                                'fuerza.abreviatura AS fuerza')
+                                'fuerza.abreviatura AS fuerza', 
+                                'telefono.prefijo AS telefono')
                                 ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
                                 ->join('tipodocumentoidentificacion',
                                     'tipodocumentoidentificacion_id','=','tipodocumentoidentificacion.id')
@@ -55,13 +55,44 @@ class PersonanaturalController extends Controller
                                 ->join('fondodepension','fondodepension_id','=','fondodepension.id')
                                 ->join('grado','grado_id','=','grado.id')
                                 ->join('carrera','carrera.id','=','carrera_id')
-                                ->join('fuerza', 'fuerza.id', '=', 'carrera.fuerza_id');  
+                                ->join('fuerza', 'fuerza.id', '=', 'carrera.fuerza_id')
+                                ->leftjoin('telefono', 'personanatural.id', '=', 'telefono.personanatural_id')
+                                ->leftjoin('correo', 'personanatural.id', '=', 'correo.personanatural_id')
+                                ->groupBy(  
+                                'personanatural.id',
+                                'personanatural.contrato',
+                                'personanatural.codigo',
+                                'personanatural.nombres',
+                                'personanatural.apellidopaterno',
+                                'personanatural.apellidomaterno',
+                                'personanatural.tipodocumentoidentificacion_id',
+                                'personanatural.numerodocumento',
+                                'personanatural.municipio_id',
+                                'personanatural.fechaexpedicion',
+                                'personanatural.fechanacimiento',
+                                'personanatural.direccion',
+                                'personanatural.eps_id',
+                                'personanatural.fondodepension_id',
+                                'personanatural.grado_id',
+                                'personanatural.users_id',
+                                'personanatural.created_at',
+                                'personanatural.updated_at',
+                                'fondodepension.abreviatura',
+                                'tipodocumentoidentificacion.abreviatura',
+                                'municipio.nombre',
+                                'departamento.nombre',
+                                'eps.abreviatura', 
+                                'grado.abreviatura',
+                                'carrera.descripcion',
+                                'fuerza.abreviatura', 
+                                'telefono.prefijo');  
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){         
             $columnas = ['codigo', 'nombres', 'apellidopaterno', 'apellidomaterno', 
                 'numerodocumento', 'direccion', 'fondodepension.abreviatura', 
                 'eps.abreviatura', 'fuerza.abreviatura', 'grado.abreviatura', 
-                'municipio.nombre', 'departamento.nombre'];
+                'municipio.nombre', 'departamento.nombre', 'telefono.prefijo', 
+                'correo.electronico'];
             $personasnaturales['Personasnaturales'] = $Personasnaturales
             ->whereOrSearch($palabrasbuscar, $columnas);
             return view('personanatural.index',  $personasnaturales)->with('success',['Busqueda realizada']);

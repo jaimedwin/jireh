@@ -29,11 +29,11 @@
 					{{'Crear nuevo proceso'}}
 				</a>
 				@include('admin.descarga_csv',
-					[
-					'route_name' => 'proceso.csv',
-					'parameter' => [''],
-					'title_btn' => 'Descargar CSV'
-					])
+				[
+				'route_name' => 'proceso.csv',
+				'parameter' => [''],
+				'title_btn' => 'Descargar CSV'
+				])
 			</div>
 		</div>
 
@@ -70,9 +70,8 @@
 							<td>{{$proceso->ponente}}</td>
 							<td>{{$proceso->estado}}</td>
 							<td class="text-center">
-								<a href="{{route('proceso.sendemail', $proceso->id)}}" class="btn btn-outline-secondary"
-									role="button" aria-label="sendemail"
-									onclick="return confirm('¿Desea enviar el correo?')">
+								<a href="{{route('proceso.correo.index', ['id' => $proceso->id])}}" class="btn btn-outline-secondary"
+									role="button" aria-label="sendemail">
 									<i class="fas fa-envelope-open-text"></i>
 								</a>
 							</td>
@@ -130,4 +129,5 @@
 		<div class="float-right">{{$Procesos->links()}}</div>
 	</div>
 </div>
+
 @endsection

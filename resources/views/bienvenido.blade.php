@@ -1,14 +1,11 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <title>{{ config('app.name') }}</title>
 
     <!-- Styles -->
     <style>
@@ -62,30 +59,38 @@
 
         .m-b-md {
             margin-bottom: 30px;
-        }
+        }   
+
+
     </style>
 </head>
 
 <body>
     <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
         <div class="top-right links">
-            @auth
-            <a href="{{ url('/admin') }}">Admin JIREH</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
-            @endauth
+            
+            <a href="{{ route('consultacliente') }}">Consulta cliente</a>
+            
+            @if (Route::has('login'))
+        
+                @auth
+                <a href="{{ url('/admin') }}">Admin JIREH</a>
+                @else
+                <a href="{{ route('login') }}">Login</a>
+                @endauth
+        
+            @endif
         </div>
-        @endif
-
         <div class="content">
             <div class="title m-b-md">
                 JIREH <br>
-                Soluciones juridicas S.A.S.
+                Soluciones Jurídicas S.A.S.
             </div>
 
         </div>
     </div>
 </body>
+
+
 
 </html>

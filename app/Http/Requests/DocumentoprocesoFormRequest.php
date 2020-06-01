@@ -25,7 +25,7 @@ class DocumentoprocesoFormRequest extends FormRequest
     {
         
         return [
-            'nombrearchivo'         => 'required|mimes:pdf|unique:documento',
+            'nombrearchivo'         => 'required|mimes:pdf,doc,docx|unique:documento|max:204800',
             'tipodocumento_id'      => 'required|numeric',
             'proceso_id'            => 'required|numeric',
             'users_id'              => 'required|numeric',

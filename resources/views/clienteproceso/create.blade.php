@@ -26,8 +26,9 @@
                             @foreach ($Personasnaturales as $personanatural)
                             <option
                                 data-tokens="{{$personanatural->numerodocumento}} {{$personanatural->nombrecompleto}}"
-                                value="{{$personanatural->id}}">
-                                {{$personanatural->numerodocumento}} - {{$personanatural->nombrecompleto}}
+                                value="{{$personanatural->id}}"
+                                data-subtext="{{$personanatural->nombrecompleto}}">
+                                {{$personanatural->numerodocumento}}
                             </option>
                             @endforeach
                         </select>
@@ -38,8 +39,10 @@
                             name="proceso_id">
                             <option selected>Seleccione ...</option>
                             @foreach ($Procesos as $proceso)
-                            <option data-tokens="{{$proceso->numero}}" value="{{$proceso->id}}">
-                                {{$proceso->numero}}
+                            <option data-tokens="{{$proceso->numero}} {{$proceso->codigo}}" 
+                                value="{{$proceso->id}}"
+                                data-subtext="{{$proceso->numero}}">
+                                {{$proceso->codigo}} 
                             </option>
                             @endforeach
                         </select>
@@ -51,8 +54,9 @@
                             <option selected>Seleccione ...</option>
                             @foreach ($Tiposdemandas as $tipodemanda)
                             <option data-tokens="{{$tipodemanda->abreviatura}} {{$tipodemanda->descripcion}}"
-                                value="{{$tipodemanda->id}}">
-                                {{$tipodemanda->abreviatura}} - {{$tipodemanda->descripcion}}
+                                value="{{$tipodemanda->id}}"
+                                data-subtext="{{$tipodemanda->descripcion}}">
+                                {{$tipodemanda->abreviatura}}
                             </option>
                             @endforeach
                         </select>

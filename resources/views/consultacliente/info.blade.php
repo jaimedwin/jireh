@@ -50,9 +50,9 @@
                     <table class="table table-bordered table-responsive-sm">
                         <thead>
                             <tr>
-                                <th class="table-secondary">{{'Fecha de actuacion'}}</th>
-                                <th class="table-secondary">{{'Actuacion'}}</th>
-                                <th class="table-secondary">{{'Anotacion'}}</th>
+                                <th class="table-secondary">{{'Fecha de actuación'}}</th>
+                                <th class="table-secondary">{{'Actuación'}}</th>
+                                <th class="table-secondary">{{'Anotación'}}</th>
                                 <th class="table-secondary">{{'Fecha inicia termino'}}</th>
                                 <th class="table-secondary">{{'Fecha finaliza termino'}}</th>
                                 <th class="table-secondary">{{'Fecha registro'}}</th>

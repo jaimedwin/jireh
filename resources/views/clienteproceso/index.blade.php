@@ -46,7 +46,8 @@
 							<th style="width: 10px">{{'#'}}</th>
 							<th>{{'Identificación'}}</th>
 							<th>{{'Persona natural'}}</th>
-							<th>{{'Proceso'}}</th>
+							<th>{{'Código del proceso'}}</th>
+							<th>{{'Número del proceso'}}</th>
 							<th>{{'Tipo de demanda'}}</th>
 							<th style="width: 160px" class="text-center">{{'Acciones'}}</th>
 						</tr>
@@ -58,7 +59,8 @@
 							<td>{{$loop->iteration}}</td>
 							<td>{{$clienteproceso->numerodocumento}}</td>
 							<td>{{$clienteproceso->nombrecompleto}}</td>
-							<td>{{$clienteproceso->proceso}}</td>
+							<td>{{$clienteproceso->proceso_codigo}}</td>
+							<td>{{$clienteproceso->proceso_numero}}</td>
 							<td>{{$clienteproceso->tipodemanda}}</td>
 							<td class="text-center">
 								<form action="{{route('clienteproceso.destroy', $clienteproceso->id)}}" method="post">

@@ -68,7 +68,7 @@ class CopiaBasededatos extends Command
             $this->proceso->mustRun();
             Log::info('Copia completa de base de datos');
         }catch(ProcessFailedException $exception){
-            Log::error('Error de copia de base de datos', $exception);
+            Log::error(['Error de copia de base de datos', $exception]);
         } 
     }
 }

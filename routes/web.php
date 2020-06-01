@@ -109,7 +109,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app-user'], function
     Route::get('descargas_otrosdocumentos_contrato/{personanatural}/{name}','ContratoController@downloadFile')->name('descargas_otrosdocumentos_contrato');
     Route::get('edit_profile/{id}', 'UserController@editProfile')->name('edit_profile');  
     Route::put('update_profile', 'UserController@updateProfile')->name('update_profile'); 
-    Route::get('proceso/{id}/send_email','ProcesoController@sendEmail')->name('proceso.sendemail');
+    Route::get('proceso/{id}/correo','ProcesoController@listEmail')->name('proceso.correo.index');
+    Route::get('proceso/{id}/correo/send_email','ProcesoController@sendEmail')->name('proceso.correo.sendemail');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app-admin'], function () {

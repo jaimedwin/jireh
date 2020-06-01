@@ -326,6 +326,47 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <h5>Atuacion(es) del proceso</h5>
+
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th class="table-secondary">{{'Fecha de actuación'}}</th>
+                            <th class="table-secondary">{{'Actuación'}}</th>
+                            <th class="table-secondary">{{'Anotación'}}</th>
+                            <th class="table-secondary">{{'Fecha inicia termino'}}</th>
+                            <th class="table-secondary">{{'Fecha finaliza termino'}}</th>
+                            <th class="table-secondary">{{'Fecha registro'}}</th>
+                            <th class="table-secondary">{{'Documento'}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($Actuacionesproceso as $actuacionproceso)
+                        <tr>
+                            <td>{{$actuacionproceso->fechaactuacion}}</td>
+                            <td>{{$actuacionproceso->actuacion}}</td>
+                            <td>{{$actuacionproceso->anotacion}}</td>
+                            <td>{{$actuacionproceso->fechainiciatermino}}</td>
+                            <td>{{$actuacionproceso->fechafinalizatermino}}</td>
+                            <td>{{$actuacionproceso->fecharegistro}}</td>
+                            <td class="text-center">
+                                @if ($actuacionproceso->nombrearchivo)
+								<a href="{{route('descargas_actuaciones', 
+									[
+										'proceso' => $Clienteproceso->proceso_id, 
+										'name' => $actuacionproceso->nombrearchivo
+									])}}" class="btn btn-outline-success">
+									<i class="fa fa-download"></i>
+								</a>
+								@endif
+                                
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    
+                </table>
             </div>
         </div>
         <div class="row">

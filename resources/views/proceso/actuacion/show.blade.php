@@ -25,17 +25,17 @@
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'2.'}}</td>
-                            <td class="table-secondary">{{'Fecha de actuacion'}}</td>
+                            <td class="table-secondary">{{'Fecha de actuación'}}</td>
                             <td>{{$actuacionproceso->fechaactuacion}}</td>
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'3.'}}</td>
-                            <td class="table-secondary">{{'Actuacion'}}</td>
+                            <td class="table-secondary">{{'Actuación'}}</td>
                             <td>{{$actuacionproceso->actuacion}}</td>
                         </tr>
                         <tr>
                             <td class="table-secondary">{{'4.'}}</td>
-                            <td class="table-secondary">{{'Anotacion'}}</td>
+                            <td class="table-secondary">{{'Anotación'}}</td>
                             <td>{{$actuacionproceso->anotacion}}</td>
                         </tr>
                         <tr>

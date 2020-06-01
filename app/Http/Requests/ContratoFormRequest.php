@@ -24,8 +24,8 @@ class ContratoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombrearchivo'         => 'required|max:20000',
-            'numero'                => 'required|string|max:10', 
+            'nombrearchivo'         => 'required|mimes:pdf,doc,docx|max:204800',
+            'numero'                => 'required|string|max:15', 
             'valor'                 => 'required|numeric', 
             'personanatural_id'     => 'required|numeric',
             'proceso_id'               => 'required|numeric',

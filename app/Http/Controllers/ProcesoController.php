@@ -200,6 +200,35 @@ class ProcesoController extends Controller
         
     }
 
+    public function listEmail($id, Request $request){
+
+        $palabrasbuscar = explode(" ",$request->post('buscar'));  
+
+        $consultas = Proceso::select('proceso.id', 
+            'personanatural.numerodocumento AS personanatural_numerodocumento', 
+            'correo.electronico AS email')
+        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+        ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
+        ->join('personanatural', 'clienteproceso.proceso_id', '=', 'personanatural.id')
+        ->join('correo', 'personanatural.id', '=', 'correo.personanatural_id')
+        ->where('proceso.id', '=', $id);
+        
+        
+
+        $emptypalabrasbuscar = array_filter($palabrasbuscar);
+        if (!empty($emptypalabrasbuscar)){         
+            $columnas = ['personanatural.numerodocumento', 'correo.electronico', 
+            'personanatural.nombres', 'personanatural.apellidopaterno', 
+            'personanatural.apellidomaterno'];
+            $consultas = $consultas->whereOrSearch($palabrasbuscar, $columnas);
+            return view('proceso.correo.index', compact('id', 'consultas'))->with('success',['Busqueda realizada']);
+        }else{
+            $consultas = $consultas->paginate(10);
+        }
+
+        return view('proceso.correo.index', compact('id', 'consultas'));
+    }
+
     public function sendEmail($id){
         $consultas = Proceso::select('proceso.id', 
             'proceso.codigo AS proceso_codigo', 
@@ -211,6 +240,7 @@ class ProcesoController extends Controller
         ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
         ->join('personanatural', 'clienteproceso.proceso_id', '=', 'personanatural.id')
         ->join('correo', 'personanatural.id', '=', 'correo.personanatural_id')
+        ->where('proceso.id', '=', $id)
         ->get();
         
         if ($consultas->isEmpty()){
@@ -220,8 +250,8 @@ class ProcesoController extends Controller
         $contador = 0;
         foreach ($consultas as $consulta){
             $subject = 'Cambio en las actuaciones registradas';
-            $proceso_numero = $consulta->proceso_numero;
             $url = url(route('consultacliente'));
+            $proceso_numero = $consulta->proceso_numero;
             $proceso_codigo = $consulta->proceso_codigo;
             $personanatural_codigo = $consulta->personanatural_codigo;
             $nombrecompleto = $consulta->nombrecompleto;
@@ -233,8 +263,7 @@ class ProcesoController extends Controller
                 );
             
             // Registra que se envìo un correo de notificación con el cambio en las actuaciones.
-            $mensaje =  'Url de consulta: ' . $url . '<br>' .
-                        'Código del proceso: ' . $proceso_codigo . '<br>' .
+            $mensaje =  'Código del proceso: ' . $proceso_codigo . '<br>' .
                         'Número del proceso: ' . $proceso_numero . '<br>' .
                         'Código del cliente: ' . $personanatural_codigo . '<br>' .
                         'Contraseña: ' . $personanatural_fechaexpedicion . '<br>' .
@@ -250,8 +279,9 @@ class ProcesoController extends Controller
             $contador += 1;
         }
 
-        return redirect()->route('proceso.index')->with('success',['Correos enviados']);
+        return redirect()->route('proceso.index')->with('success',[ $contador .' correo(s) enviado(s)']);
     }
+
 
     public function getCsv(){
         $procesos = Proceso::select(

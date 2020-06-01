@@ -10,7 +10,9 @@
         @include('admin.errors')
 
         <form action="{{route('proceso.actuacion.update', 
-        ['proceso' => $proceso_id, 'actuacion' => $id])}}" method="post" enctype="multipart/form-data" autocomplete="off" >
+                ['proceso' => $proceso_id, 'actuacion' => $id])}}" 
+            method="post" enctype="multipart/form-data" autocomplete="off" 
+            onsubmit="return check_size(209715200)">
             @csrf
             @method('PUT')
             <div class="row mb-4">
@@ -19,18 +21,18 @@
                     
                     <div class="form-group">
                         <label for="proceso.actuacion.fechaactuacion"
-                            class="col-2 col-form-label">{{'Fecha de actuacion *'}}</label>
+                            class="col-2 col-form-label">{{'Fecha de actuación *'}}</label>
                         <input class="form-control" type="date" id="proceso.actuacion.fechaactuacion"
                             name="fechaactuacion" value="{{$actuacionproceso->fechaactuacion}}"
                             max="{{ \Carbon\Carbon::now()->toDateString() }}">
                     </div>
                     <div class="form-group">
-                        <label for="proceso.actuacion.actuacion">{{'Actuacion *'}}</label>
+                        <label for="proceso.actuacion.actuacion">{{'Actuación *'}}</label>
                         <input type="text" class="form-control" id="proceso.actuacion.actuacion" name="actuacion"
                             value="{{$actuacionproceso->actuacion}}">
                     </div>
                     <div class="form-group">
-                        <label for="proceso.actuacion.anotacion">{{'Anotacion'}}</label>
+                        <label for="proceso.actuacion.anotacion">{{'Anotación'}}</label>
                         <input type="text" class="form-control" id="proceso.actuacion.anotacion" name="anotacion"
                             value="{{$actuacionproceso->anotacion}}">
                     </div>
@@ -69,7 +71,7 @@
                     <div id="{{'1'}}" class="topic">
                         <div class="form-group">
                             <label for="proceso.actuacion.nombrearchivo">{{'Seleccione documento'}}</label>
-                            <input class="btn btn-primary" type="file" id="proceso.actuacion.nombrearchivo" 
+                            <input class="btn btn-primary" type="file" id="upload" 
                             name="nombrearchivo" aria-describedby="nombrearchivo"
                             accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                         </div>

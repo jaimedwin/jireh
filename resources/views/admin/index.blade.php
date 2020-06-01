@@ -81,6 +81,7 @@
 	<script src="{{ url('/') }}/js/hidenoptionfile.js"></script>
 	<script src="{{ url('/') }}/js/moneda.js"></script>
 	<script src="{{ url('/') }}/js/format_proceso.js"></script>
+	<script src="{{ url('/') }}/js/check_size.js"></script>
 	
 </body>
 

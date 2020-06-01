@@ -13,7 +13,9 @@
         @include('admin.success')
         @include('admin.errors')
 
-        <form action="{{ route('contrato.store')}}" method="post" enctype="multipart/form-data" autocomplete="off">
+        <form action="{{ route('contrato.store')}}" method="post" 
+            enctype="multipart/form-data" autocomplete="off"
+            onsubmit="return check_size(209715200)">
             <div class="row mb-4">
                 <div class="col-12">
 
@@ -48,10 +50,10 @@
                             <option selected>Seleccione ...</option>
                             @foreach ($Personasnaturales as $personanatural)
                             <option
-                                data-tokens="{{$personanatural->nombres}} {{$personanatural->apellidopaterno}} {{$personanatural->apellidomaterno}}"
-                                value="{{$personanatural->id}}">
-                                {{$personanatural->nombres}} {{$personanatural->apellidopaterno}}
-                                {{$personanatural->apellidomaterno}}
+                                data-tokens="{{$personanatural->numerodocumento}} {{$personanatural->nombrecompleto}}"
+                                value="{{$personanatural->id}}"
+                                data-subtext="{{$personanatural->nombrecompleto}}">
+                                {{$personanatural->numerodocumento}}
                             </option>
                             @endforeach
                         </select>
@@ -63,8 +65,10 @@
                             name="proceso_id">
                             <option selected>Seleccione ...</option>
                             @foreach ($Procesos as $proceso)
-                            <option data-tokens="{{$proceso->numero}}" value="{{$proceso->id}}">
-                                {{$proceso->numero}}
+                            <option data-tokens="{{$proceso->codigo}} {{$proceso->numero}}" 
+                                value="{{$proceso->id}}"
+                                data-subtext="{{$proceso->numero}}">
+                                {{$proceso->codigo}}
                             </option>
                             @endforeach
                         </select>
@@ -72,7 +76,7 @@
 
                     <div class="form-group">
                         <label for="contrato.nombrearchivo">{{'Seleccione documento *'}}</label>
-                        <input class="btn btn-primary" type="file" id="contrato.nombrearchivo" name="nombrearchivo"
+                        <input class="btn btn-primary" type="file" id="upload" name="nombrearchivo"
                             aria-describedby="nombrearchivo"
                             accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                     </div>

@@ -10,7 +10,7 @@
         @include('admin.errors')
 
         <form action="{{route('proceso.recordatorio.update', 
-        ['proceso' => $proceso_id, 'recordatorio' => $id])}}" method="post" enctype="multipart/form-data" autocomplete="off">
+        ['proceso' => $proceso_id, 'recordatorio' => $id])}}" method="post" autocomplete="off">
             @csrf
             @method('PUT')
             <div class="row mb-4">

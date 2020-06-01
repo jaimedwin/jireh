@@ -46,9 +46,9 @@
 					<thead>
 						<tr>
 							<th style="width: 10px">{{'#'}}</th>
-							<th>{{'Fecha de actuacion'}}</th>
-							<th>{{'Actuacion'}}</th>
-							<th>{{'Anotacion'}}</th>
+							<th>{{'Fecha de actuación'}}</th>
+							<th>{{'Actuación'}}</th>
+							<th>{{'Anotación'}}</th>
 							<th>{{'Fecha inicia termino'}}</th>
 							<th>{{'fecha finaliza termino'}}</th>
 							<th>{{'fecha registro'}}</th>

@@ -31,7 +31,9 @@ class ContratoController extends Controller
         $palabrasbuscar = explode(" ",$request->post('buscar'));
         $contratos = Contrato::orderBy('id', 'ASC')
                         ->select('contrato.*', 'tipocontrato.descripcion AS tipocontrato',
-                                    'personanatural.numerodocumento', 'proceso.numero AS numeroproceso')
+                                    'personanatural.numerodocumento', 
+                                    'proceso.numero AS proceso_numero',
+                                    'proceso.codigo AS proceso_codigo')
                         ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('tipocontrato','tipocontrato_id','=','tipocontrato.id')
                         ->join('personanatural','personanatural_id','=','personanatural.id')
@@ -40,7 +42,8 @@ class ContratoController extends Controller
         if (!empty($emptypalabrasbuscar)){
             $columnas = ['contrato.valor', 'contrato.numero', 'tipocontrato.descripcion', 
                 'personanatural.nombres', 'personanatural.apellidopaterno', 
-                'personanatural.apellidomaterno', 'personanatural.numerodocumento', 'proceso.numero'];
+                'personanatural.apellidomaterno', 'personanatural.numerodocumento', 
+                'proceso.numero', 'proceso.codigo'];
             $Contratos['Contratos'] = $contratos
             ->whereOrSearch($palabrasbuscar, $columnas);
                     
@@ -60,8 +63,10 @@ class ContratoController extends Controller
     public function create()
     {
         $Tipocontratos = Tipocontrato::select('id', 'descripcion')->get();
-        $Personasnaturales = Personanatural::select('id', 'nombres', 'apellidopaterno', 'apellidomaterno')->get();
-        $Procesos = Proceso::select('id', 'numero')->get();
+        $Personasnaturales = Personanatural::select('id', 'numerodocumento')
+            ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+            ->get();
+        $Procesos = Proceso::select('id', 'codigo', 'numero')->get();
         return view('contrato.create', compact('Tipocontratos', 'Personasnaturales', 'Procesos'));
     }
 
@@ -112,8 +117,10 @@ class ContratoController extends Controller
     public function edit(Contrato $contrato)
     {
         $Tipocontratos = Tipocontrato::select('id', 'descripcion')->get();
-        $Personasnaturales = Personanatural::select('id', 'nombres', 'apellidopaterno', 'apellidomaterno')->get();
-        $Procesos = Proceso::select('id', 'numero')->get();
+        $Personasnaturales = Personanatural::select('id', 'numerodocumento')
+        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+        ->get();
+        $Procesos = Proceso::select('id', 'codigo', 'numero')->get();
         return view('contrato.edit', compact('contrato', 'Tipocontratos', 'Personasnaturales', 'Procesos'));
     }
 

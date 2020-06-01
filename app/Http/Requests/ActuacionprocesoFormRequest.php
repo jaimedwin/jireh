@@ -27,7 +27,7 @@ class ActuacionprocesoFormRequest extends FormRequest
             'fechaactuacion'        => 'required|date_format:Y-m-d',
             'actuacion'             => 'required|string|max:250', 
             'anotacion'             => 'nullable|string|max:1000',
-            'nombrearchivo'         => 'nullable|mimes:pdf|max:50000', 
+            'nombrearchivo'         => 'nullable|mimes:pdf,doc,docx|max:204800', 
             'fechainiciatermino'    => 'nullable|date_format:Y-m-d', 
             'fechafinalizatermino'  => 'nullable|date_format:Y-m-d', 
             'fecharegistro'         => 'required|date_format:Y-m-d', 

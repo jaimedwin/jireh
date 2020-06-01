@@ -23,14 +23,16 @@
                                 @if ($personanatural->id == $clienteproceso->personanatural_id)
                                 <option
                                     data-tokens="{{$personanatural->numerodocumento}} {{$personanatural->nombrecompleto}}"
-                                    value="{{$personanatural->id}}" selected>
-                                    {{$personanatural->numerodocumento}} - {{$personanatural->nombrecompleto}}
+                                    value="{{$personanatural->id}}" 
+                                    data-subtext="{{$personanatural->nombrecompleto}}" selected>
+                                    {{$personanatural->numerodocumento}}
                                 </option>
                                 @else
                                 <option
                                     data-tokens="{{$personanatural->numerodocumento}} {{$personanatural->nombrecompleto}}"
-                                    value="{{$personanatural->id}}">
-                                    {{$personanatural->numerodocumento}} - {{$personanatural->nombrecompleto}}
+                                    value="{{$personanatural->id}}" 
+                                    data-subtext="{{$personanatural->nombrecompleto}}">
+                                    {{$personanatural->numerodocumento}}
                                 </option>
                                 @endif
                             
@@ -44,15 +46,17 @@
                             @foreach ($Procesos as $proceso)
                                 @if ($proceso->id == $clienteproceso->proceso_id)
                                 <option
-                                    data-tokens="{{$proceso->numero}}"
-                                    value="{{$proceso->id}}" selected>
-                                    {{$proceso->numero}}
+                                    data-tokens="{{$proceso->numero}} {{$proceso->codigo}}"
+                                    value="{{$proceso->id}}" 
+                                    data-subtext="{{$proceso->numero}}"  selected>
+                                    {{$proceso->codigo}}
                                 </option>
                                 @else
                                 <option
-                                    data-tokens="{{$proceso->numero}}"
-                                    value="{{$proceso->id}}">
-                                    {{$proceso->numero}}
+                                    data-tokens="{{$proceso->numero}} {{$proceso->codigo}}"
+                                    value="{{$proceso->id}}"
+                                    data-subtext="{{$proceso->numero}}">
+                                    {{$proceso->codigo}}
                                 </option>
                                 @endif
                             
@@ -67,14 +71,16 @@
                                 @if ($tipodemanda->id == $clienteproceso->tipodemanda_id)
                                 <option
                                     data-tokens="{{$tipodemanda->abreviatura}} {{$tipodemanda->descripcion}}"
-                                    value="{{$tipodemanda->id}}" selected>
-                                    {{$tipodemanda->abreviatura}} - {{$tipodemanda->descripcion}}
+                                    value="{{$tipodemanda->id}}" 
+                                    data-subtext="{{$tipodemanda->descripcion}}" selected>
+                                    {{$tipodemanda->abreviatura}}
                                 </option>
                                 @else
                                 <option
                                     data-tokens="{{$tipodemanda->abreviatura}} {{$tipodemanda->descripcion}}"
-                                    value="{{$tipodemanda->id}}">
-                                    {{$tipodemanda->abreviatura}} - {{$tipodemanda->descripcion}}
+                                    value="{{$tipodemanda->id}}"
+                                    data-subtext="{{$tipodemanda->descripcion}}">
+                                    {{$tipodemanda->abreviatura}}
                                 </option>
                                 @endif
                             
