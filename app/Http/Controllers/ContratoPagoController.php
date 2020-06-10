@@ -32,7 +32,7 @@ class ContratoPagoController extends Controller
                     ->join('contrato','contrato_id','=','contrato.id')
                     ->where('contrato_id', '=', $contrato_id)
                     ->sum('abono');
-        $ValContrato = Contrato::select('valor')->firstOrFail($contrato_id);
+        $ValContrato = Contrato::select('valor')->findOrFail($contrato_id);
 
         $Saldo = $ValContrato->valor - $AbonoTotal;
 
