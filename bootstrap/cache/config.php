@@ -4,7 +4,7 @@
     'name' => 'JIREH',
     'env' => 'production',
     'debug' => true,
-    'url' => 'http://localhost',
+    'url' => 'localhost',
     'asset_url' => NULL,
     'timezone' => 'America/Bogota',
     'locale' => 'es',
@@ -177,7 +177,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/var/www/laravel/jireh/storage/framework/cache/data',
+        'path' => '/var/www/juridicasjireh.com.co/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -316,14 +316,14 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/laravel/jireh/storage/app/data',
-        'url' => 'http://localhost/storage',
+        'root' => '/var/www/juridicasjireh.com.co/storage/app/data',
+        'url' => 'localhost/storage',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/laravel/jireh/storage/app/public',
-        'url' => 'http://localhost/storage',
+        'root' => '/var/www/juridicasjireh.com.co/storage/app/public',
+        'url' => 'localhost/storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -368,13 +368,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/var/www/laravel/jireh/storage/logs/laravel.log',
+        'path' => '/var/www/juridicasjireh.com.co/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/var/www/laravel/jireh/storage/logs/laravel.log',
+        'path' => '/var/www/juridicasjireh.com.co/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -424,7 +424,7 @@
       ),
       'emergency' => 
       array (
-        'path' => '/var/www/laravel/jireh/storage/logs/laravel.log',
+        'path' => '/var/www/juridicasjireh.com.co/storage/logs/laravel.log',
       ),
     ),
   ),
@@ -447,7 +447,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/var/www/laravel/jireh/resources/views/vendor/mail',
+        0 => '/var/www/juridicasjireh.com.co/resources/views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -523,10 +523,10 @@
   'session' => 
   array (
     'driver' => 'file',
-    'lifetime' => '15',
+    'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/var/www/laravel/jireh/storage/framework/sessions',
+    'files' => '/var/www/juridicasjireh.com.co/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -546,9 +546,9 @@
   array (
     'paths' => 
     array (
-      0 => '/var/www/laravel/jireh/resources/views',
+      0 => '/var/www/juridicasjireh.com.co/resources/views',
     ),
-    'compiled' => '/var/www/laravel/jireh/storage/framework/views',
+    'compiled' => '/var/www/juridicasjireh.com.co/storage/framework/views',
   ),
   'flare' => 
   array (

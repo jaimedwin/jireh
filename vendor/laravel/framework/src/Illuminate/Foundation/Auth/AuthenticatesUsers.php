@@ -35,11 +35,12 @@ trait AuthenticatesUsers
         // Adicionar validación recaptcha v3
         $token = $request->token;
         $action = $request->action;
-             
         $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'; 
         $recaptcha_secret = config('app.secret_key'); 
         $recaptcha_response = $token; 
-        $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response); 
+        $url = $recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response;
+        dd($url);
+        $recaptcha = file_get_contents($url); 
         $recaptcha = json_decode($recaptcha); 
 
         if(!($recaptcha->success && $recaptcha->score > 0.5 && $recaptcha->action == $action)){
