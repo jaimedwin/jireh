@@ -4,7 +4,7 @@
     'name' => 'JIREH',
     'env' => 'production',
     'debug' => true,
-    'url' => 'localhost',
+    'url' => 'http://juridicasjireh.com.co',
     'asset_url' => NULL,
     'timezone' => 'America/Bogota',
     'locale' => 'es',
@@ -317,13 +317,13 @@
       array (
         'driver' => 'local',
         'root' => '/var/www/juridicasjireh.com.co/storage/app/data',
-        'url' => 'localhost/storage',
+        'url' => 'http://juridicasjireh.com.co/storage',
       ),
       'public' => 
       array (
         'driver' => 'local',
         'root' => '/var/www/juridicasjireh.com.co/storage/app/public',
-        'url' => 'localhost/storage',
+        'url' => 'http://juridicasjireh.com.co/storage',
         'visibility' => 'public',
       ),
       's3' => 

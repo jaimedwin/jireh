@@ -46,7 +46,8 @@ class PersonanaturalController extends Controller
                                 'carrera.descripcion AS carrera',
                                 'fuerza.abreviatura AS fuerza', 
                                 'telefono.prefijo AS telefono')
-                                ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                                ->selectRaw(
+                                    'CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                                 ->join('tipodocumentoidentificacion',
                                     'tipodocumentoidentificacion_id','=','tipodocumentoidentificacion.id')
                                 ->join('municipio','municipio_id','=','municipio.id')
@@ -85,7 +86,8 @@ class PersonanaturalController extends Controller
                                 'grado.abreviatura',
                                 'carrera.descripcion',
                                 'fuerza.abreviatura', 
-                                'telefono.prefijo');  
+                                'telefono.prefijo')
+                                ->orderBy('created_at', 'DESC');  
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){         
             $columnas = ['codigo', 'nombres', 'apellidopaterno', 'apellidomaterno', 
@@ -159,7 +161,7 @@ class PersonanaturalController extends Controller
                                 'grado.abreviatura AS grado',
                                 'carrera.descripcion AS carrera',
                                 'fuerza.abreviatura AS fuerza')
-                                ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                                ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                                 ->join('tipodocumentoidentificacion',
                                     'tipodocumentoidentificacion_id','=','tipodocumentoidentificacion.id')
                                 ->join('municipio','municipio_id','=','municipio.id')
