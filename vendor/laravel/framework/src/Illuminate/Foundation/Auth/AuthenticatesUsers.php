@@ -39,7 +39,6 @@ trait AuthenticatesUsers
         $recaptcha_secret = config('app.secret_key'); 
         $recaptcha_response = $token; 
         $url = $recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response;
-        dd($url);
         $recaptcha = file_get_contents($url); 
         $recaptcha = json_decode($recaptcha); 
 
