@@ -29,15 +29,16 @@ class ContratoController extends Controller
     public function index(Request $request)
     {
         $palabrasbuscar = explode(" ",$request->post('buscar'));
-        $contratos = Contrato::orderBy('id', 'ASC')
-                        ->select('contrato.*', 'tipocontrato.descripcion AS tipocontrato',
+        $contratos = Contrato::select('contrato.*', 'tipocontrato.descripcion AS tipocontrato',
                                     'personanatural.numerodocumento', 
                                     'proceso.numero AS proceso_numero',
                                     'proceso.codigo AS proceso_codigo')
                         ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('tipocontrato','tipocontrato_id','=','tipocontrato.id')
                         ->join('personanatural','personanatural_id','=','personanatural.id')
-                        ->join('proceso','proceso_id','=','proceso.id');
+                        ->join('proceso','proceso_id','=','proceso.id')
+                        ->orderBy('created_at', 'DESC');
+                        
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){
             $columnas = ['contrato.valor', 'contrato.numero', 'tipocontrato.descripcion', 
@@ -46,7 +47,6 @@ class ContratoController extends Controller
                 'proceso.numero', 'proceso.codigo'];
             $Contratos['Contratos'] = $contratos
             ->whereOrSearch($palabrasbuscar, $columnas);
-                    
             return view('contrato.index', $Contratos)
             ->with('success',['Busqueda realizada']);
         }else{

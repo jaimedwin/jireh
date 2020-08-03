@@ -111,13 +111,13 @@ class ProcesoController extends Controller
                         ->findOrFail($id);
 
         $Clientesproceso = Clienteproceso::select('clienteproceso.id', 'clienteproceso.personanatural_id',
-                        'personanatural.id', 'personanatural.nombres',
+                        'clienteproceso.proceso_id', 'personanatural.id', 'personanatural.nombres',
                         'personanatural.nombres', 'personanatural.apellidopaterno',
                         'personanatural.apellidomaterno', 'tipodemanda.abreviatura AS tipodemanda')
                         ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('tipodemanda', 'tipodemanda_id', '=', 'tipodemanda.id')
                         ->join('personanatural', 'clienteproceso.personanatural_id', '=','personanatural.id')
-                        ->where('clienteproceso.personanatural_id', '=', $id)
+                        ->where('clienteproceso.proceso_id', '=', $id)
                         ->get();
 
         $Documentosproceso = Documentoproceso::select('documentoproceso.*',
