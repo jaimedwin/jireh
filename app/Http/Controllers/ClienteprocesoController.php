@@ -37,7 +37,7 @@ class ClienteprocesoController extends Controller
                         'proceso.codigo AS proceso_codigo', 
                         'tipodemanda.abreviatura AS tipodemanda', 
                         'personanatural.numerodocumento AS numerodocumento')
-                        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('proceso','proceso_id','=','proceso.id')
                         ->join('personanatural','personanatural_id','=','personanatural.id')
                         ->join('tipodemanda','tipodemanda_id','=','tipodemanda.id');
@@ -63,7 +63,7 @@ class ClienteprocesoController extends Controller
     public function create()
     {
         $Personasnaturales = Personanatural::select('id', 'numerodocumento')
-        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
         ->get();
         $Procesos = Proceso::select('id', 'codigo', 'numero')->get();
         $Tiposdemandas = Tipodemanda::select('id', 'abreviatura', 'descripcion')->get();
@@ -95,7 +95,7 @@ class ClienteprocesoController extends Controller
         $Clienteproceso = Clienteproceso::select('clienteproceso.*', 
                             'proceso.numero AS proceso', 
                             'tipodemanda.abreviatura AS tipodemanda')
-                            ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                            ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                             ->join('personanatural','personanatural_id','=','personanatural.id')
                             ->join('proceso','proceso_id','=','proceso.id')
                             ->join('tipodemanda','tipodemanda_id','=','tipodemanda.id')
@@ -137,7 +137,7 @@ class ClienteprocesoController extends Controller
                         ->where('contrato.personanatural_id', '=', $clienteproceso->personanatural_id)
                         ->where('contrato.proceso_id', '=', $clienteproceso->proceso_id)
                         ->groupBy('pago.contrato_id', 'contrato.numero', 'contrato.valor', 
-                        'contrato.tipocontrato_id', 'tipocontrato.descripcion', 'pago.abono',
+                        'contrato.tipocontrato_id', 'tipocontrato.descripcion', 'abono',
                         'contrato.personanatural_id', 'contrato.nombrearchivo')
                         ->orderBy('pago.contrato_id', 'DESC')
                         ->get();
@@ -186,7 +186,7 @@ class ClienteprocesoController extends Controller
     public function edit(Clienteproceso $clienteproceso)
     {
         $Personasnaturales = Personanatural::select('id', 'numerodocumento')
-        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
         ->get();
         $Procesos = Proceso::select('id', 'codigo', 'numero')->get();
         $Tiposdemandas = Tipodemanda::select('id', 'abreviatura', 'descripcion')->get();

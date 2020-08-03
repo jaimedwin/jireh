@@ -114,7 +114,7 @@ class ProcesoController extends Controller
                         'personanatural.id', 'personanatural.nombres',
                         'personanatural.nombres', 'personanatural.apellidopaterno',
                         'personanatural.apellidomaterno', 'tipodemanda.abreviatura AS tipodemanda')
-                        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('tipodemanda', 'tipodemanda_id', '=', 'tipodemanda.id')
                         ->join('personanatural', 'clienteproceso.personanatural_id', '=','personanatural.id')
                         ->where('clienteproceso.personanatural_id', '=', $id)
@@ -207,8 +207,8 @@ class ProcesoController extends Controller
         $consultas = Proceso::select('proceso.id', 
             'personanatural.numerodocumento AS personanatural_numerodocumento', 
             'correo.electronico AS email')
-        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
-        ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
+            ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+            ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
         ->join('personanatural', 'clienteproceso.proceso_id', '=', 'personanatural.id')
         ->join('correo', 'personanatural.id', '=', 'correo.personanatural_id')
         ->where('proceso.id', '=', $id);
@@ -231,17 +231,17 @@ class ProcesoController extends Controller
 
     public function sendEmail($id){
         $consultas = Proceso::select('proceso.id', 
-            'proceso.codigo AS proceso_codigo', 
-            'proceso.numero AS proceso_numero', 
-            'personanatural.codigo AS personanatural_codigo', 
-            'personanatural.fechaexpedicion AS personanatural_fechaexpedicion',
-            'correo.electronico AS email')
-        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
-        ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
-        ->join('personanatural', 'clienteproceso.proceso_id', '=', 'personanatural.id')
-        ->join('correo', 'personanatural.id', '=', 'correo.personanatural_id')
-        ->where('proceso.id', '=', $id)
-        ->get();
+                'proceso.codigo AS proceso_codigo', 
+                'proceso.numero AS proceso_numero', 
+                'personanatural.codigo AS personanatural_codigo', 
+                'personanatural.fechaexpedicion AS personanatural_fechaexpedicion',
+                'correo.electronico AS email')
+            ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+            ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
+            ->join('personanatural', 'clienteproceso.proceso_id', '=', 'personanatural.id')
+            ->join('correo', 'personanatural.id', '=', 'correo.personanatural_id')
+            ->where('proceso.id', '=', $id)
+            ->get();
         
         if ($consultas->isEmpty()){
             return redirect()->route('proceso.index')->withErrors(['No se encontraron correos relacionados al proceso']);

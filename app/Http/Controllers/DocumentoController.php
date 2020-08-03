@@ -34,7 +34,7 @@ class DocumentoController extends Controller
                         'tipodocumento.descripcion AS tipodocumento_descripcion',
                         'tipodocumento.abreviatura AS tipodocumento_abreviatura', 
                         'personanatural.numerodocumento AS numerodocumento')
-                        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('tipodocumento','tipodocumento_id','=','tipodocumento.id')
                         ->join('personanatural','personanatural_id','=','personanatural.id');
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
@@ -60,7 +60,8 @@ class DocumentoController extends Controller
     {
         $Tipodocumentos = Tipodocumento::select('id', 'abreviatura', 'descripcion')->get();
         $Personasnaturales = Personanatural::select('id', 'numerodocumento')
-        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')->get();
+            ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+            ->get();
         return view('documento.create', compact('Tipodocumentos', 'Personasnaturales'));
     }
 
@@ -97,7 +98,8 @@ class DocumentoController extends Controller
     {
         $auditoria = User::findOrFail($documento->users_id);
         $tipodocumento = Tipodocumento::select('abreviatura')->findOrFail($documento->tipodocumento_id);
-        $personanatural = Personanatural::selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')->findOrFail($documento->personanatural_id);
+        $personanatural = Personanatural::selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+            ->findOrFail($documento->personanatural_id);
         return view('documento.show', compact('tipodocumento', 'documento', 'personanatural', 'auditoria'));
     }
 
@@ -111,8 +113,8 @@ class DocumentoController extends Controller
     {
         $Tipodocumentos = Tipodocumento::select('id', 'abreviatura', 'descripcion')->get();
         $Personasnaturales = Personanatural::select('id', 'numerodocumento')
-        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
-        ->get();
+            ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+            ->get();
         return view('documento.edit', compact('documento', 'Tipodocumentos', 'Personasnaturales'));
     }
 

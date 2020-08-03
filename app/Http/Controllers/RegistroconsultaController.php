@@ -17,7 +17,7 @@ class RegistroconsultaController extends Controller
         $registrosconsulta = Registroconsulta::orderBy('created_at', 'DESC')
                         ->select('registroconsulta.*', 'personanatural.numerodocumento AS numerodocumento',
                                     'proceso.numero AS proceso')
-                        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('personanatural','personanatural_id','=','personanatural.id')
                         ->join('proceso', 'proceso_id', '=', 'proceso.id');
         $emptypalabrasbuscar = array_filter($palabrasbuscar);

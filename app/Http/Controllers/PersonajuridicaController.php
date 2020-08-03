@@ -26,7 +26,7 @@ class PersonajuridicaController extends Controller
         
         $personasjuridicas = Personajuridica::orderBy('id', 'DESC')
                         ->select('personajuridica.*')
-                        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+                        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('personanatural','personanatural_id','=','personanatural.id');
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){
@@ -49,8 +49,8 @@ class PersonajuridicaController extends Controller
     public function create()
     {
         $Personasnaturales = Personanatural::select('id', 'numerodocumento')
-        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
-        ->get();
+            ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+            ->get();
         return view('personajuridica.create', compact('Personasnaturales'));
     }
 
@@ -77,8 +77,8 @@ class PersonajuridicaController extends Controller
     {
         $auditoria = User::findOrFail($personajuridica->users_id);
         $personanatural = Personanatural::select('id', 'numerodocumento')
-        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
-        ->findOrFail($personajuridica->personanatural_id);
+            ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+            ->findOrFail($personajuridica->personanatural_id);
         return view('personajuridica.show', compact('personajuridica', 'auditoria', 'personanatural'));
     }
 
@@ -91,7 +91,7 @@ class PersonajuridicaController extends Controller
     public function edit(Personajuridica $personajuridica)
     {
         $Personasnaturales = Personanatural::select('id', 'numerodocumento')
-        ->selectRaw('CONCAT(personanatural.nombres, " ", personanatural.apellidopaterno, " ", personanatural.apellidomaterno) AS nombrecompleto')
+        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
         ->get();
         return view('personajuridica.edit', compact('personajuridica', 'Personasnaturales'));
     }
