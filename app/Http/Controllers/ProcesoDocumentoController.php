@@ -29,14 +29,14 @@ class ProcesoDocumentoController extends Controller
     {
         $palabrasbuscar = explode(" ",$request->post('buscar'));
         
-        $documentosproceso = Documentoproceso::orderBy('id', 'ASC')
-                        ->select('documentoproceso.*', 
-                        'tipodocumento.abreviatura AS tipodocumento',
-                        'tipodocumento.descripcion AS tipodocumento_descripcion', 
-                        'proceso.numero')
+        $documentosproceso = Documentoproceso::select('documentoproceso.*', 
+                            'tipodocumento.abreviatura AS tipodocumento',
+                            'tipodocumento.descripcion AS tipodocumento_descripcion', 
+                            'proceso.numero')
                         ->join('tipodocumento','tipodocumento_id','=','tipodocumento.id')
                         ->join('proceso','proceso_id','=','proceso.id')
-                        ->where('proceso_id', '=', $proceso_id);
+                        ->where('proceso_id', '=', $proceso_id)
+                        ->orderBy('created_at', 'DESC');
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){
             $columnas = ['tipodocumento.abreviatura'];

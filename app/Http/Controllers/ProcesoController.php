@@ -118,6 +118,7 @@ class ProcesoController extends Controller
                         ->join('tipodemanda', 'tipodemanda_id', '=', 'tipodemanda.id')
                         ->join('personanatural', 'clienteproceso.personanatural_id', '=','personanatural.id')
                         ->where('clienteproceso.proceso_id', '=', $id)
+                        ->orderBy('created_at', 'DESC')
                         ->get();
 
         $Documentosproceso = Documentoproceso::select('documentoproceso.*',
