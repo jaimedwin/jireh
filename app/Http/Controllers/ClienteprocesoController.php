@@ -137,7 +137,7 @@ class ClienteprocesoController extends Controller
                         ->where('contrato.personanatural_id', '=', $clienteproceso->personanatural_id)
                         ->where('contrato.proceso_id', '=', $clienteproceso->proceso_id)
                         ->groupBy('pago.contrato_id', 'contrato.numero', 'contrato.valor', 
-                        'contrato.tipocontrato_id', 'tipocontrato.descripcion', 'abono',
+                        'contrato.tipocontrato_id', 'tipocontrato.descripcion',
                         'contrato.personanatural_id', 'contrato.nombrearchivo')
                         ->orderBy('pago.contrato_id', 'DESC')
                         ->get();
