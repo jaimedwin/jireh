@@ -88,6 +88,30 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="box_id">{{'Tipo de demanda *'}}</label>
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="box_id"
+                            name="box_id">
+                            @foreach ($Boxs as $box)
+                                @if ($box->id == $clienteproceso->box_id)
+                                <option
+                                    data-tokens="{{$box->abreviatura}} {{$box->descripcion}}"
+                                    value="{{$box->id}}" 
+                                    data-subtext="{{$box->descripcion}}" selected>
+                                    {{$box->abreviatura}}
+                                </option>
+                                @else
+                                <option
+                                    data-tokens="{{$box->abreviatura}} {{$box->descripcion}}"
+                                    value="{{$box->id}}"
+                                    data-subtext="{{$box->descripcion}}">
+                                    {{$box->abreviatura}}
+                                </option>
+                                @endif
+                            
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="sr-only" for="users_id">users_id</label>
                         <input id="users_id" class="form-control" type="hidden" name="users_id" value="{{ Auth::id()}}">
                     </div>

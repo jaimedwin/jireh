@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Builders\SearchBuilder;
 
-class Clienteproceso extends Model
+class Box extends Model
 {
-    protected $table = 'clienteproceso';
+    protected $table = 'box';
 
-    protected $fillable = ['personanatural_id','proceso_id', 'tipodemanda_id',
-    'box_id', 'users_id', 'created_at', 'updated_at'];
+    protected $fillable = ['abreviatura','descripcion', 
+    'users_id', 'created_at', 'updated_at'];
 
     public function newEloquentBuilder($builder) 
     { 

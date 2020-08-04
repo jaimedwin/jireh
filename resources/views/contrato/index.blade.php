@@ -22,12 +22,28 @@
 
 
 	<div class="card-body">
+		
 		<div class="row mb-4">
-			<div class="col-12">
+			<div class="col-10">
 				<a href="{{route('contrato.create')}}" class="btn btn-primary" role="button" aria-label="Buscar">
 					<i class="fas fa-plus-square"></i>
 					{{'Crear nuevo contrato'}}
 				</a>
+			</div>
+			<div class="col-2 text-right">
+				<button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				<i class="far fa-question-circle"></i>
+				</button>
+			</div>
+		</div>
+
+		<div class="collapse" id="collapseExample">
+			<div class="card card-body">
+				<ul>
+					<li>Ingrese <b>desc_debito</b> para ordernar de forma desecendente la columna de debito</li>
+					<li>Ingrese <b>asc_debito</b> para ordernar de forma ascendente la columna de debito</li>
+
+				</ul>				
 			</div>
 		</div>
 
@@ -47,8 +63,10 @@
 							<th>{{'Persona natural'}}</th>
 							<th>{{'Código del proceso'}}</th>
 							<th>{{'Número del proceso'}}</th>
-							<th style="width: 80px" class="text-center">{{'Documento'}}</th>
+							<th>{{'Valor total de pagos'}}</th>
+							<th>{{'Debito'}}</th>
 							<th style="width: 80px" class="text-center">{{'Pagos'}}</th>
+							<th style="width: 80px" class="text-center">{{'Documento'}}</th>
 							<th style="width: 160px" class="text-center">{{'Acciones'}}</th>
 						</tr>
 					</thead>
@@ -64,23 +82,26 @@
 							<td>{{$contrato->nombrecompleto}}</td>
 							<td>{{$contrato->proceso_codigo}}</td>
 							<td>{{$contrato->proceso_numero}}</td>
-							<td class="text-center">
-								@if ($contrato->nombrearchivo)
-								<a href="{{route('descargas_otrosdocumentos_contrato', 
-                  [
-                    'personanatural' => $contrato->personanatural_id, 
-                    'name' => $contrato->nombrearchivo
-                  ])}}" class="btn btn-outline-success">
-									<i class="fa fa-download"></i>
-								</a>
-								@endif
-							</td>
+							<td class="row_data">{{$contrato->pago}}</td>
+							<td class="row_data">{{$contrato->debito}}</td>
 							<td class="text-center">
 								<a href="{{route('contrato.pago.index', $contrato->id)}}"
 									class="btn btn-outline-success" role="button" aria-label="Pagos">
 									<i class="fas fa-dollar-sign" aria-hidden="true"></i>
 								</a>
 							</td>
+							<td class="text-center">
+								@if ($contrato->nombrearchivo)
+								<a href="{{route('descargas_otrosdocumentos_contrato', 
+										[
+											'personanatural' => $contrato->personanatural_id, 
+											'name' => $contrato->nombrearchivo
+										])}}" class="btn btn-outline-success">
+									<i class="fa fa-download"></i>
+								</a>
+								@endif
+							</td>
+
 							<td class="text-center">
 								<form action="{{route('contrato.destroy', $contrato->id)}}" method="post">
 									@method('DELETE')

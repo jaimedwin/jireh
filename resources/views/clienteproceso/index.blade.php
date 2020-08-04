@@ -49,6 +49,7 @@
 							<th>{{'Código del proceso'}}</th>
 							<th>{{'Número del proceso'}}</th>
 							<th>{{'Tipo de demanda'}}</th>
+							<th>{{'Box'}}</th>
 							<th style="width: 160px" class="text-center">{{'Acciones'}}</th>
 						</tr>
 					</thead>
@@ -62,6 +63,7 @@
 							<td>{{$clienteproceso->proceso_codigo}}</td>
 							<td>{{$clienteproceso->proceso_numero}}</td>
 							<td>{{$clienteproceso->tipodemanda}}</td>
+							<td>{{$clienteproceso->box}}</td>
 							<td class="text-center">
 								<form action="{{route('clienteproceso.destroy', $clienteproceso->id)}}" method="post">
 									@method('DELETE')

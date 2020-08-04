@@ -52,6 +52,7 @@ class ClienteprocesoFormRequest extends FormRequest
             'personanatural_id' =>  'required|numeric|unique_multiple:clienteproceso,personanatural_id,proceso_id',
             'proceso_id'        =>  'required|numeric|unique_multiple:clienteproceso,personanatural_id,proceso_id', 
             'tipodemanda_id'    =>  'required|numeric',
+            'box_id'            =>  'required|numeric',
             'users_id'          =>  'required|numeric',
             'created_at'        =>  'nullable|date',
             'updated_at'        =>  'nullable|date',

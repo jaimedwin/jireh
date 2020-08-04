@@ -62,6 +62,20 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="box_id">{{'Box *'}}</label>
+                        <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="box_id"
+                            name="box_id">
+                            <option selected>Seleccione ...</option>
+                            @foreach ($Boxs as $box)
+                            <option data-tokens="{{$box->abreviatura}} {{$box->descripcion}}"
+                                value="{{$box->id}}"
+                                data-subtext="{{$box->descripcion}}">
+                                {{$box->abreviatura}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="sr-only" for="users_id">users_id</label>
                         <input id="users_id" class="form-control" type="hidden" name="users_id" value="{{ Auth::id()}}">
                     </div>

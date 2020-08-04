@@ -6,6 +6,7 @@ use App\Models\Clienteproceso;
 use App\Models\Personanatural;
 use App\Models\Proceso;
 use App\Models\Tipodemanda;
+use App\Models\Box;
 use App\Models\Correo;
 use App\Models\Telefono;
 use App\Models\Documento;
@@ -36,16 +37,18 @@ class ClienteprocesoController extends Controller
                         ->select('clienteproceso.*', 'proceso.numero AS proceso_numero', 
                         'proceso.codigo AS proceso_codigo', 
                         'tipodemanda.abreviatura AS tipodemanda', 
-                        'personanatural.numerodocumento AS numerodocumento')
+                        'personanatural.numerodocumento AS numerodocumento',
+                        'box.abreviatura AS box')
                         ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('proceso','proceso_id','=','proceso.id')
                         ->join('personanatural','personanatural_id','=','personanatural.id')
-                        ->join('tipodemanda','tipodemanda_id','=','tipodemanda.id');
+                        ->join('tipodemanda','tipodemanda_id','=','tipodemanda.id')
+                        ->leftjoin('box','box_id','=','box.id');
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){
             $columnas = ['proceso.numero', 'proceso.codigo', 'tipodemanda.abreviatura', 
             'personanatural.numerodocumento', 'personanatural.nombres', 
-            'personanatural.apellidopaterno', 'personanatural.apellidomaterno'];
+            'personanatural.apellidopaterno', 'personanatural.apellidomaterno', 'box.abreviatura'];
             $Clientesprocesos['Clientesprocesos'] = $clientesprocesos->whereOrSearch($palabrasbuscar, $columnas);
             return view('clienteproceso.index', $Clientesprocesos)
             ->with('success',['Busqueda realizada']);
@@ -67,7 +70,8 @@ class ClienteprocesoController extends Controller
         ->get();
         $Procesos = Proceso::select('id', 'codigo', 'numero')->get();
         $Tiposdemandas = Tipodemanda::select('id', 'abreviatura', 'descripcion')->get();
-        return view('clienteproceso.create', compact('Personasnaturales', 'Procesos', 'Tiposdemandas'));
+        $Boxs = Box::select('id', 'abreviatura', 'descripcion')->get();
+        return view('clienteproceso.create', compact('Personasnaturales', 'Procesos', 'Tiposdemandas', 'Boxs'));
     }
 
     /**
@@ -94,11 +98,13 @@ class ClienteprocesoController extends Controller
         $auditoria = User::findOrFail($clienteproceso->users_id);
         $Clienteproceso = Clienteproceso::select('clienteproceso.*', 
                             'proceso.numero AS proceso', 
-                            'tipodemanda.abreviatura AS tipodemanda')
+                            'tipodemanda.abreviatura AS tipodemanda',
+                            'box.abreviatura AS box')
                             ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                             ->join('personanatural','personanatural_id','=','personanatural.id')
                             ->join('proceso','proceso_id','=','proceso.id')
                             ->join('tipodemanda','tipodemanda_id','=','tipodemanda.id')
+                            ->join('box','box_id','=','box.id')
                             ->findOrFail($clienteproceso->id);
         $Personanatural = Personanatural::select('personanatural.*',
                         'tipodocumentoidentificacion.abreviatura AS tipodocumentoidentificacion',
@@ -190,7 +196,8 @@ class ClienteprocesoController extends Controller
         ->get();
         $Procesos = Proceso::select('id', 'codigo', 'numero')->get();
         $Tiposdemandas = Tipodemanda::select('id', 'abreviatura', 'descripcion')->get();
-        return view('clienteproceso.edit', compact('clienteproceso', 'Personasnaturales', 'Procesos', 'Tiposdemandas'));    
+        $Boxs = Box::select('id', 'abreviatura', 'descripcion')->get();
+        return view('clienteproceso.edit', compact('clienteproceso', 'Personasnaturales', 'Procesos', 'Tiposdemandas', 'Boxs'));    
     }
 
     /**

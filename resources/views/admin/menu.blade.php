@@ -201,6 +201,15 @@
             </li>
 
             <li class="nav-item">
+                <a href="{{ route ('box.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        {{'Box'}}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ route ('tipodocumento.index')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>

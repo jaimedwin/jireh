@@ -29,28 +29,76 @@ class ContratoController extends Controller
     public function index(Request $request)
     {
         $palabrasbuscar = explode(" ",$request->post('buscar'));
+        #$contratos = Contrato::select('contrato.*', 'tipocontrato.descripcion AS tipocontrato',
+        #                            'personanatural.numerodocumento', 
+        #                            'proceso.numero AS proceso_numero',
+        #                            'proceso.codigo AS proceso_codigo')
+        #                ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+        #                ->join('tipocontrato','tipocontrato_id','=','tipocontrato.id')
+        #                ->join('personanatural','personanatural_id','=','personanatural.id')
+        #                ->join('proceso','proceso_id','=','proceso.id')
+        #                ->orderBy('created_at', 'DESC');   
         $contratos = Contrato::select('contrato.*', 'tipocontrato.descripcion AS tipocontrato',
-                                    'personanatural.numerodocumento', 
-                                    'proceso.numero AS proceso_numero',
-                                    'proceso.codigo AS proceso_codigo')
+                                'personanatural.numerodocumento', 
+                                'proceso.numero AS proceso_numero',
+                                'proceso.codigo AS proceso_codigo')
                         ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+                        ->selectRaw('COALESCE(SUM(pago.abono),0) AS pago')
+                        ->selectRaw('contrato.valor - (COALESCE(SUM(pago.abono),0)) AS debito')
                         ->join('tipocontrato','tipocontrato_id','=','tipocontrato.id')
                         ->join('personanatural','personanatural_id','=','personanatural.id')
                         ->join('proceso','proceso_id','=','proceso.id')
-                        ->orderBy('created_at', 'DESC');
-                        
+                        ->leftjoin('pago', 'contrato.id', '=','pago.contrato_id')
+                        ->groupBy(
+                            'contrato.id',
+                            'contrato.nombrearchivo',
+                            'contrato.numero',
+                            'contrato.valor',
+                            'contrato.personanatural_id',
+                            'contrato.tipocontrato_id',
+                            'contrato.proceso_id',
+                            'contrato.users_id',
+                            'contrato.created_at',
+                            'contrato.updated_at',
+                            'tipocontrato.descripcion',
+                            'personanatural.numerodocumento',
+                            'proceso.numero',
+                            'proceso.codigo',
+                            'personanatural.nombres',
+                            'personanatural.apellidopaterno',
+                            'personanatural.apellidomaterno'
+                            );
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){
             $columnas = ['contrato.valor', 'contrato.numero', 'tipocontrato.descripcion', 
                 'personanatural.nombres', 'personanatural.apellidopaterno', 
                 'personanatural.apellidomaterno', 'personanatural.numerodocumento', 
                 'proceso.numero', 'proceso.codigo'];
-            $Contratos['Contratos'] = $contratos
-            ->whereOrSearch($palabrasbuscar, $columnas);
+
+            switch ($palabrasbuscar[0]) {
+                case 'desc_debito':
+                    $Contratos['Contratos'] = $contratos
+                        ->orderBy('debito', 'DESC')
+                        ->paginate(100);
+                    break;
+                case 'asc_debito':
+                    $Contratos['Contratos'] = $contratos
+                        ->orderBy('debito', 'ASC')
+                        ->paginate(100);
+                    break;
+                default:
+                    $Contratos['Contratos'] = $contratos
+                        ->orderBy('created_at', 'DESC')
+                        ->whereOrSearch($palabrasbuscar, $columnas);
+                    break;
+            }
+            
             return view('contrato.index', $Contratos)
             ->with('success',['Busqueda realizada']);
         }else{
-            $Contratos['Contratos'] = $contratos->paginate(10);
+            $Contratos['Contratos'] = $contratos
+                ->orderBy('created_at', 'DESC')
+                ->paginate(10);
             return view('contrato.index', $Contratos);
         }
     }

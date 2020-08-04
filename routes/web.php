@@ -74,6 +74,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app-user'], function
         Route::delete('documento/{id}', 'DocumentoController@destroy')->name('documento.destroy');
         Route::delete('personajuridica/{id}', 'PersonajuridicaController@destroy')->name('personajuridica.destroy');
         Route::delete('clienteproceso/{id}', 'ClienteprocesoController@destroy')->name('clienteproceso.destroy');
+        Route::delete('box/{id}', 'BoxController@destroy')->name('box.destroy');
     });
 
     Route::resource('estado','EstadoController')->except('destroy');
@@ -102,6 +103,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app-user'], function
     Route::resource('documento', 'DocumentoController')->except('destroy');
     Route::resource('personajuridica', 'PersonajuridicaController')->except('destroy');
     Route::resource('clienteproceso', 'ClienteprocesoController')->except('destroy');
+    Route::resource('box', 'BoxController')->except('destroy');
 
     Route::get('descargas_actuaciones/{proceso}/{name}','ProcesoActuacionController@downloadFile')->name('descargas_actuaciones');
     Route::get('descargas_proceso_documentos/{proceso}/{name}','ProcesoDocumentoController@downloadFile')->name('descargas_proceso_documentos');
