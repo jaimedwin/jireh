@@ -18,7 +18,7 @@
                         <input type="text" class="form-control" id="box.abreviatura" name="abreviatura">
                     </div>
                     <div class="form-group">
-                        <label for="box.descripcion">{{'Descripción'}}</label>
+                        <label for="box.descripcion">{{'Descripción *'}}</label>
                         <input type="text" class="form-control" id="box.descripcion" name="descripcion">
                     </div>
                     <div class="form-group">

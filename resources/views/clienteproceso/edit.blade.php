@@ -88,7 +88,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="box_id">{{'Tipo de demanda *'}}</label>
+                        <label for="box_id">{{'Box *'}}</label>
                         <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true" id="box_id"
                             name="box_id">
                             @foreach ($Boxs as $box)

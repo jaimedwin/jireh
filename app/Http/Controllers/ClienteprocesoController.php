@@ -207,7 +207,7 @@ class ClienteprocesoController extends Controller
      * @param  \App\Clienteproceso  $clienteproceso
      * @return \Illuminate\Http\Response
      */
-    public function update(ClienteprocesoFormRequest $request, Clienteproceso $clienteproceso)
+    public function update(Request $request, Clienteproceso $clienteproceso)
     {
         $clienteproceso->update($request->all());
         return redirect()->route('clienteproceso.index')->with('success',['Registro actualizado completamente']);
