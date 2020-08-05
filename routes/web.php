@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'can:use-app-user'], function
         Route::get('proceso/get_csv','ProcesoController@getCsv')->name('proceso.csv');
         Route::get('proceso/{id}/actuacion/get_csv','ProcesoActuacionController@getCsv')->name('proceso.actuacion.csv');
         Route::get('clienteproceso/get_csv','ClienteprocesoController@getCsv')->name('clienteproceso.csv');
+        Route::get('contrato/get_csv','ContratoController@getCsv')->name('contrato.csv');
     });
 
     Route::group(['middleware' => 'can:use-app-delete'], function () {

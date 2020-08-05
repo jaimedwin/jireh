@@ -28,16 +28,7 @@ class ContratoController extends Controller
      */
     public function index(Request $request)
     {
-        $palabrasbuscar = explode(" ",$request->post('buscar'));
-        #$contratos = Contrato::select('contrato.*', 'tipocontrato.descripcion AS tipocontrato',
-        #                            'personanatural.numerodocumento', 
-        #                            'proceso.numero AS proceso_numero',
-        #                            'proceso.codigo AS proceso_codigo')
-        #                ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
-        #                ->join('tipocontrato','tipocontrato_id','=','tipocontrato.id')
-        #                ->join('personanatural','personanatural_id','=','personanatural.id')
-        #                ->join('proceso','proceso_id','=','proceso.id')
-        #                ->orderBy('created_at', 'DESC');   
+        $palabrasbuscar = explode(" ",$request->post('buscar'));  
         $contratos = Contrato::select('contrato.*', 'tipocontrato.descripcion AS tipocontrato',
                                 'personanatural.numerodocumento', 
                                 'proceso.numero AS proceso_numero',
@@ -243,6 +234,70 @@ class ContratoController extends Controller
         }
             
         return redirect()->route('contrato.index')->withErrors(['No se encuentra el archivo: '. $name]);
+    }
+
+    public function getCsv(){
+        $contratos = Contrato::select('contrato.id', 
+                                'contrato.numero', 
+                                'contrato.valor', 
+                                'contrato.tipocontrato_id',
+                                'tipocontrato.descripcion AS tipocontrato',
+                                'contrato.proceso_id',
+                                'proceso.codigo AS proceso_codigo',
+                                'proceso.numero AS proceso_numero',
+                                'contrato.personanatural_id',
+                                'personanatural.numerodocumento',
+                                'contrato.nombrearchivo', 
+                                'contrato.users_id', 
+                                'contrato.created_at', 
+                                'contrato.updated_at')
+                        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+                        ->selectRaw('COALESCE(SUM(pago.abono),0) AS pago')
+                        ->selectRaw('contrato.valor - (COALESCE(SUM(pago.abono),0)) AS debito')
+                        ->join('tipocontrato','tipocontrato_id','=','tipocontrato.id')
+                        ->join('personanatural','personanatural_id','=','personanatural.id')
+                        ->join('proceso','proceso_id','=','proceso.id')
+                        ->leftjoin('pago', 'contrato.id', '=','pago.contrato_id')
+                        ->groupBy(
+                            'contrato.id',
+                            'contrato.nombrearchivo',
+                            'contrato.numero',
+                            'contrato.valor',
+                            'contrato.personanatural_id',
+                            'contrato.tipocontrato_id',
+                            'contrato.proceso_id',
+                            'contrato.users_id',
+                            'contrato.created_at',
+                            'contrato.updated_at',
+                            'tipocontrato.descripcion',
+                            'personanatural.numerodocumento',
+                            'proceso.numero',
+                            'proceso.codigo',
+                            'personanatural.nombres',
+                            'personanatural.apellidopaterno',
+                            'personanatural.apellidomaterno'
+                            )->get();  
+                            
+        $csvExporter = new \Laracsv\Export();
+        $csvExporter->build($contratos, [
+            'contrato.id', 
+            'contrato.numero', 
+            'contrato.valor', 
+            'contrato.tipocontrato_id',
+            'tipocontrato.descripcion AS tipocontrato',
+            'contrato.proceso_id',
+            'proceso.codigo AS proceso_codigo',
+            'proceso.numero AS proceso_numero',
+            'contrato.personanatural_id',
+            'personanatural.numerodocumento',
+            'contrato.nombrearchivo', 
+            'contrato.users_id', 
+            'contrato.created_at', 
+            'contrato.updated_at',
+            'nombrecompleto',
+            'pago',
+            'debito'
+        ])->download();
     }
 }
 

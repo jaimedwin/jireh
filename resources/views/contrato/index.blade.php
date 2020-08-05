@@ -24,14 +24,20 @@
 	<div class="card-body">
 		
 		<div class="row mb-4">
-			<div class="col-10">
+			<div class="col-8">
 				<a href="{{route('contrato.create')}}" class="btn btn-primary" role="button" aria-label="Buscar">
 					<i class="fas fa-plus-square"></i>
 					{{'Crear nuevo contrato'}}
 				</a>
 			</div>
-			<div class="col-2 text-right">
-				<button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+			<div class="col-4 text-right">
+				@include('admin.descarga_csv',
+					[
+					'route_name' => 'contrato.csv',
+					'parameter' => [''],
+					'title_btn' => 'Descargar CSV'
+				])
+				<button class="btn btn-success mr-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 				<i class="far fa-question-circle"></i>
 				</button>
 			</div>
