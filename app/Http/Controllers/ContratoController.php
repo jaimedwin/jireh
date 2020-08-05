@@ -277,23 +277,22 @@ class ContratoController extends Controller
                             'personanatural.apellidopaterno',
                             'personanatural.apellidomaterno'
                             )->get();  
-                            
         $csvExporter = new \Laracsv\Export();
         $csvExporter->build($contratos, [
-            'contrato.id', 
-            'contrato.numero', 
-            'contrato.valor', 
-            'contrato.tipocontrato_id',
-            'tipocontrato.descripcion AS tipocontrato',
-            'contrato.proceso_id',
-            'proceso.codigo AS proceso_codigo',
-            'proceso.numero AS proceso_numero',
-            'contrato.personanatural_id',
-            'personanatural.numerodocumento',
-            'contrato.nombrearchivo', 
-            'contrato.users_id', 
-            'contrato.created_at', 
-            'contrato.updated_at',
+            'id', 
+            'numero', 
+            'valor', 
+            'tipocontrato_id',
+            'tipocontrato',
+            'proceso_id',
+            'proceso_codigo',
+            'proceso_numero',
+            'personanatural_id',
+            'numerodocumento',
+            'nombrearchivo', 
+            'users_id', 
+            'created_at', 
+            'updated_at',
             'nombrecompleto',
             'pago',
             'debito'
