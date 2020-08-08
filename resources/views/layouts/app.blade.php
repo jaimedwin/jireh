@@ -56,6 +56,31 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <!-- Footer -->
+        <div class="container" style="height: 120px; z-index: 1;">
+            <div class="row">
+                <footer class="bg-dark fixed-bottom">
+
+                    <!-- Copyright -->
+
+                    <div class="text-center text-light py-3">
+                        <strong>Copyright &copy; {{ now()->year }} <a href="{{ ('/')}}./consultacliente">
+                                {{ config('app.name')}}</a>.</strong>
+                        All rights reserved.
+                        <b>Version</b> 1.0.0
+                    </div>
+                    <!-- Copyright -->
+                    <p class="text-center text-light py-2">
+                        Al usar este sitio, reconoces haber leído y entendido los <a href="#" data-toggle="modal" data-target="#terminos">términos de servicio</a> .
+                    </p>
+                    <!--
+                        Al usar este sitio, reconoces haber leído y entendido nuestra Política de Cookies, Política de Privacidad, y nuestros Términos de Servicio.
+                    -->
+                </footer>
+                <!-- Footer -->
+            </div>
+        </div>
+        @include('layouts.terminos')
     </div>
     
 </body>

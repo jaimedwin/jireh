@@ -74,18 +74,14 @@
                     </div>
                     <!-- Copyright -->
                     <p class="text-center text-light py-2">
-                        Al usar este sitio, reconoces haber leido y entendido la Política de Privacidad, y nuestros
-                        Términos de Servicio.
+                        Al usar este sitio, reconoces haber leído y entendido los <a href="#" data-toggle="modal" data-target="#terminos">términos de servicio</a> .
                     </p>
-
-                    <!--
-                        Al usar este sitio, reconoces haber leido y entendido nuestra Política de Cookies, Política de Privacidad, y nuestros Términos de Servicio.
-                    -->
                 </footer>
                 <!-- Footer -->
             </div>
         </div>
     </div>
+    @include('layouts.terminos')
 </body>
 
 </html>
