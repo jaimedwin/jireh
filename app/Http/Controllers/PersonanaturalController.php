@@ -308,6 +308,9 @@ class PersonanaturalController extends Controller
                                 'municipio.nombre AS expedicion_id_municipio',
                                 'municipio.nombre AS expedicion_municipio',
                                 'departamento.nombre AS expedicion_departamento',
+                                'correo.electronico AS correo',
+                                'telefono.prefijo AS telefono_prefijo',
+                                'telefono.numero AS telefono_numero',
                                 'eps.abreviatura AS eps', 
                                 'grado.abreviatura AS grado',
                                 'carrera.descripcion AS carrera',
@@ -321,7 +324,12 @@ class PersonanaturalController extends Controller
                                 ->join('fondodepension','fondodepension_id','=','fondodepension.id')
                                 ->join('grado','grado_id','=','grado.id')
                                 ->join('carrera','carrera.id','=','carrera_id')
-                                ->join('fuerza', 'fuerza.id', '=', 'carrera.fuerza_id')->get();  
+                                ->join('fuerza', 'fuerza.id', '=', 'carrera.fuerza_id')
+                                ->leftjoin('telefono', 'personanatural.id', '=', 'telefono.personanatural_id')
+                                ->leftjoin('correo', 'personanatural.id', '=', 'correo.personanatural_id')
+                                ->where(DB::raw('COALESCE(telefono.principal,1)'), '=', 1)
+                                ->where(DB::raw('COALESCE(correo.principal,1)'), '=', 1)
+                                ->get();  
         $csvExporter = new \Laracsv\Export();
         $csvExporter->build($Personasnaturales, [
             'id',
@@ -335,6 +343,9 @@ class PersonanaturalController extends Controller
             'expedicion_id_municipio',
             'expedicion_municipio',
             'expedicion_departamento',
+            'correo',
+            'telefono_prefijo',
+            'telefono_numero',
             'fechaexpedicion',
             'fechanacimiento',
             'direccion',

@@ -12,7 +12,6 @@
     <p>{{$personanatural_nombrecompleto}}</p>
     <br>
     <p>Cordial saludo</p>
-    <br><br>
     <p>Con la presente queremos informarle que su proceso número {{$proceso_numero}}, ha tenido un cambio en la actuación, el cual podrá consultarlo siguiendo las siguientes instrucciones.
     Haga clic en el siguiente enlace para ingresar al sistema de consulta.</p>
     <br>
