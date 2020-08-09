@@ -208,14 +208,12 @@ class ProcesoController extends Controller
         $consultas = Proceso::select('proceso.id', 
             'personanatural.numerodocumento AS personanatural_numerodocumento', 
             'correo.electronico AS email')
-            ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
-            ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
-        ->join('personanatural', 'clienteproceso.proceso_id', '=', 'personanatural.id')
+        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
+        ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
+        ->join('personanatural', 'clienteproceso.personanatural_id', '=', 'personanatural.id')
         ->join('correo', 'personanatural.id', '=', 'correo.personanatural_id')
         ->where('proceso.id', '=', $id);
         
-        
-
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){         
             $columnas = ['personanatural.numerodocumento', 'correo.electronico', 
@@ -239,7 +237,7 @@ class ProcesoController extends Controller
                 'correo.electronico AS email')
             ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
             ->join('clienteproceso', 'proceso.id', '=', 'clienteproceso.proceso_id')
-            ->join('personanatural', 'clienteproceso.proceso_id', '=', 'personanatural.id')
+            ->join('personanatural', 'clienteproceso.personanatural_id', '=', 'personanatural.id')
             ->join('correo', 'personanatural.id', '=', 'correo.personanatural_id')
             ->where('proceso.id', '=', $id)
             ->get();
