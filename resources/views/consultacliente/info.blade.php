@@ -9,7 +9,7 @@
             </a>
         </div>
         <div class="col-md-12">
-            <div class="card mb-4">
+            <div class="mb-4">
             <h3><b>Bienvenido {{$consulta->nombrecompleto}}.</b></h3>
             A continuación encontrará la información relacionada al proceso que SOLUCIONES JURIDICAS JIREH S.A.S adelanta en su representación.
             </div>
