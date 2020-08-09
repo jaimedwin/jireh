@@ -70,6 +70,7 @@ class ConsultaclienteController extends Controller
         $consulta = Clienteproceso::select('clienteproceso.id', 'clienteproceso.proceso_id', 
                         'clienteproceso.personanatural_id', 'proceso.codigo AS proceso_codigo',
                         'personanatural.codigo AS personanatural_codigo')
+                        ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                         ->join('personanatural', 'personanatural_id', '=', 'personanatural.id')
                         ->join('proceso', 'proceso_id', '=', 'proceso.id')
                         ->where('proceso.codigo', $proceso_codigo)
@@ -113,7 +114,7 @@ class ConsultaclienteController extends Controller
             $personanatural->contrato = 1;
             $personanatural->update();
 
-            return view('consultacliente.info', compact('Proceso', 'Actuacionesproceso'));
+            return view('consultacliente.info', compact('consulta', 'Proceso', 'Actuacionesproceso'));
         }
          
         return redirect()->route('consultacliente');

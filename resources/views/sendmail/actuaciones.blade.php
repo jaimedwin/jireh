@@ -8,15 +8,19 @@
 </head>
 
 <body>
-    <p>Hola!,</p>
+    <p>Señor (a) </p> 
+    <p>{{$nombrecompleto}}</p>
     <br>
-    <p>Se ha noticado de un cambio en las actuaciones registradas al proceso número {{$proceso_numero}}. Siga las instrucciones a continuación.</p>
+    <p>Cordial saludo</p>
+    <br><br>
+    <p>Con la presente queremos informarle que su proceso número {{$proceso_numero}}, ha tenido un cambio en la actuación, el cual podrá consultarlo siguiendo las siguientes instrucciones.
+    Haga clic en el siguiente enlace para ingresar al sistema de consulta.</p>
+    <br>
     <ol>
         <li>
             <p>Haga clic en el siguiente enlace para ingresar al sistema de consulta.</p>
             <p><a href="{{$url}}">{{$url}}</a></p>
-            <p>Si al hacer clic en el enlace no funciona, puede copiar el enlace en la ventana de su navegador o
-                escribirlo directamente allí.</p>
+            <p>Si al hacer clic en el enlace no funciona, puede copiar el enlace en la ventana de su navegador o escribirlo directamente allí.</p>
         </li>
         <li>
             <p>Ingrese la siguiente información en el formulario de consulta</p>
@@ -29,7 +33,7 @@
     </ol>
     <br>
     <p>Saludos,</p>
-    <p>Tu equipo JIREH SOLUCIONES JURIDICAS S.A.S</p>
+    <p>Tu equipo SOLUCIONES JURIDICAS JIREH S.A.S</p>
 </body>
 
 </html>
