@@ -9,7 +9,7 @@
 
 <body>
     <p>Señor (a) </p> 
-    <p>{{$nombrecompleto}}</p>
+    <p>{{$personanatural_nombrecompleto}}</p>
     <br>
     <p>Cordial saludo</p>
     <br><br>

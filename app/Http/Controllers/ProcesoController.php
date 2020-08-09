@@ -257,7 +257,7 @@ class ProcesoController extends Controller
             $personanatural_fechaexpedicion = $consulta->personanatural_fechaexpedicion;
             Mail::to($consulta->email)->send(
                 new ProcessNotification($proceso_numero, $url, $proceso_codigo, 
-                                        $personanatural_nombrecompleto, $personanatural_codigo, 
+                                        $nombrecompleto, $personanatural_codigo, 
                                         $personanatural_fechaexpedicion, $subject)
                 );
             

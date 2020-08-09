@@ -36,7 +36,6 @@
                                 <th class="table-secondary">{{'Corporación'}}</th>
                                 <th class="table-secondary">{{'Ponente'}}</th>
                                 <th class="table-secondary">{{'Estado'}}</th>
-
                             </tr>
                         </thead>
                         <tbody>
