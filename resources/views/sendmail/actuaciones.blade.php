@@ -32,9 +32,11 @@
     <br>
     <p>Saludos,</p>
     <p>Tu equipo SOLUCIONES JURIDICAS JIREH S.A.S</p>
+    <br>
+    <h6>
     <p>Este correo es de tipo informativo y por lo tanto, le pedimos no responda a este mensaje. Si desea enviarnos sus comentarios acerca de nuestro servicio visite nuestra página web en la sección de canales de servicio o escribanos al correo electrónico contacto@juridicasjireh.com.co.</p>
     <p>Aviso legal: El contenido de este mensaje y los archivos adjuntos son confidenciales y de uso exclusivo de SOLUCIONES JURIDICAS JIREH S.A.S. Si lo ha recibido por error, infórmenoslo y elimínelo de su correo. Las opciones, información, conclusiones y cualquier otro tipo de datos contenido en este correo electrónico, no relacionados con la actividad de SOLUCIONES JURIDICAS JIREH S.A.S. se entenderán como personales y de ninguna manera son avaladas por SOLUCIONES JURIDICAS JIREH S.A.S. Se encuentran dirigidos solo al uso del destinatario al cual van enviados. La reproducción, lectura y/o copia se encuentra prohibidas a cualquier persona diferente a éste y puede ser ilegal.</p>
-
+    </h6>
 </body>
 
 </html>
