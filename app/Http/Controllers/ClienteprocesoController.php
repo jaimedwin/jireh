@@ -233,6 +233,8 @@ class ClienteprocesoController extends Controller
                         ->select('clienteproceso.id AS clienteproceso_id', 
                             'clienteproceso.*', 'proceso.*' , 'personanatural.*',
                             'personanatural.codigo AS codigo_personanatural',
+                            //'telefono.numero AS numero_de_telefono',
+                            //'correo.electronico AS correo_electronico',
                             'fondodepension.abreviatura AS fondodepension',
                             'tipodocumentoidentificacion.abreviatura AS tipodocumentoidentificacion',
                             'municipio.id AS municipio_id',
@@ -256,6 +258,8 @@ class ClienteprocesoController extends Controller
                             'tipodemanda.abreviatura AS tipodemanda',
                             'clienteproceso.created_at AS created_at',
                             'clienteproceso.updated_at AS updated_at')
+                        ->selectRaw('group_concat(distinct telefono.numero separator ", ") AS numero_de_telefono')
+                        ->selectRaw('group_concat(distinct correo.electronico separator ", ") AS correo_electronico')
                         ->join('personanatural','personanatural_id','=','personanatural.id')
                         ->join('tipodocumentoidentificacion',
                                     'tipodocumentoidentificacion_id','=','tipodocumentoidentificacion.id')
@@ -271,7 +275,61 @@ class ClienteprocesoController extends Controller
                         ->join('corporacion','proceso.corporacion_id', '=', 'corporacion.id')
                         ->join('ponente', 'proceso.ponente_id', '=', 'ponente.id')
                         ->join('estado', 'proceso.estado_id', '=', 'estado.id')
-                        ->join('tipodemanda','tipodemanda_id','=','tipodemanda.id')->get();  
+                        ->join('tipodemanda','tipodemanda_id','=','tipodemanda.id')
+                        ->leftjoin('telefono', 'personanatural.id', '=', 'telefono.personanatural_id')
+                        ->leftjoin('correo', 'personanatural.id', '=', 'correo.personanatural_id')
+                        ->groupBy('clienteproceso.id', 
+                            'clienteproceso.personanatural_id',
+                            'clienteproceso.proceso_id',
+                            'clienteproceso.tipodemanda_id',
+                            'clienteproceso.users_id',
+                            'clienteproceso.created_at',
+                            'clienteproceso.updated_at',
+                            'clienteproceso.box_id',
+                            'proceso.id',
+                            'proceso.codigo',
+                            'proceso.numero',
+                            'proceso.ciudadproceso_id',
+                            'proceso.corporacion_id',
+                            'proceso.ponente_id',
+                            'proceso.estado_id',
+                            'proceso.users_id',
+                            'proceso.created_at',
+                            'proceso.updated_at',
+                            'personanatural.id',
+                            'personanatural.contrato',
+                            'personanatural.codigo',
+                            'personanatural.nombres',
+                            'personanatural.apellidopaterno',
+                            'personanatural.apellidomaterno',
+                            'personanatural.tipodocumentoidentificacion_id',
+                            'personanatural.numerodocumento',
+                            'personanatural.municipio_id',
+                            'personanatural.fechaexpedicion',
+                            'personanatural.fechanacimiento',
+                            'personanatural.direccion',
+                            'personanatural.eps_id',
+                            'personanatural.fondodepension_id',
+                            'personanatural.grado_id',
+                            'personanatural.users_id',
+                            'personanatural.created_at',
+                            'personanatural.updated_at',
+                            'fondodepension.abreviatura',
+                            'tipodocumentoidentificacion.abreviatura',
+                            'municipio.id',
+                            'municipio.nombre',
+                            'departamento.nombre',
+                            'eps.abreviatura',
+                            'grado.abreviatura',
+                            'carrera.descripcion',
+                            'fuerza.abreviatura',
+                            'fuerza.abreviatura',
+                            'ciudadproceso.nombre',
+                            'corporacion.nombre',
+                            'ponente.nombrecompleto',
+                            'estado.descripcion',
+                            'tipodemanda.abreviatura')
+                        ->get();  
         $csvExporter = new \Laracsv\Export();
         $csvExporter->build($Clientesprocesos, [
             'clienteproceso_id',
@@ -279,6 +337,8 @@ class ClienteprocesoController extends Controller
             'nombres',
             'apellidopaterno',
             'apellidomaterno',
+            'numero_de_telefono',
+            'correo_electronico',
             'tipodocumentoidentificacion_id',
             'tipodocumentoidentificacion',
             'numerodocumento',

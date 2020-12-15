@@ -44,8 +44,7 @@ class PersonanaturalController extends Controller
                                 'eps.abreviatura AS eps', 
                                 'grado.abreviatura AS grado',
                                 'carrera.descripcion AS carrera',
-                                'fuerza.abreviatura AS fuerza', 
-                                'telefono.prefijo AS telefono')
+                                'fuerza.abreviatura AS fuerza')
                                 ->selectRaw('CONCAT_WS(" ", personanatural.nombres, personanatural.apellidopaterno, personanatural.apellidomaterno) AS nombrecompleto')
                                 ->join('tipodocumentoidentificacion',
                                     'tipodocumentoidentificacion_id','=','tipodocumentoidentificacion.id')
@@ -84,15 +83,14 @@ class PersonanaturalController extends Controller
                                 'eps.abreviatura', 
                                 'grado.abreviatura',
                                 'carrera.descripcion',
-                                'fuerza.abreviatura', 
-                                'telefono.prefijo')
+                                'fuerza.abreviatura')
                                 ->orderBy('created_at', 'DESC');  
         $emptypalabrasbuscar = array_filter($palabrasbuscar);
         if (!empty($emptypalabrasbuscar)){         
             $columnas = ['codigo', 'nombres', 'apellidopaterno', 'apellidomaterno', 
                 'numerodocumento', 'direccion', 'fondodepension.abreviatura', 
                 'eps.abreviatura', 'fuerza.abreviatura', 'grado.abreviatura', 
-                'municipio.nombre', 'departamento.nombre', 'telefono.prefijo', 
+                'municipio.nombre', 'departamento.nombre', 'telefono.numero', 
                 'correo.electronico'];
             $personasnaturales['Personasnaturales'] = $Personasnaturales
             ->whereOrSearch($palabrasbuscar, $columnas);
